@@ -2,26 +2,26 @@
 ## App structures:
 
 ### File/folder Structre    
-- Grouping by features or routes `https://legacy.reactjs.org/docs/faq-structure.html` \  
-- A feature will have it's own folder. The folder contains the React component, child components (if any), styles, and helper functions. \   
+- Grouping by features or routes `https://legacy.reactjs.org/docs/faq-structure.html`    
+- A feature will have it's own folder. The folder contains the React component, child components (if any), styles, and helper functions.    
 
 ### File/folder naming conventions    
-- Folders: camelCase    \
-- Components: PascalCase    \
-- Styles:   \
-    - filenames: kebab-case   \ 
-    - classnames: kebab-case   \ 
+- Folders: camelCase    
+- Components: PascalCase    
+- Styles:   
+    - filenames: kebab-case    
+    - classnames: kebab-case    
 
 
 ### How to start the app    
 
-1. Clone the repository    \
+1. Clone the repository    
 
- `git clone https://github.com/agrilens/agrilens-frontend.git`     \
+ `git clone https://github.com/agrilens/agrilens-frontend.git`     
 
-2. Open the `agrilens-frontend` folder on your terminal on your terminal  \   
+2. Open the `agrilens-frontend` folder on your terminal on your terminal     
 
- `cd agrilens-frontend`     \
+ `cd agrilens-frontend`     
 
 ### `npm start`
 
