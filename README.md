@@ -9,11 +9,12 @@
 - Folders: camelCase    
 - Components: PascalCase    
 - Styles:   
-    - filenames: kebab-case    
-    - classnames: kebab-case    
+    - filenames: PascalCase   
+    - global css: camelCase   
+    - classnames: kebab-case      
+- Image names: camelCase.png/jped/...    
 
-
-### How to start the app    
+## How to start the app    
 
 1. Clone the repository    
 
@@ -23,13 +24,30 @@
 
  `cd agrilens-frontend`     
 
-### `npm start`
+3. Start the app on local computer    
+
+ `npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
+
+## How to contribute
+
+1. Create your branch based off the `main` branch   
+    - Branch naming convention: `feature-<TICKET#>` eg. `feature-15`   
+    git syntax:     `git branch feature-15`
+
+2. Build your component, add, commit push    
+    - `git add <PATH>`    
+    - `git commit -m "COMMIT MESSAGE"`    
+    - `git push origin feature-<TICKET#>`    
+
+3. Send a Pull Request before merging your branch.
+
+4. Upon approval, merger your branch and delete the branch from the repository.
 
 
 ### `npm test`
