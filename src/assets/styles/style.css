@@ -1,0 +1,44 @@
+/*  
+                          Mobile-first development:
+
+- Media breakpoints are based on Bootstrap's approach.
+
+    1. Start with mobile styles (small screens) by default. 
+       - X-Small devices (portrait phones, less than 576px)
+       - No media query for `xs` since this is the default in Bootstrap
+    2. Write the base styles for mobile devices without any media queries.
+    3. As the screen size increases, 
+        - Use breakpoints (min-width) to target larger screen sizes progressively.  
+        - Introduce new styles for larger screens.
+ */
+
+ 
+/* Mobile phone sizes */
+
+
+
+
+ @media (min-width: 576px) {
+    /*  Small devices (landscape phones, 576px and up) */
+
+}
+
+@media (min-width: 768px) {
+    /*  Medium devices (tablets, 768px and up) */
+}
+
+@media (min-width: 992px) {
+    /*  Large devices (desktops, 992px and up) */
+}
+
+
+
+
+/* The following are only for reference. Our initial targets are the first three breakpoints -- [Four device sizes]. */
+/*  X-Large devices (large desktops, 1200px and up) */
+@media (min-width: 1200px) {
+}
+
+/*  XX-Large devices (larger desktops, 1400px and up) */
+@media (min-width: 1400px) {
+}
