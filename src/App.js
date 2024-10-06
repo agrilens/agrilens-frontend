@@ -1,10 +1,14 @@
-import "./App.css";
 import { Link, Route, Routes, useLocation } from "react-router-dom";
 import HomePage from "./homePage/HomePage";
 import AboutUs from "./aboutUs/AboutUs";
 import ContactUs from "./contactUs/ContactUs";
 import NotFound from "./common/NotFound";
 import Profile from "./profile/Profile";
+
+import "bootstrap/dist/css/bootstrap.css";
+// import "bootstrap/dist/css/bootstrap.min.css"; // Recommended in production for optimized page loading.
+import "./assets/styles/style.css";
+import "./App.css";
 
 import { AccountProvider } from "./contexts/AccountContext";
 
