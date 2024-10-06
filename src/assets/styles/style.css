@@ -12,27 +12,48 @@
         - Introduce new styles for larger screens.
  */
 
-
 /* Mobile phone sizes */
 
+:root {
+  --bs-blue: #0d6efd;
+  --bs-indigo: #6610f2;
+  --bs-purple: #6f42c1;
+  --bs-pink: #d63384;
+  --bs-red: #dc3545;
 
+  --bs-primary-green: #204e51;
+  --hover-opacity: 0.7;
+  --hover-secondary-color: #9191919a;
+  --txt-dec-color: #204e51;
+}
 
+#agrilens-brand,
+#agrilens-brand-with-logo {
+  background-color: transparent;
+  border-radius: 10px;
+  padding: 5px;
+  box-sizing: border-box;
+  transition:
+    background-color 0.1s ease,
+    padding 0.1s ease;
+}
 
- @media (min-width: 576px) {
-    /*  Small devices (landscape phones, 576px and up) */
+#agrilens-brand:hover,
+#agrilens-brand-with-logo:hover {
+  background-color: var(--hover-secondary-color);
+}
 
+@media (min-width: 576px) {
+  /*  Small devices (landscape phones, 576px and up) */
 }
 
 @media (min-width: 768px) {
-    /*  Medium devices (tablets, 768px and up) */
+  /*  Medium devices (tablets, 768px and up) */
 }
 
 @media (min-width: 992px) {
-    /*  Large devices (desktops, 992px and up) */
+  /*  Large devices (desktops, 992px and up) */
 }
-
-
-
 
 /* The following are only for reference. Our initial targets are the first three breakpoints -- [Four types of device sizes]. */
 /*  X-Large devices (large desktops, 1200px and up) */

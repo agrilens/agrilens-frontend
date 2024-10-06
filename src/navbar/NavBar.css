@@ -1,0 +1,74 @@
+#navbar .navbar {
+  padding-left: min(2vw, 20px);
+  padding-right: min(2vw, 20px);
+}
+.acc-btn,
+.acc-view {
+  padding-top: 10vh !important;
+  display: flex;
+  flex-direction: column;
+  margin-top: 15vh;
+}
+.login-btn {
+  color: #fff !important;
+  background-color: var(--bs-primary-green) !important;
+  margin-bottom: 30px;
+}
+.signup-btn {
+  color: var(--bs-primary-green) !important;
+}
+.login-btn,
+.signup-btn {
+  width: 140px;
+  font-weight: bold !important;
+  border-radius: 8px !important;
+  border: var(--bs-primary-green) solid 1px !important;
+}
+
+.signup-btn:hover,
+.login-btn:hover {
+  opacity: var(--hover-opacity) !important;
+}
+#navbar .navbar-nav a:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--txt-dec-color);
+}
+
+.acc-view {
+  flex-direction: column-reverse;
+}
+.acc-view .acc-type {
+  color: var(--bs-primary-green) !important;
+  font-size: 24px;
+  font-weight: bold;
+  border: 1px solid;
+  border-radius: 4px;
+  min-width: 160px;
+  margin: 20px auto;
+}
+
+@media (min-width: 992px) {
+  /*  Large devices (desktops, 992px and up) */
+  
+  .acc-btn,
+  .acc-view,
+  .acc-view .acc-type,
+  .login-btn,
+  .signup-btn {
+    margin: 0 0 0 15px !important;
+    padding: 0 !important;
+  }
+  .acc-btn,
+  .acc-view {
+    flex-direction: unset !important;
+  }
+
+  .acc-view img {
+    width: 45px;
+    margin-left: 18px;
+  }
+  #navbar .navbar {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+}

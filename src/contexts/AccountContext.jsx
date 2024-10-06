@@ -12,11 +12,11 @@ export function useAccountUpdateContext() {
 }
 
 export const AccountProvider = ({ children }) => {
-  const [userType, setUserType] = useState("Default");
+  const [userType, setUserType] = useState("Guest");
   const updateUserType = () => {
     setUserType(() => {
-      if (userType === "Default") return "Not Default";
-      else return "Default";
+      if (userType === "Guest") return "FARMER";
+      else return "Guest";
     });
   };
   return (

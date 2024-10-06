@@ -2,16 +2,16 @@ import React from "react";
 import {
   useAccountContext,
   useAccountUpdateContext,
-} from "../contexts/AccountContext";
+} from "../../contexts/AccountContext";
 
-export default function Profile() {
+export default function LogIn() {
   const userType = useAccountContext();
   const updateUserType = useAccountUpdateContext();
 
   return (
     <div>
-      <div>Profile : {userType}</div>
-      <button onClick={updateUserType}>Click to change user type</button>
+      <div>Log In : {userType}</div>
+      <button onClick={updateUserType}>Click to be logged in</button>
     </div>
   );
 }
