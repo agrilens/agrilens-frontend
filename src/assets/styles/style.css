@@ -12,7 +12,7 @@
         - Introduce new styles for larger screens.
  */
 
- 
+
 /* Mobile phone sizes */
 
 
@@ -34,11 +34,11 @@
 
 
 
-/* The following are only for reference. Our initial targets are the first three breakpoints -- [Four device sizes]. */
+/* The following are only for reference. Our initial targets are the first three breakpoints -- [Four types of device sizes]. */
 /*  X-Large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-}
+/* @media (min-width: 1200px) {
+} */
 
 /*  XX-Large devices (larger desktops, 1400px and up) */
-@media (min-width: 1400px) {
-}
+/* @media (min-width: 1400px) {
+} */
