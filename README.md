@@ -62,7 +62,7 @@ You may also see any lint errors in the console.
 - 2. **Prettier**  
      Prettier is a code formatter that automatically formats your code to ensure consistency and adherence to specified style rules.
 
-`npm run format`
+`npm run prettify`
 
 - 3. **Husky**
      Husky is a tool that utilizes git hooks to ensure code consistancy before completing git actions.
