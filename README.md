@@ -67,6 +67,14 @@ You may also see any lint errors in the console.
 - 3. **Husky**
      Husky is a tool that utilizes git hooks to ensure code consistancy before completing git actions.
 
+
+## .env variable naming convention
+- Environment variable names should start with `REACT_APP_`   
+Example:   
+`REACT_APP_EXAMPLE_API_KEY=gh:4tlsm-kebasdn_fklhn4aSfLmE-df_Alfdne`   
+
+- `.env` file is added to `.gitignore` so that it won't be pushed to the github repo.
+
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.\
