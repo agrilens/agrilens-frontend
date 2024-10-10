@@ -1,32 +1,33 @@
-
 ## App structures:
 
-### File/folder Structre    
-- Grouping by features or routes `https://legacy.reactjs.org/docs/faq-structure.html`    
-- A feature will have it's own folder. The folder contains the React component, child components (if any), styles, and helper functions.    
+### File/folder Structre
 
-### File/folder naming conventions    
-- Folders: camelCase    
-- Components: PascalCase    
-- Styles:   
-    - filenames: PascalCase   
-    - global css: camelCase   
-    - classnames: kebab-case      
-- Image names: camelCase.png/jped/...    
+- Grouping by features or routes `https://legacy.reactjs.org/docs/faq-structure.html`
+- A feature will have it's own folder. The folder contains the React component, child components (if any), styles, and helper functions.
 
-## How to start the app    
+### File/folder naming conventions
 
-1. Clone the repository    
+- Folders: camelCase
+- Components: PascalCase
+- Styles:
+  - filenames: PascalCase
+  - global css: camelCase
+  - classnames: kebab-case
+- Image names: camelCase.png/jped/...
 
- `git clone https://github.com/agrilens/agrilens-frontend.git`     
+## How to start the app
 
-2. Open the `agrilens-frontend` folder on your terminal on your terminal     
+1. Clone the repository
 
- `cd agrilens-frontend`     
+`git clone https://github.com/agrilens/agrilens-frontend.git`
 
-3. Start the app on local computer    
+2. Open the `agrilens-frontend` folder on your terminal on your terminal
 
- `npm start`
+`cd agrilens-frontend`
+
+3. Start the app on local computer
+
+`npm start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
@@ -36,19 +37,43 @@ You may also see any lint errors in the console.
 
 ## How to contribute
 
-1. Create your branch based off the `main` branch   
-    - Branch naming convention: `feature-<TICKET#>` eg. `feature-15`   
-    git syntax:     `git branch feature-15`
+1. Create your branch based off the `main` branch
 
-2. Build your component, add, commit push    
-    - `git add <PATH>`    
-    - `git commit -m "COMMIT MESSAGE"`    
-    - `git push origin feature-<TICKET#>`    
+   - Branch naming convention: `feature-<TICKET#>` eg. `feature-15`  
+     git syntax: `git branch feature-15`
+
+2. Build your component, add, commit push
+
+   - `git add <PATH>`
+   - `git commit -m "COMMIT MESSAGE"`
+   - `git push origin feature-<TICKET#>`
 
 3. Send a Pull Request before merging your branch.
 
 4. Upon approval, merger your branch and delete the branch from the repository.
 
+### Code linting
+
+- 1. **ESLint**  
+     ESLint is a tool for making code more consistent and avoiding bugs.
+
+`npm run lint`
+
+- 2. **Prettier**  
+     Prettier is a code formatter that automatically formats your code to ensure consistency and adherence to specified style rules.
+
+`npm run format`
+
+- 3. **Husky**
+     Husky is a tool that utilizes git hooks to ensure code consistancy before completing git actions.
+
+
+## .env variable naming convention
+- Environment variable names should start with `REACT_APP_`   
+Example:   
+`REACT_APP_EXAMPLE_API_KEY=gh:4tlsm-kebasdn_fklhn4aSfLmE-df_Alfdne`   
+
+- `.env` file is added to `.gitignore` so that it won't be pushed to the github repo.
 
 ### `npm test`
 

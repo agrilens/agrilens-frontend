@@ -8,7 +8,9 @@
     "@testing-library/user-event": "^13.5.0",
     "bootstrap": "^5.3.3",
     "react": "^18.3.1",
+    "react-bootstrap": "^2.10.5",
     "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.2",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
@@ -16,13 +18,33 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint:fix": "eslint src/**/*.js --fix",
+    "lint": "eslint src/**/*.js",
+    "prettify": "prettier src/**/*.js --write"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
-      "react-app/jest"
+      "react-app/jest",
+      "plugin:prettier/recommended"
     ]
+  },
+  "prettier": {
+    "printWidth": 80,
+    "bracketSpacing": true,
+    "trailingComma": "es5",
+    "semi": true,
+    "singleQuote": false,
+    "tabWidth": 2
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": "npm run lint:fix"
   },
   "browserslist": {
     "production": [
@@ -35,5 +57,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "prettier": "^3.3.3"
   }
 }
