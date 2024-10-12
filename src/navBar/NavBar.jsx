@@ -62,6 +62,9 @@ export default function NavBar() {
                 <Nav.Link as={Link} to="/contact" onClick={handleNavClick}>
                   Contact Us
                 </Nav.Link>
+                <Nav.Link as={Link} to="/dashboard" onClick={handleNavClick}>
+                  Dashboard
+                </Nav.Link>
               </Nav>
               <div
                 className={`acc-btn align-items-center ${userType === "FARMER" ? "d-none" : ""}`}

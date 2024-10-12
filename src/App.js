@@ -8,6 +8,7 @@ import LogIn from "./account/logIn/LogIn";
 import SignUp from "./account/signUp/SignUp";
 import NotFound from "./common/NotFound";
 import Profile from "./profile/Profile";
+import Dashboard from "./features/dashboard/Dashboard";
 
 import "bootstrap/dist/css/bootstrap.css";
 // import "bootstrap/dist/css/bootstrap.min.css"; // Recommended in production for optimized page loading.
@@ -30,6 +31,7 @@ function App() {
           <Route path="/login" element={<LogIn />} />
           <Route path="/signup" element={<SignUp />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="*" element={<NotFound />} />
 
           {/* Route Nesting Framework. We can also create a Layout component to make it visible to every component. */}
