@@ -6,9 +6,9 @@ import {
 } from "../contexts/AccountContext";
 
 export default function HomePage() {
-  const userType = useAccountContext();
-  console.log("userType", userType);
-  const updateUserType = useAccountUpdateContext();
+  const { userType, userEmail } = useAccountContext();
+  // console.log("userType", userType);
+  const { updateUserType } = useAccountUpdateContext();
 
-  return <div>HomePage : {userType}</div>;
+  return <div>HomePage userEmail: {userEmail}</div>;
 }
