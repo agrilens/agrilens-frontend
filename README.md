@@ -67,11 +67,11 @@ You may also see any lint errors in the console.
 - 3. **Husky**
      Husky is a tool that utilizes git hooks to ensure code consistancy before completing git actions.
 
-
 ## .env variable naming convention
-- Environment variable names should start with `REACT_APP_`   
-Example:   
-`REACT_APP_EXAMPLE_API_KEY=gh:4tlsm-kebasdn_fklhn4aSfLmE-df_Alfdne`   
+
+- Environment variable names should start with `REACT_APP_`  
+  Example:  
+  `REACT_APP_EXAMPLE_API_KEY=gh:4tlsm-kebasdn_fklhn4aSfLmE-df_Alfdne`
 
 - `.env` file is added to `.gitignore` so that it won't be pushed to the github repo.
 
@@ -80,40 +80,46 @@ Example:
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
+## Cypress component testing
 
-## Cypress component testing   
-**Cypress** is a next generation front end testing tool built for the modern web. `https://docs.cypress.io/guides/overview/why-cypress`       
-- Cypress helps you set up and start writing tests every day while you build your application locally.    
-- After building up a suite of tests and integrating Cypress with your CI Provider, Cypress Cloud can record your test runs.    
+**Cypress** is a next generation front end testing tool built for the modern web. `https://docs.cypress.io/guides/overview/why-cypress`
 
-### Test types:    
-1. End-to-end   
-2. Component    
-3. API   
+- Cypress helps you set up and start writing tests every day while you build your application locally.
+- After building up a suite of tests and integrating Cypress with your CI Provider, Cypress Cloud can record your test runs.
+
+### Test types:
+
+1. End-to-end
+2. Component
+3. API
 
 ### Syntax:
-- Open Cypress:   `npx cypress open`   or `npm run cy:open`    
-***The app doesn't use TypeScript. You can ignore the `Couldn't find tsconfig.json` warnings.***    
-- For the development phase, we're doing `Component Testing` for isolated component building and testing.   
-- Cypress testing files will be positioned as a sibling to the original component file.    
-     navBar/    
-          NavBar.css     
-          NavBar.cy.jsx     
-          NavBar.jsx      
 
+- Open Cypress: `npx cypress open` or `npm run cy:open`  
+  **_The app doesn't use TypeScript. You can ignore the `Couldn't find tsconfig.json` warnings._**
+- For the development phase, we're doing `Component Testing` for isolated component building and testing.
+- Cypress testing files will be positioned as a sibling to the original component file.  
+   navBar/  
+   NavBar.css  
+   NavBar.cy.jsx  
+   NavBar.jsx
 
-## Firebase Integration   
+## Firebase Integration
 
-### Install Firebase SDK   
-- Run `npm install firebase`    
-- Initialize and configure firebase with **firebaseConfig = {}**   
-- Save the API keys and other properties under the `.env` file.     
+### Install Firebase SDK
 
-- Install Firebase CLI run   
-     `npm install -g firebase-tools`    
+- Run `npm install firebase`
+- Initialize and configure firebase with **firebaseConfig = {}**
+- Save the API keys and other properties under the `.env` file.
 
+- Install Firebase CLI run  
+   `npm install -g firebase-tools`
 
+### Deploy to Firebase Hosting
 
+- Sign in to Google: run `firebase login`
+- Initiate the project: run `firebase init`
+- Deploy the web app: run `firebase deploy`
 
 ### `npm run build`
 
