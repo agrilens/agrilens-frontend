@@ -32,7 +32,12 @@ const AgriLensWithLogo = () => {
 
   return (
     <div id="agrilens-brand-with-logo" className="d-flex align-items-center">
-      <img src={imgSrc} alt="AgriLens Logo" style={{ paddingRight: "15px" }} />
+      <img
+        data-cy="logo"
+        src={imgSrc}
+        alt="AgriLens Logo"
+        style={{ paddingRight: "15px" }}
+      />
       <AgriLens />
     </div>
   );
