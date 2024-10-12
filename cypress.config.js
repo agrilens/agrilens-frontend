@@ -13,4 +13,5 @@ module.exports = defineConfig({
   //     bundler: "webpack",
   //   },
   // },
+  // include: ["cypress", "src"],
 });

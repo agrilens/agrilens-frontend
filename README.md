@@ -80,6 +80,31 @@ Example:
 Launches the test runner in the interactive watch mode.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
+
+## Cypress component and end-to-end tests   
+**Cypress** is a next generation front end testing tool built for the modern web. `https://docs.cypress.io/guides/overview/why-cypress`       
+- Cypress helps you set up and start writing tests every day while you build your application locally.    
+- After building up a suite of tests and integrating Cypress with your CI Provider, Cypress Cloud can record your test runs.    
+
+### Test types:    
+1. End-to-end   
+2. Component    
+3. API   
+
+### Syntax:
+- Open Cypress:   `npx cypress open`   or `npm run cy:open`    
+***The app doesn't use TypeScript. You can ignore the `Couldn't find tsconfig.json` warnings.***    
+- For the development phase, we're doing `Component Testing` for isolated component building and testing.   
+- Cypress testing files will be positioned as a sibling to the original component file.    
+     navBar/    
+          NavBar.css     
+          NavBar.cy.jsx     
+          NavBar.jsx      
+
+
+
+
+
 ### `npm run build`
 
 Builds the app for production to the `build` folder.\
