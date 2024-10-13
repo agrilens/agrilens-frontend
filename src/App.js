@@ -1,6 +1,6 @@
 import { Link, Route, Routes, useLocation } from "react-router-dom";
 
-import NavBar from "./navBar/NavBar";
+import NavBar from "./navigationBar/NavBar";
 import HomePage from "./homePage/HomePage";
 import AboutUs from "./aboutUs/AboutUs";
 import ContactUs from "./contactUs/ContactUs";
