@@ -31,7 +31,10 @@
       "react-app",
       "react-app/jest",
       "plugin:prettier/recommended"
-    ]
+    ],
+    "rules": {
+      "no-unused-vars": "off"
+    }
   },
   "prettier": {
     "printWidth": 80,
