@@ -5,6 +5,7 @@ import HomePage from "./homePage/HomePage";
 import AboutUs from "./aboutUs/AboutUs";
 import ContactUs from "./contactUs/ContactUs";
 import LogIn from "./account/logIn/LogIn";
+import LogOut from "./account/logOut/LogOut";
 import SignUp from "./account/signUp/SignUp";
 import NotFound from "./common/NotFound";
 import Profile from "./profile/Profile";
@@ -24,6 +25,15 @@ function App() {
     <div className="App">
       <AccountProvider>
         <NavBar />
+        <SignUp />
+        <br />
+        <br />
+        <LogIn />
+        <br />
+        <br />
+        <br />
+        <br />
+        <LogOut />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutUs />} />

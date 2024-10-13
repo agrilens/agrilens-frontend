@@ -13,7 +13,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 
 export default function NavBar() {
-  const userType = useAccountContext();
+  const { userType } = useAccountContext();
 
   const [expanded, setExpanded] = useState(false);
   const handleNavClick = () => {
@@ -34,6 +34,8 @@ export default function NavBar() {
             <Nav.Link as={Link} to="/" onClick={handleNavClick}>
               <AgriLensWithLogo />
             </Nav.Link>
+          <Navbar.Brand as={Link} to="/" onClick={handleNavClick}>
+            <AgriLensWithLogo />
           </Navbar.Brand>
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-lg`} />
           <Navbar.Offcanvas
@@ -46,6 +48,15 @@ export default function NavBar() {
                 <Nav.Link as={Link} to="/" onClick={handleNavClick}>
                   <AgriLens />
                 </Nav.Link>
+            <Offcanvas.Header closeButton className="offcanvas-header">
+              <Offcanvas.Title
+                id={`offcanvasNavbarLabel-expand-lg`}
+                as={Link}
+                to="/"
+                onClick={handleNavClick}
+                className="offcanvas-title"
+              >
+                <AgriLens />
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
@@ -93,6 +104,7 @@ export default function NavBar() {
                   {userType}
                   <span>
                     <i class="fa-solid fa-square-check ms-3"></i>
+                    <i className="fa-solid fa-square-check ms-3"></i>
                   </span>
                 </div>
                 <Link
