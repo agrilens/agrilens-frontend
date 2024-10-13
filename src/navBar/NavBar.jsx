@@ -34,6 +34,7 @@ export default function NavBar() {
             <Nav.Link as={Link} to="/" onClick={handleNavClick}>
               <AgriLensWithLogo />
             </Nav.Link>
+          </Navbar.Brand>
           <Navbar.Brand as={Link} to="/" onClick={handleNavClick}>
             <AgriLensWithLogo />
           </Navbar.Brand>
@@ -48,6 +49,8 @@ export default function NavBar() {
                 <Nav.Link as={Link} to="/" onClick={handleNavClick}>
                   <AgriLens />
                 </Nav.Link>
+              </Offcanvas.Title>
+            </Offcanvas.Header>
             <Offcanvas.Header closeButton className="offcanvas-header">
               <Offcanvas.Title
                 id={`offcanvasNavbarLabel-expand-lg`}
