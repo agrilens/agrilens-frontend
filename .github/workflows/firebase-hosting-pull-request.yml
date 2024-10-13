@@ -1,0 +1,31 @@
+name: Deploy to Preview Channel
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+  checks: write
+
+jobs:
+  build_and_preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Clear the node_modules cache
+      - name: Clear cache
+        run: rm -rf node_modules
+
+      # Optionally, remove any build directories
+      - name: Remove build folder
+        run: rm -rf build
+
+      - name: Install dependencies
+        run: npm ci && npm run build
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_AGRILENS_WEB }}"
+          expires: 7d
+          projectId: agrilens-web
