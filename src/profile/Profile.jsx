@@ -5,8 +5,8 @@ import {
 } from "../contexts/AccountContext";
 
 export default function Profile() {
-  const userType = useAccountContext();
-  const updateUserType = useAccountUpdateContext();
+  const { userType } = useAccountContext();
+  const { updateUserType } = useAccountUpdateContext();
 
   return (
     <div>
