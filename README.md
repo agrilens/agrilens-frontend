@@ -117,10 +117,45 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 ### Deploy to Firebase Hosting
 
-- Sign in to Google: run `firebase login`
+- Run `npm run build` to prepare build folder.
+- Sign in to Google: run `firebase login` Or to login into a different account `firebase login:use email@gmail.com`
 - Initiate the project: run `firebase init`
+
+  1.  ? Which Firebase features do you want to set up for this directory? Press Space to select features, then Enter to confirm your  
+       Scroll down and click the space-bar at `Hosting: Configure files for Firebase Hosting and (optionally) set up GitHub Action deploys`
+  2.  What do you want to use as your public directory? (public)
+      type in `build`
+  3.  Click enter for the subsequent default values.
+
+- To serve the app locally run:
+  1. (First time) `firebase init emulators` and select **_Hosting Emulator_**
+  2. `firebase emulators:start`
 - Deploy the web app: run `firebase deploy`
 
+### How to set up GitHub Action to deploy on Firebase (If the app is already deployed)
+
+- Run `firebase init hosting:github`
+
+  1.  _? For which GitHub repository would you like to set up a GitHub workflow? (format: user/repository)_ `agrilens/agrilens-frontend`
+  2.  _? Set up the workflow to run a build script before every deploy?_ `Yes`
+  3.  _? What script should be run before every deploy?_ `npm ci && npm run build`
+  4.  _? GitHub workflow file for PR previews exists. Overwrite? firebase-hosting-pull-request.yml_ `No`
+  5.  _? Set up automatic deployment to your site's live channel when a PR is merged?_ `Yes`
+  6.  _? What is the name of the GitHub branch associated with your site's live channel?_ `main`
+  7.  _? The GitHub workflow file for deploying to the live channel already exists. Overwrite? firebase-hosting-merge.yml_ `No`
+
+- **Firebase CLI GitHub OAuth App:**     
+  `https://github.com/settings/connections/applications/89cf50f02ac6aaed3484`    
+- **GitHub Firebase secret:** `FIREBASE_SERVICE_ACCOUNT_AGRILENS_WEB`    
+
+- **Firebase GitHub Hosting admin name :** `github-action-867998929`    
+
+- Create a deploy channer for a preview channel that lasts for two days with ID *stage*:    
+  `firebase hosting:channel:deploy stage --expires 2d`      
+
+- To delete the preview channel:     
+     `firebase hosting:channel:delete stage`  
+ 
 ### `npm run build`
 
 Builds the app for production to the `build` folder.\
