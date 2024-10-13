@@ -30,9 +30,9 @@ function App() {
         <LogIn />
         <br />
         <br />
+        <br />
+        <br />
         <LogOut />
-        <br />
-        <br />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutUs />} />
