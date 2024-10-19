@@ -21,7 +21,7 @@ export default function UploadImage() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedInsightIds, setSelectedInsightIds] = useState([]);
   const [response, setResponse] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const url = "";
 
@@ -71,21 +71,20 @@ export default function UploadImage() {
           imgData: formData,
           insights: selectedInsightIds,
         };
-        fetchData(url, inputData, headers);
+
+        // setLoading(true);
+        // fetchData(url, inputData, headers);
+
         console.log("Selected Insights:", selectedInsightIds);
       }
     }
   };
 
-  //   if (loading) return <LoadingSpinner />; // Show spinner while loading
-
-  //   if (error)
-  //     return <div style={{ textAlign: "center", color: "red" }}>{error}</div>;
-
   return (
     <div>
       <Container id="uploadImage">
         <Row className="text-primary py-5">
+          {loading && <LoadingSpinner />}
           <Col md="5">
             <h2 className="display-5 fw-bold">Upload A Photo</h2>
             <p className="py-1">
@@ -171,10 +170,10 @@ export default function UploadImage() {
               variant="primary"
               size="lg"
             >
-              Get{" "}
+              Get
               {(selectedInsightIds.length === 0 ||
                 selectedInsightIds.length === 4) &&
-                "All "}
+                " All "}
               Insights
             </Button>
           </Col>
