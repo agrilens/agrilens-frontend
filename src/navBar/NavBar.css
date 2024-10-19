@@ -1,6 +1,11 @@
+#navbar {
+  background-color: var(--lt-color-gray-100) !important;
+}
 #navbar .navbar {
   padding-left: min(2vw, 20px);
   padding-right: min(2vw, 20px);
+  max-width: 1920px;
+  margin: auto;
 }
 .acc-btn,
 .acc-view {

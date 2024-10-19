@@ -9,6 +9,7 @@ import LogOut from "./account/logOut/LogOut";
 import SignUp from "./account/signUp/SignUp";
 import NotFound from "./common/NotFound";
 import Profile from "./profile/Profile";
+import LoadingSpinner from "./common/LoadingSpinner";
 
 import "bootstrap/dist/css/bootstrap.css";
 // import "bootstrap/dist/css/bootstrap.min.css"; // Recommended in production for optimized page loading.
@@ -24,15 +25,6 @@ function App() {
     <div className="App">
       <AccountProvider>
         <NavBar />
-        <SignUp />
-        <br />
-        <br />
-        <LogIn />
-        <br />
-        <br />
-        <br />
-        <br />
-        <LogOut />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutUs />} />
