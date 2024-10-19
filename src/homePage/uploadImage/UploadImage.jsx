@@ -170,10 +170,10 @@ export default function UploadImage() {
               variant="primary"
               size="lg"
             >
-              Get
+              Get{" "}
               {(selectedInsightIds.length === 0 ||
                 selectedInsightIds.length === 4) &&
-                " All "}
+                "All"}{" "}
               Insights
             </Button>
           </Col>
