@@ -12,8 +12,8 @@ export default function HomePage() {
   const { updateUserType } = useAccountUpdateContext();
 
   return (
-    <section id="">
-      <div>
+    <section id="homePage">
+      <div className="home-container">
         <UploadImage />
       </div>
     </section>
