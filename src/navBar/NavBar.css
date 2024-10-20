@@ -38,6 +38,7 @@
   text-decoration: underline;
   text-decoration-color: var(--txt-dec-color);
 }
+
 .offcanvas-header a {
   color: black;
   text-decoration: none !important;
@@ -58,7 +59,6 @@
 
 @media (min-width: 992px) {
   /*  Large devices (desktops, 992px and up) */
-
   .acc-btn,
   .acc-view,
   .acc-view .acc-type,
