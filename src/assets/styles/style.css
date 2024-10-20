@@ -15,16 +15,49 @@
 /* Mobile phone sizes */
 
 :root {
-  --bs-blue: #0d6efd;
+  --bs-blue: var(--bs-primary-green);
   --bs-indigo: #6610f2;
   --bs-purple: #6f42c1;
   --bs-pink: #d63384;
   --bs-red: #dc3545;
 
   --bs-primary-green: #204e51;
+  --bs-primary-green2: #2d6e72; /* Lighter shade */
+  --bs-primary-green3: #163a3b; /* Darker shade */
+  --bs-primary-green4: #3a6365; /* Muted shade */
+  --bg-primary-grey: #f0f0f0;
   --hover-opacity: 0.7;
   --hover-secondary-color: #9191919a;
   --txt-dec-color: #204e51;
+}
+/* .container {
+  max-width: 1920px !important;
+} */
+.text-primary {
+  color: var(--bs-primary-green) !important;
+}
+.btn-primary {
+  --bs-btn-bg: var(--bs-primary-green);
+  --bs-btn-border-color: var(--bs-primary-green);
+  --bs-btn-hover-bg: var(--bs-primary-green2);
+  --bs-btn-hover-border-color: var(--bs-primary-green3);
+  --bs-btn-active-bg: var(--bs-primary-green3);
+  --bs-btn-active-border-color: var(--bs-primary-green4);
+  --bs-btn-disabled-bg: var(--bs-primary-green);
+  --bs-btn-disabled-border-color: var(--bs-primary-green);
+  --bs-btn-focus-box-shadow: 0 0 0 0.25rem rgba(45, 110, 114, 0.5);
+}
+.btn-outline-primary {
+  --bs-btn-color: var(--bs-primary-green);
+  --bs-btn-border-color: var(--bs-primary-green);
+  --bs-btn-hover-bg: var(--bs-primary-green);
+  --bs-btn-hover-border-color: var(--bs-primary-green);
+  --bs-btn-focus-shadow-rgb: 13, 110, 253;
+  --bs-btn-active-bg: var(--bs-primary-green);
+  --bs-btn-active-border-color: var(--bs-primary-green);
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: var(--bs-primary-green);
+  --bs-btn-disabled-border-color: var(--bs-primary-green);
 }
 
 #agrilens-brand,
@@ -52,7 +85,7 @@
 }
 
 @media (min-width: 992px) {
-  /*  Large devices (desktops, 992px and up) */
+  /*  Large devices (desktops, 992px and upto 1920px) */
 }
 
 /* The following are only for reference. Our initial targets are the first three breakpoints -- [Four types of device sizes]. */
