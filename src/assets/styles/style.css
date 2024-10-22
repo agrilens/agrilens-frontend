@@ -22,9 +22,10 @@
   --bs-red: #dc3545;
 
   --bs-primary-green: #204e51;
-  --bs-primary-green2: #2d6e72; /* Lighter shade */
-  --bs-primary-green3: #163a3b; /* Darker shade */
-  --bs-primary-green4: #3a6365; /* Muted shade */
+  --bs-primary-green2: #2d6e72;
+  --bs-primary-green3: #163a3b;
+  --bs-primary-green4: #3a6365;
+  --bs-primary-green-light: #02a433;
   --bg-primary-grey: #f0f0f0;
   --hover-opacity: 0.7;
   --hover-secondary-color: #9191919a;

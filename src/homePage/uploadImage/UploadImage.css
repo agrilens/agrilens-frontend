@@ -1,8 +1,3 @@
-#uploadImage {
-}
-#uploadImage .container {
-  /* max-width: 1520px !important; */
-}
 #uploadImage .btn {
   font-weight: bold;
   border: 3px solid;
@@ -57,6 +52,45 @@
   background-color: rgba(32, 78, 81, 0.5) !important;
   font-weight: bold;
 }
+
+/* DataTable Styling */
+#uploadImage .mild-success {
+  color: var(--bs-primary-green-light);
+}
+#uploadImage table {
+  width: 96%;
+  border-collapse: collapse;
+  margin: 10px auto 30px;
+  border: 2px solid var(--bs-primary-green);
+}
+
+.dataTable-row {
+  border: 1px solid #ddd;
+}
+
+.dataTable-row th {
+  width: 20%;
+  text-align: left;
+  padding: 10px;
+  background-color: #f4f4f4;
+  border-right: 1px solid #1c9902;
+}
+
+.dataTable-row td {
+  padding: 10px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.dataTable-ul {
+  list-style-type: disclosure-closed;
+  padding-left: 15px;
+  margin: 0;
+}
+.dataTable-li {
+  text-align: left;
+}
+
 @media (min-width: 768px) {
   /*  Medium devices (tablets, 768px and up) */
   #uploadImage .row {

@@ -9,7 +9,7 @@ export default function NotFound() {
     setTimeout(() => {
       //   navigate("/");    // Redirects to the home page.
       navigate(-1); // Returns to the previous page.
-    }, 2000);
+    }, 1000);
   });
   return (
     <>

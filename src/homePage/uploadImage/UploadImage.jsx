@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import FormData from "form-data";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -8,6 +9,7 @@ import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
 
 import LoadingSpinner from "../../common/LoadingSpinner";
+import DataTable from "./DataTable";
 
 import InsightCard from "./InsightCard";
 import emptyFileImage from "../../assets/images/emptyFileImage.png";
@@ -20,21 +22,28 @@ import "./UploadImage.css";
 export default function UploadImage() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedInsightIds, setSelectedInsightIds] = useState([]);
-  const [response, setResponse] = useState([]);
+  const [file, setFile] = useState();
+  const [insightResponse, setInsightResponse] = useState([]);
+  const [analysisResult, setAnalysisResult] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState(null);
   const [error, setError] = useState(null);
-  const url = "";
 
-  const headers = {
+  const imageUploadUrl =
+    "http://127.0.0.1:5001/agrilens-web/us-central1/app/analyze";
+  const uplaodHeaders = {
     headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${"token"}`,
+      // Authorization: `Bearer ${"token"}`,
+      "Content-Type": "multipart/form-data",
     },
   };
+
+  useEffect(() => {}, [setStatus]);
 
   const handleImageChange = (event) => {
     const file = event?.target?.files[0];
     if (file) {
+      setFile(() => file);
       const reader = new FileReader();
       reader.onloadend = () => setSelectedImage(reader?.result);
       reader.readAsDataURL(file);
@@ -47,37 +56,43 @@ export default function UploadImage() {
     );
   };
 
-  const fetchData = async (url, data, header) => {
+  const fetchData = async (url, data, headers = {}) => {
     try {
-      const response = await axios.post(url, data, header);
-      setResponse(response.data);
-      setLoading(false);
+      setLoading(true);
+      const response = await axios.post(url, data, headers);
+      console.log("Response:", response.data);
+      console.log("Response:", response.status);
+      let jsonString = response?.data?.result;
+      const analysisObject = JSON.parse(jsonString);
+      console.log("jsObject: ", analysisObject);
+      setInsightResponse(() => response.data);
+      setStatus(() => response.status);
+      setAnalysisResult(() => analysisObject);
     } catch (err) {
+      console.error("fetchData() Error:", err);
       setError(err.message);
+    } finally {
       setLoading(false);
     }
   };
+
   const handleGetInsight = () => {
-    if (selectedImage === null) {
+    if (!selectedImage) {
       console.log("Please select a valid image.");
-    } else {
-      if (selectedInsightIds?.length === 0) {
-        console.log("Please select at least one insight.");
-      } else {
-        const formData = new FormData();
-        formData.append("image", selectedImage);
-
-        const inputData = {
-          imgData: formData,
-          insights: selectedInsightIds,
-        };
-
-        // setLoading(true);
-        // fetchData(url, inputData, headers);
-
-        console.log("Selected Insights:", selectedInsightIds);
-      }
+      return;
     }
+    if (selectedInsightIds.length === 0) {
+      console.log("Please select at least one insight.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append("image", file);
+    selectedInsightIds.forEach((id) => {
+      formData.append("insights[]", id);
+    });
+
+    fetchData(imageUploadUrl, formData, uplaodHeaders);
   };
 
   return (
@@ -178,11 +193,14 @@ export default function UploadImage() {
             </Button>
           </Col>
         </Row>
-        {/* <Row>
-          <Col>1 of 3</Col>
-          <Col>2 of 3</Col>
-          <Col>3 of 3</Col>
-        </Row> */}
+        {status === 200 && (
+          <Row>
+            <Col sm="12">
+              <h4> {insightResponse.message}</h4>
+            </Col>
+            <DataTable data={analysisResult} />
+          </Row>
+        )}
       </Container>
     </div>
   );
