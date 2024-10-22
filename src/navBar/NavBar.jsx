@@ -30,11 +30,6 @@ export default function NavBar() {
         className="bg-body-tertiary"
       >
         <Container fluid>
-          <Navbar.Brand href="/">
-            <Nav.Link as={Link} to="/" onClick={handleNavClick}>
-              <AgriLensWithLogo />
-            </Nav.Link>
-          </Navbar.Brand>
           <Navbar.Brand as={Link} to="/" onClick={handleNavClick}>
             <AgriLensWithLogo />
           </Navbar.Brand>
@@ -44,13 +39,6 @@ export default function NavBar() {
             aria-labelledby={`offcanvasNavbarLabel-expand-lg`}
             placement="end"
           >
-            <Offcanvas.Header closeButton>
-              <Offcanvas.Title id={`offcanvasNavbarLabel-expand-lg`}>
-                <Nav.Link as={Link} to="/" onClick={handleNavClick}>
-                  <AgriLens />
-                </Nav.Link>
-              </Offcanvas.Title>
-            </Offcanvas.Header>
             <Offcanvas.Header closeButton className="offcanvas-header">
               <Offcanvas.Title
                 id={`offcanvasNavbarLabel-expand-lg`}
@@ -76,7 +64,7 @@ export default function NavBar() {
                 <Nav.Link as={Link} to="/contact" onClick={handleNavClick}>
                   Contact Us
                 </Nav.Link>
-                <Nav.Link as={Link} to="/dashboard" onClick={handleNavClick}>
+                <Nav.Link as={Link} to="/contact" onClick={handleNavClick}>
                   Dashboard
                 </Nav.Link>
               </Nav>
@@ -106,7 +94,6 @@ export default function NavBar() {
                 <div className="acc-type text-center">
                   {userType}
                   <span>
-                    <i class="fa-solid fa-square-check ms-3"></i>
                     <i className="fa-solid fa-square-check ms-3"></i>
                   </span>
                 </div>

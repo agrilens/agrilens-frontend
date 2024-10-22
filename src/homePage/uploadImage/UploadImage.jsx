@@ -29,8 +29,7 @@ export default function UploadImage() {
   const [status, setStatus] = useState(null);
   const [error, setError] = useState(null);
 
-  const imageUploadUrl =
-    "http://127.0.0.1:5001/agrilens-web/us-central1/app/analyze";
+  const imageUploadUrl = "https://app-id543mmv6a-uc.a.run.app/analyze";
   const uplaodHeaders = {
     headers: {
       // Authorization: `Bearer ${"token"}`,
