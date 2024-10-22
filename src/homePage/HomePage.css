@@ -1,0 +1,9 @@
+#homePage {
+  background-color: var(--bg-primary-grey);
+}
+.home-container {
+  max-width: 1920px;
+  margin: auto;
+  /* padding-left: min(2vw, 20px);
+  padding-right: min(2vw, 20px); */
+}

@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import UploadImage from "./uploadImage/UploadImage";
 import "./HomePage.css";
 import {
   useAccountContext,
@@ -10,5 +11,11 @@ export default function HomePage() {
   // console.log("userType", userType);
   const { updateUserType } = useAccountUpdateContext();
 
-  return <div>HomePage userEmail: {userEmail}</div>;
+  return (
+    <section id="homePage">
+      <div className="home-container">
+        <UploadImage />
+      </div>
+    </section>
+  );
 }

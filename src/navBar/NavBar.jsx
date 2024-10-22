@@ -21,13 +21,13 @@ export default function NavBar() {
   };
 
   return (
-    <div id="navbar">
+    <section id="navbar">
       <Navbar
         key="lg"
         expand="lg"
         expanded={expanded}
         onToggle={() => setExpanded(!expanded)}
-        className="bg-body-tertiary mb-3"
+        className="bg-body-tertiary"
       >
         <Container fluid>
           <Navbar.Brand as={Link} to="/" onClick={handleNavClick}>
@@ -63,6 +63,9 @@ export default function NavBar() {
                 </Nav.Link>
                 <Nav.Link as={Link} to="/contact" onClick={handleNavClick}>
                   Contact Us
+                </Nav.Link>
+                <Nav.Link as={Link} to="/contact" onClick={handleNavClick}>
+                  Dashboard
                 </Nav.Link>
               </Nav>
               <div
@@ -106,6 +109,6 @@ export default function NavBar() {
           </Navbar.Offcanvas>
         </Container>
       </Navbar>
-    </div>
+    </section>
   );
 }
