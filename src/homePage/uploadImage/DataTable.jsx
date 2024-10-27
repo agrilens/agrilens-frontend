@@ -53,15 +53,15 @@ const DataTable = ({ data, id }) => {
   );
 };
 
-DataTable.propTypes = {
-  data: PropTypes.shape({
-    overall_health_status: PropTypes.string,
-    health_score: PropTypes.number,
-    pest_identification: PropTypes.string,
-    disease_identification: PropTypes.string,
-    weed_presence: PropTypes.string,
-    recommendations: PropTypes.arrayOf(PropTypes.string),
-  }).isRequired,
-};
+// DataTable.propTypes = {
+//   data: PropTypes.shape({
+//     overall_health_status: PropTypes.string,
+//     health_score: PropTypes.number,
+//     pest_identification: PropTypes.string,
+//     disease_identification: PropTypes.string,
+//     weed_presence: PropTypes.string,
+//     recommendations: PropTypes.arrayOf(PropTypes.string),
+//   }).isRequired,
+// };
 
 export default DataTable;
