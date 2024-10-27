@@ -30,7 +30,7 @@
 
 .upload-btn:focus {
   outline: none !important;
-  box-shadow: 0 0 5px rgba(13, 110, 253, 0.5) !important; 
+  box-shadow: 0 0 5px rgba(13, 110, 253, 0.5) !important;
 }
 
 .upload-btn:active {
@@ -54,7 +54,6 @@
   font-weight: bold;
 }
 
-/* DataTable Styling */
 #uploadImage .mild-success {
   color: var(--bs-primary-green-light);
 }
@@ -65,32 +64,6 @@
   border: 2px solid var(--bs-primary-green);
 }
 
-.dataTable-row {
-  border: 1px solid #ddd;
-}
-
-.dataTable-row th {
-  width: 20%;
-  text-align: left;
-  padding: 10px;
-  background-color: #f4f4f4;
-  border-right: 1px solid #1c9902;
-}
-
-.dataTable-row td {
-  padding: 10px;
-  text-align: left;
-  vertical-align: top;
-}
-
-.dataTable-ul {
-  list-style-type: disclosure-closed;
-  padding-left: 15px;
-  margin: 0;
-}
-.dataTable-li {
-  text-align: left;
-}
 
 @media (min-width: 768px) {
   /*  Medium devices (tablets, 768px and up) */
