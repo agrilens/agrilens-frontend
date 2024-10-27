@@ -65,7 +65,7 @@
 }
 .selected-evaluation-btn {
   background-color: var(--bs-primary-green) !important;
-  opacity: 1;
+  opacity: 1 !important;
   color: white !important;
 }
 
