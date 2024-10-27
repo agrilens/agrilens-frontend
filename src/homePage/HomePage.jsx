@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 
 import Banner from "./banner/Banner";
-import UploadImage from "./uploadImage/UploadImage";
+// import UploadImage from "./uploadImage/UploadImage";
 
 import "./HomePage.css";
 import {
@@ -18,7 +18,7 @@ export default function HomePage() {
     <section id="homePage">
       <div className="home-container">
         <Banner />
-        <UploadImage />
+        {/* <UploadImage /> */}
       </div>
     </section>
   );
