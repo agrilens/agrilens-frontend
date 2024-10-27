@@ -1,5 +1,8 @@
 import React, { useContext } from "react";
+
+import Banner from "./banner/Banner";
 import UploadImage from "./uploadImage/UploadImage";
+
 import "./HomePage.css";
 import {
   useAccountContext,
@@ -14,6 +17,7 @@ export default function HomePage() {
   return (
     <section id="homePage">
       <div className="home-container">
+        <Banner />
         <UploadImage />
       </div>
     </section>
