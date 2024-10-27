@@ -6,14 +6,14 @@ export default function AboutUs() {
       maxWidth: '1200px',
       margin: '0 auto',
       padding: '40px 20px',
+      textAlign: 'left',
     },
     header: {
-      textAlign: 'center',
       marginBottom: '40px',
     },
     title: {
       fontSize: '2.5rem',
-      color: '#2d5a27', // Forest green for agricultural theme
+      color: '#2d5a27',
       marginBottom: '20px',
     },
     subtitle: {
@@ -21,7 +21,6 @@ export default function AboutUs() {
       color: '#666',
       marginBottom: '40px',
       maxWidth: '800px',
-      margin: '0 auto',
     },
     featuresGrid: {
       display: 'grid',
@@ -54,7 +53,6 @@ export default function AboutUs() {
       marginTop: '20px',
     },
     teamMember: {
-      textAlign: 'center',
       padding: '15px',
     },
     teamName: {
@@ -109,13 +107,13 @@ export default function AboutUs() {
 
       <div style={styles.section}>
         <h2 style={styles.featureTitle}>Core Features</h2>
-        <p style={styles.featureText}>
-          • Advanced plant health identification technology<br />
-          • Resource optimization through data analytics<br />
-          • User-friendly interface for farmers<br />
-          • Comprehensive insights for informed decision-making<br />
-          • Data aggregation for broader agricultural insights
-        </p>
+        <ul style={styles.featureText}>
+          <li>Advanced plant health identification technology</li>
+          <li>Resource optimization through data analytics</li>
+          <li>User-friendly interface for farmers</li>
+          <li>Comprehensive insights for informed decision-making</li>
+          <li>Data aggregation for broader agricultural insights</li>
+        </ul>
       </div>
 
       <div style={styles.section}>
