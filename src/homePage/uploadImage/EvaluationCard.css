@@ -7,8 +7,7 @@
 
 #evaluationCard:hover {
   transform: scale(1.05);
-  /* box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); */
-  background-color: transparent !important; /* Prevent background change */
+  background-color: transparent !important; 
 }
 
 .evaluation-card-tag {
@@ -17,18 +16,14 @@
   max-width: 320px;
   height: 50px;
   width: min(80vw, 320px);
-  /* max-width: 310px !important; */
   position: relative;
   top: 2px;
-  /* z-index: 0; */
-  /* border: 2px solid red; */
   align-content: center;
   border-radius: 24px 24px 0px 0px !important;
 }
 
 .evaluation-card {
   background-color: rgba(32, 78, 81, 0.5) !important;
-  /* width: 426px; */
   margin: auto;
   border-radius: 24px !important;
 }

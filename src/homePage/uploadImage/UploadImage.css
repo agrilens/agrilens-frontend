@@ -53,6 +53,7 @@
   background-color: rgba(32, 78, 81, 0.5) !important;
   font-weight: bold;
 }
+/* InsightCard Styling */
 
 #uploadImage .mild-success {
   color: var(--bs-primary-green-light);
@@ -63,7 +64,6 @@
   margin: 10px auto 30px;
   border: 2px solid var(--bs-primary-green);
 }
-
 
 @media (min-width: 768px) {
   /*  Medium devices (tablets, 768px and up) */

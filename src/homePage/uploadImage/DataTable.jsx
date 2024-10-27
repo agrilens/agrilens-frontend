@@ -9,14 +9,14 @@ const DataTable = ({ data, id }) => {
   const score = data?.health_score;
   /* Healthy >= 98 | 98 < Mild Issues >= 80 | 80 < Moderate Issues >= 50 |Severe Issues < 50 */
 
-  const statusColor =
-    score >= 98
-      ? "success"
-      : score >= 80
-        ? " mild-success"
-        : score >= 50
-          ? "warning"
-          : "danger";
+  // const statusColor =
+  //   score >= 98
+  //     ? "success"
+  //     : score >= 80
+  //       ? " mild-success"
+  //       : score >= 50
+  //         ? "warning"
+  //         : "danger";
 
   return (
     <Col lg="4" md="6" id="dataTableCard" className={`mx-auto mb-5 `}>
@@ -53,15 +53,15 @@ const DataTable = ({ data, id }) => {
   );
 };
 
-DataTable.propTypes = {
-  data: PropTypes.shape({
-    overall_health_status: PropTypes.string,
-    health_score: PropTypes.number,
-    pest_identification: PropTypes.string,
-    disease_identification: PropTypes.string,
-    weed_presence: PropTypes.string,
-    recommendations: PropTypes.arrayOf(PropTypes.string),
-  }).isRequired,
-};
+// DataTable.propTypes = {
+//   data: PropTypes.shape({
+//     overall_health_status: PropTypes.string,
+//     health_score: PropTypes.number,
+//     pest_identification: PropTypes.string,
+//     disease_identification: PropTypes.string,
+//     weed_presence: PropTypes.string,
+//     recommendations: PropTypes.arrayOf(PropTypes.string),
+//   }).isRequired,
+// };
 
 export default DataTable;
