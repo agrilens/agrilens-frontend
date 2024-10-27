@@ -1,101 +1,41 @@
 import React from "react";
+import "./AboutUs.css";
 
 export default function AboutUs() {
-  const styles = {
-    container: {
-      maxWidth: "1200px",
-      margin: "0 auto",
-      padding: "40px 20px",
-      textAlign: "left",
-    },
-    header: {
-      marginBottom: "40px",
-    },
-    title: {
-      fontSize: "2.5rem",
-      color: "#2d5a27",
-      marginBottom: "20px",
-    },
-    subtitle: {
-      fontSize: "1.2rem",
-      color: "#666",
-      marginBottom: "40px",
-      maxWidth: "800px",
-    },
-    featuresGrid: {
-      display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-      gap: "30px",
-      marginBottom: "40px",
-    },
-    featureCard: {
-      padding: "25px",
-      backgroundColor: "#f8faf8",
-      borderRadius: "8px",
-      border: "1px solid #e0e7e0",
-    },
-    featureTitle: {
-      fontSize: "1.25rem",
-      color: "#2d5a27",
-      marginBottom: "15px",
-    },
-    featureText: {
-      color: "#444",
-      lineHeight: "1.6",
-    },
-    section: {
-      marginBottom: "40px",
-    },
-    teamGrid: {
-      display: "grid",
-      gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-      gap: "20px",
-      marginTop: "20px",
-    },
-    teamMember: {
-      padding: "15px",
-    },
-    teamName: {
-      fontSize: "1.1rem",
-      color: "#2d5a27",
-      marginBottom: "5px",
-    },
-  };
-
   const team = ["Jihadu", "Jacqueline", "Jessica", "Luke", "Blair"];
 
   return (
-    <div style={styles.container}>
-      <div style={styles.header}>
-        <h1 style={styles.title}>About AgriLens</h1>
-        <p style={styles.subtitle}>
+    <div className="about-us-container">
+      <div className="about-us-header">
+        <h1 className="about-us-title">About AgriLens</h1>
+        <p className="about-us-subtitle">
           Empowering resource-constrained farmers with innovative plant health
-          identification and analysis solutions
+          identification and analysis solutions.
         </p>
       </div>
 
-      <div style={styles.featuresGrid}>
-        <div style={styles.featureCard}>
-          <h3 style={styles.featureTitle}>Our Mission</h3>
-          <p style={styles.featureText}>
+      <div className="features-grid">
+        <div className="feature-card">
+          <h3 className="feature-title">Our Mission</h3>
+          <p className="feature-text">
             To provide accessible technology that helps farmers identify plant
             health issues, optimize resource usage, and make data-driven
             decisions without requiring extensive technical knowledge.
           </p>
         </div>
 
-        <div style={styles.featureCard}>
-          <h3 style={styles.featureTitle}>What We Offer</h3>
-          <p style={styles.featureText}>
+        <div className="feature-card">
+          <h3 className="feature-title">What We Offer</h3>
+          <p className="feature-text">
             Our service combines advanced plant health identification with
             practical analytics, helping farmers identify diseases and pests
             while providing valuable insights for resource optimization.
           </p>
         </div>
 
-        <div style={styles.featureCard}>
-          <h3 style={styles.featureTitle}>Our Approach</h3>
-          <p style={styles.featureText}>
+        <div className="feature-card">
+          <h3 className="feature-title">Our Approach</h3>
+          <p className="feature-text">
             Using a scrum-based development process, we continuously improve our
             platform to better serve farmers' needs through regular feedback and
             agile development.
@@ -103,9 +43,9 @@ export default function AboutUs() {
         </div>
       </div>
 
-      <div style={styles.section}>
-        <h2 style={styles.featureTitle}>Core Features</h2>
-        <ul style={styles.featureText}>
+      <div className="section">
+        <h2 className="feature-title">Core Features</h2>
+        <ul className="feature-text">
           <li>Advanced plant health identification technology</li>
           <li>Resource optimization through data analytics</li>
           <li>User-friendly interface for farmers</li>
@@ -114,20 +54,20 @@ export default function AboutUs() {
         </ul>
       </div>
 
-      <div style={styles.section}>
-        <h2 style={styles.featureTitle}>Our Team</h2>
-        <div style={styles.teamGrid}>
+      <div className="section">
+        <h2 className="feature-title">Our Team</h2>
+        <div className="team-grid">
           {team.map((member, index) => (
-            <div key={index} style={styles.teamMember}>
-              <h3 style={styles.teamName}>{member}</h3>
+            <div key={index} className="team-member">
+              <h3 className="team-name">{member}</h3>
             </div>
           ))}
         </div>
       </div>
 
-      <div style={styles.section}>
-        <h2 style={styles.featureTitle}>Project Status</h2>
-        <p style={styles.featureText}>
+      <div className="section">
+        <h2 className="feature-title">Project Status</h2>
+        <p className="feature-text">
           We are actively developing AgriLens, focusing on gathering detailed
           requirements, prototyping key features, and writing production code.
           Our team is committed to creating a solution that makes a real
