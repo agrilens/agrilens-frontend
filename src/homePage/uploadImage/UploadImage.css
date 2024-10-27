@@ -30,7 +30,7 @@
 
 .upload-btn:focus {
   outline: none !important;
-  box-shadow: 0 0 5px rgba(13, 110, 253, 0.5) !important; 
+  box-shadow: 0 0 5px rgba(13, 110, 253, 0.5) !important; /* Focus shadow in RGB */
 }
 
 .upload-btn:active {
@@ -48,7 +48,6 @@
   pointer-events: none !important;
 }
 
-/* InsightCard Styling */
 .card-bg-primary {
   background-color: rgba(32, 78, 81, 0.5) !important;
   font-weight: bold;

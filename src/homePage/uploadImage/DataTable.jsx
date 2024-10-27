@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from "react";
-import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
+import React from "react";
 import PropTypes from "prop-types";
-import "./DataTable.css";
+import "./UploadImage.css";
 
-const DataTable = ({ data, id }) => {
+const DataTable = ({ data }) => {
   const score = data?.health_score;
   /* Healthy >= 98 | 98 < Mild Issues >= 80 | 80 < Moderate Issues >= 50 |Severe Issues < 50 */
 
@@ -19,37 +16,44 @@ const DataTable = ({ data, id }) => {
           : "danger";
 
   return (
-    <Col lg="4" md="6" id="dataTableCard" className={`mx-auto mb-5 `}>
-      <div className="dataTable-card-tag mx-auto fs-5 fw-bold ">
-        Evaluation {id}
-      </div>
-      <Card className="dataTable-card ">
-        <Card.Header className="p-4  dataTable-card-header d-flex">
-          <Card.Title className="fs-4 ps-2 display-3 fw-bold text-white align-left">
-            Overall Health Status:
-          </Card.Title>
-          <div className="fs-1 ps-2 fw-bolder align-left">Severe Issues {}</div>
-        </Card.Header>
-        <Card.Body className="dataTable-card-body p-4">
-          <Card.Text>
-            <ul className="dataTableCard-ul list-unstyled text-white p-3 ps-5">
-              {data?.map((item, i) => (
-                <div
-                  className="dataTableCard-li-wrapper fs-5 pb-2 mb-2"
-                  key={i}
-                >
-                  <i
-                    className={`fa-regular  me-2 fa-circle${item.isValue ? "-check" : ""}`}
-                  ></i>
-                  <li className="dataTableCard-li ">{item.label}</li>
-                </div>
+    <table id="dataTable">
+      <tbody id="dataTable-body">
+        <tr className="dataTable-row">
+          <th>Overall Health Status</th>
+          <td className={`fs-4 fw-bold text-${statusColor}`}>
+            {data?.overall_health_status}
+          </td>
+        </tr>
+        <tr className="dataTable-row">
+          <th>Health Score</th>
+          <td>{data?.health_score}</td>
+        </tr>
+        <tr className="dataTable-row">
+          <th>Pest Identification</th>
+          <td>{data?.pest_identification}</td>
+        </tr>
+        <tr className="dataTable-row">
+          <th>Disease Identification</th>
+          <td>{data?.disease_identification}</td>
+        </tr>
+        <tr className="dataTable-row">
+          <th>Weed Presence</th>
+          <td>{data?.weed_presence}</td>
+        </tr>
+        <tr className="dataTable-row">
+          <th>Recommendations</th>
+          <td>
+            <ul className="dataTable-ul">
+              {data?.recommendations.map((rec, i) => (
+                <li className="dataTable-li" key={i}>
+                  {rec}
+                </li>
               ))}
             </ul>
-          </Card.Text>
-          <Button variant={`my-1 dataTableCard-card-btn `}>Save Result</Button>
-        </Card.Body>
-      </Card>
-    </Col>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   );
 };
 
