@@ -8,8 +8,9 @@ import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
 
-import LoadingSpinner from "../../common/LoadingSpinner";
 import DataTable from "./DataTable";
+import EvaluationCard from "./EvaluationCard";
+import LoadingSpinner from "../../common/LoadingSpinner";
 
 import InsightCard from "./InsightCard";
 import emptyFileImage from "../../assets/images/emptyFileImage.png";
@@ -19,17 +20,54 @@ import pestDiagnosis from "../../assets/images/pestDiagnosis.png";
 import sustainablePractices from "../../assets/images/sustainablePractices.png";
 import "./UploadImage.css";
 
+const data = [
+  {
+    id: 1,
+    label: "Identification",
+    value: "",
+    isValue: true,
+  },
+  {
+    id: 2,
+    label: "Pest Detected",
+    value: "values",
+    isValue: false,
+  },
+  {
+    id: 3,
+    label: "Disease Detected",
+    value: "",
+    isValue: false,
+  },
+  {
+    id: 4,
+    label: "Weed Presence",
+    value: "values",
+    isValue: true,
+  },
+  {
+    id: 5,
+    label: "Sustainable Practice Suggestion",
+    value: "values",
+    isValue: true,
+  },
+];
+
 export default function UploadImage() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedInsightIds, setSelectedInsightIds] = useState([]);
+  const [selectedEvaluation, setselectedEvaluation] = useState("");
   const [file, setFile] = useState();
   const [insightResponse, setInsightResponse] = useState([]);
   const [analysisResult, setAnalysisResult] = useState([]);
+  const [evaluations, setEvaluations] = useState([data, data, data]);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null);
   const [error, setError] = useState(null);
 
   const imageUploadUrl = "https://app-id543mmv6a-uc.a.run.app/analyze";
+  const imageUploadUrlLocal =
+    "http://127.0.0.1:5001/agrilens-web/us-central1/app/analyze";
   const uplaodHeaders = {
     headers: {
       // Authorization: `Bearer ${"token"}`,
@@ -53,6 +91,9 @@ export default function UploadImage() {
     setSelectedInsightIds((prev) =>
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
+  };
+  const toggleEvaluateSelection = (id) => {
+    setselectedEvaluation(() => id);
   };
 
   const fetchData = async (url, data, headers = {}) => {
@@ -91,7 +132,7 @@ export default function UploadImage() {
       formData.append("insights[]", id);
     });
 
-    fetchData(imageUploadUrl, formData, uplaodHeaders);
+    fetchData(imageUploadUrlLocal, formData, uplaodHeaders);
   };
 
   return (
@@ -192,12 +233,34 @@ export default function UploadImage() {
             </Button>
           </Col>
         </Row>
-        {status === 200 && (
-          <Row>
-            <Col sm="12">
-              <h4> {insightResponse.message}</h4>
-            </Col>
-            <DataTable data={analysisResult} />
+        {/* {status === 200 && ()} */}
+        <Row className="text-center pb-5">
+          <EvaluationCard
+            evaluation={evaluations[0]}
+            id="1"
+            isSelected={selectedEvaluation === 0}
+            onSelect={() => toggleEvaluateSelection(0)}
+          />
+          <EvaluationCard
+            evaluation={evaluations[1]}
+            id="2"
+            isSelected={selectedEvaluation === 1}
+            onSelect={() => toggleEvaluateSelection(1)}
+          />
+          <EvaluationCard
+            evaluation={evaluations[2]}
+            id="3"
+            isSelected={selectedEvaluation === 2}
+            onSelect={() => toggleEvaluateSelection(2)}
+          />
+        </Row>
+        {selectedEvaluation !== "" && (
+          <Row className="mt-5">
+            {/* <DataTable data={analysisResult} /> */}
+            <DataTable
+              data={evaluations[selectedEvaluation]}
+              id={selectedEvaluation + 1}
+            />
           </Row>
         )}
       </Container>
