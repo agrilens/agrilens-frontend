@@ -1,132 +1,135 @@
-/* Using API calls */
-// import React, { useState, useEffect } from 'react';
-// import BarChart from './components/BarChart/BarChart';
-// import PieChart from './components/PieChart/PieChart';
-// import HeatMap from './components/HeatMap/HeatMap';
-// import GeoMap from './components/GeoMap/GeoMap';
-// import { fetchAnalysesData } from './api/analysesApi';
-// import './Dashboard.css';
-//
-// const Dashboard = () => {
-//   const [analysesData, setAnalysesData] = useState(null);
-//   const [loading, setLoading] = useState(true);
-//   const [error, setError] = useState(null);
-//
-//   useEffect(() => {
-//     const loadData = async () => {
-//       try {
-//         setLoading(true);
-//         const data = await fetchAnalysesData();
-//         setAnalysesData(data);
-//         setLoading(false);
-//       } catch (err) {
-//         setError('Failed to load dashboard data');
-//         setLoading(false);
-//       }
-//     };
-//
-//     loadData();
-//   }, []);
-//
-//   if (loading) {
-//     return <div className="dashboard-loading">Loading dashboard data...</div>;
-//   }
-//
-//   if (error) {
-//     return <div className="dashboard-error">{error}</div>;
-//   }
-//
-//   if (!analysesData) {
-//     return <div className="dashboard-no-data">No data available</div>;
-//   }
-//
-//   return (
-//     <div className="dashboard">
-//       <h1 className="dashboard-title">Plant Health Dashboard</h1>
-//       <div className="dashboard-grid">
-//         <div className="dashboard-item">
-//           <BarChart
-//             data={analysesData.healthScores}
-//             title="Average Health Scores"
-//           />
-//         </div>
-//         <div className="dashboard-item">
-//           <PieChart
-//             data={analysesData.healthDistribution}
-//             title="Health Distribution"
-//           />
-//         </div>
-//         <div className="dashboard-item">
-//           <HeatMap
-//             data={analysesData.heatMapData}
-//             title="Health Heatmap"
-//           />
-//         </div>
-//         <div className="dashboard-item">
-//           <GeoMap
-//             data={analysesData.geoData}
-//             title="Geographical Distribution"
-//           />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-//
-// export default Dashboard;
-
-/* Using fake data */
-import React from "react";
-import BarChart from "./components/BarChart/BarChart";
-import HeatMap from "./components/HeatMap/HeatMap";
-import GeoMap from "./components/GeoMap/GeoMap";
+import React, { useState, useMemo } from "react";
+import HealthScoreChart from "./components/HealthScoreChart";
+import IssuesBarChart from "./components/IssuesBarChart";
+import StatsDisplay from "./components/StatsDisplay";
+import DateRangeFilter from "./components/DateRangeFilter";
 import "./Dashboard.css";
 
+const mockData = [
+  {
+    timestamp: "1730238145043",
+    healthScore: "90",
+    pestPresence: "true",
+    diseasePresence: "true",
+  },
+  {
+    timestamp: "1729983673431",
+    healthScore: "85",
+    pestPresence: "true",
+    diseasePresence: "false",
+  },
+  {
+    timestamp: "1729983673231",
+    healthScore: "78",
+    pestPresence: "false",
+    diseasePresence: "true",
+  },
+  {
+    timestamp: "1729983667309",
+    healthScore: "88",
+    pestPresence: "false",
+    diseasePresence: "false",
+  },
+];
+
 const Dashboard = () => {
-  // Fake data for BarChart
-  const healthScores = [
-    { label: "Wheat", value: 85 },
-    { label: "Corn", value: 72 },
-    { label: "Soybeans", value: 93 },
-    { label: "Rice", value: 78 },
-    { label: "Barley", value: 88 },
-  ];
+  const [startDate, setStartDate] = useState(() => {
+    const date = new Date();
+    date.setDate(date.getDate() - 30);
+    return date.toISOString().split("T")[0];
+  });
 
-  // Fake data for HeatMap
-  const heatMapData = [
-    { x: "Field A", y: "Week 1", value: 80 },
-    { x: "Field A", y: "Week 2", value: 85 },
-    { x: "Field A", y: "Week 3", value: 90 },
-    { x: "Field B", y: "Week 1", value: 70 },
-    { x: "Field B", y: "Week 2", value: 75 },
-    { x: "Field B", y: "Week 3", value: 72 },
-    { x: "Field C", y: "Week 1", value: 90 },
-    { x: "Field C", y: "Week 2", value: 88 },
-    { x: "Field C", y: "Week 3", value: 92 },
-  ];
+  const [endDate, setEndDate] = useState(() => {
+    return new Date().toISOString().split("T")[0];
+  });
 
-  // Fake data for GeoMap
-  const geoData = [
-    { lat: 51.505, lng: -0.09, name: "London Field", healthScore: 85 },
-    { lat: 48.8566, lng: 2.3522, name: "Paris Field", healthScore: 78 },
-    { lat: 40.7128, lng: -74.006, name: "New York Field", healthScore: 92 },
-    { lat: 35.6762, lng: 139.6503, name: "Tokyo Field", healthScore: 88 },
-    { lat: -33.8688, lng: 151.2093, name: "Sydney Field", healthScore: 76 },
-  ];
+  const filteredData = useMemo(() => {
+    if (!startDate || !endDate) return mockData;
+
+    const start = new Date(startDate).getTime();
+    const end = new Date(endDate).getTime();
+
+    return mockData.filter((item) => {
+      const timestamp = parseInt(item.timestamp);
+      return timestamp >= start && timestamp <= end;
+    });
+  }, [startDate, endDate]);
+
+  const handleDownload = () => {
+    // Create a formatted version of the data with readable dates
+    const formattedData = filteredData.map((item) => ({
+      ...item,
+      date: new Date(parseInt(item.timestamp)).toLocaleString(),
+      timestamp: item.timestamp,
+    }));
+
+    // Create the JSON file
+    const dataStr = JSON.stringify(formattedData, null, 2);
+    const blob = new Blob([dataStr], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+
+    // Create download link and trigger download
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `dashboard-data-${startDate}-to-${endDate}.json`;
+    document.body.appendChild(link);
+    link.click();
+
+    // Cleanup
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
 
   return (
-    <div className="dashboard">
-      <h1 className="dashboard-title">Plant Health Dashboard</h1>
-      <div className="dashboard-grid">
-        <div className="dashboard-item">
-          <BarChart data={healthScores} title="Average Health Scores by Crop" />
-        </div>
-        <div className="dashboard-item">
-          <HeatMap data={heatMapData} title="Weekly Health Heatmap by Field" />
-        </div>
-        <div className="dashboard-item">
-          <GeoMap data={geoData} title="Geographical Health Distribution" />
-        </div>
+    <div className="dashboard-container">
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          marginBottom: "1rem",
+        }}
+      >
+        <DateRangeFilter
+          startDate={startDate}
+          endDate={endDate}
+          onStartDateChange={setStartDate}
+          onEndDateChange={setEndDate}
+        />
+        <button
+          onClick={handleDownload}
+          style={{
+            padding: "8px 16px",
+            backgroundColor: "#f8f9fa",
+            border: "1px solid #dee2e6",
+            borderRadius: "4px",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+          }}
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+          Download Data
+        </button>
+      </div>
+      <StatsDisplay data={filteredData} />
+      <div className="charts-grid">
+        <HealthScoreChart data={filteredData} />
+        <IssuesBarChart data={filteredData} />
       </div>
     </div>
   );
