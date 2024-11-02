@@ -7,8 +7,8 @@ export default function NotFound() {
 
   useEffect(() => {
     setTimeout(() => {
-      //   navigate("/");    // Redirects to the home page.
-      navigate(-1); // Returns to the previous page.
+      navigate("/"); // Redirects to the home page.
+      // navigate(-1); // Returns to the previous page.
     }, 1000);
   });
   return (
