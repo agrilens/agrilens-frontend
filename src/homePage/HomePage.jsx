@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 
 import Banner from "./banner/Banner";
+import Banner2 from "./banner/Banner2";
 import UploadImage from "./uploadImage/UploadImage";
 
 import "./HomePage.css";
@@ -19,6 +20,7 @@ export default function HomePage() {
       <div className="home-container">
         <Banner />
         <UploadImage />
+        <Banner2 />
       </div>
     </section>
   );
