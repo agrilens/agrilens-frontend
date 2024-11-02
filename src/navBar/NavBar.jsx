@@ -55,16 +55,16 @@ export default function NavBar() {
                 <Nav.Link as={Link} to="/" onClick={handleNavClick}>
                   Home
                 </Nav.Link>
-                <Nav.Link as={Link} to="/about" onClick={handleNavClick}>
+                <Nav.Link as={Link} to="/aboutus" onClick={handleNavClick}>
                   About Us
                 </Nav.Link>
                 <Nav.Link as={Link} to="/pages" onClick={handleNavClick}>
                   Pages
                 </Nav.Link>
-                <Nav.Link as={Link} to="/contact" onClick={handleNavClick}>
+                <Nav.Link as={Link} to="/contactus" onClick={handleNavClick}>
                   Contact Us
                 </Nav.Link>
-                <Nav.Link as={Link} to="/contact" onClick={handleNavClick}>
+                <Nav.Link as={Link} to="/dashboard" onClick={handleNavClick}>
                   Dashboard
                 </Nav.Link>
               </Nav>

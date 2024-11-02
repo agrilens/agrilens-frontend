@@ -9,7 +9,7 @@ import bannerBackground from "../../assets/images/bannerBackground.png";
 
 const Banner = () => {
   return (
-    <Container fluid id="banner" className="px-0 ">
+    <Container fluid id="banner" className="px-0 text-center">
       <Card className="my-auto text-white">
         <Card.Img
           src={bannerBackground}
