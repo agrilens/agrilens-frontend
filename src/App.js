@@ -4,7 +4,7 @@ import NavBar from "./navBar/NavBar";
 import HomePage from "./homePage/HomePage";
 import AboutUs from "./aboutUs/AboutUs";
 import ContactUs from "./contactUs/ContactUs";
-import LogIn from "./account/logIn/LogIn";
+import SignIn from "./account/signIn/SignIn";
 import LogOut from "./account/logOut/LogOut";
 import SignUp from "./account/signUp/SignUp";
 import NotFound from "./common/NotFound";
@@ -34,7 +34,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/contactus" element={<ContactUs />} />
-            <Route path="/login" element={<LogIn />} />
+            <Route path="/signin" element={<SignIn />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/dashboard" element={<Dashboard />} />

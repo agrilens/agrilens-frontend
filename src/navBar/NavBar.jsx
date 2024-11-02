@@ -55,13 +55,23 @@ export default function NavBar() {
                 <Nav.Link as={Link} to="/" onClick={handleNavClick}>
                   Home
                 </Nav.Link>
-                <Nav.Link as={Link} to="/aboutus" onClick={handleNavClick}>
+                <Nav.Link
+                  as={Link}
+                  to="/aboutus"
+                  onClick={handleNavClick}
+                  // className="text-nowrap"
+                >
                   About Us
                 </Nav.Link>
                 <Nav.Link as={Link} to="/pages" onClick={handleNavClick}>
                   Pages
                 </Nav.Link>
-                <Nav.Link as={Link} to="/contactus" onClick={handleNavClick}>
+                <Nav.Link
+                  as={Link}
+                  to="/contactus"
+                  onClick={handleNavClick}
+                  // className="text-nowrap"
+                >
                   Contact Us
                 </Nav.Link>
                 <Nav.Link as={Link} to="/dashboard" onClick={handleNavClick}>
@@ -73,7 +83,7 @@ export default function NavBar() {
               >
                 <Nav.Link
                   as={Link}
-                  to="/login"
+                  to="/signin"
                   onClick={handleNavClick}
                   className="py-1 text-center login-btn "
                 >
