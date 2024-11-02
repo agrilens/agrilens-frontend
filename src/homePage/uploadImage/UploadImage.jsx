@@ -137,7 +137,7 @@ export default function UploadImage() {
 
   return (
     <div>
-      <Container id="uploadImage">
+      <Container id="uploadImage" className="text-center">
         <Row className="text-primary py-5">
           {loading && <LoadingSpinner />}
           <Col md="5">
