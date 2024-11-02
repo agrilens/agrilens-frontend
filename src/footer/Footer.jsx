@@ -15,7 +15,7 @@ const Footer = () => {
     <footer id="footer">
       <Container
         fluid
-        className="footer-container footer-links text-white text-start py-5"
+        className="footer-container footer-links text-white text-start py-4"
       >
         <Row className="">
           <Col sm="8" className=" text-start ">
