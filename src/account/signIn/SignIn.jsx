@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
 import { auth, GoogleProvider } from "../../config/firebase";
 import {
   signInWithRedirect,
@@ -8,8 +10,8 @@ import {
 } from "firebase/auth";
 
 import Col from "react-bootstrap/Col";
-import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 
 import "./SignIn.css";
 
@@ -17,7 +19,6 @@ import {
   useAccountContext,
   useAccountUpdateContext,
 } from "../../contexts/AccountContext";
-import { Link } from "react-router-dom";
 
 export default function SignIn() {
   const { updateUserType, updateUserEmail } = useAccountUpdateContext();
