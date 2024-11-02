@@ -31,7 +31,7 @@ const Banner2 = () => {
   }, [screenSize]);
 
   return (
-    <Container fluid id="banner2" className="px-0 mb-5">
+    <Container fluid id="banner2" className="px-0">
       <Card className="my-auto text-white">
         <Card.Img
           src={imgSrc}
