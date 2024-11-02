@@ -1,0 +1,29 @@
+#ourTeam {
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 0px min(5vw, 100px);
+}
+
+
+/* MemberCard styling */
+#memberCard {
+  margin: 0 auto;
+}
+
+#memberCard {
+  border-radius: 20px;
+}
+#memberCard img {
+  border-radius: 20px 20px 0 0;
+}
+.member-links a {
+  text-decoration: none;
+  color: none;
+  transform: scale(2);
+}
+.member-links .fa-linkedin {
+  color: #0a66c2;
+}
+.member-links .fa-square-github {
+  color: #181717;
+}
