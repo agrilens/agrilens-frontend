@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { auth } from "../../config/firebase";
+import { signOut } from "firebase/auth";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -27,6 +29,7 @@ export const Profile = () => {
     updateUserLName,
     updateUserAccDetail,
   } = useAccountUpdateContext();
+  const navigate = useNavigate();
 
   const [editProfile, setEditProfile] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
@@ -51,6 +54,20 @@ export const Profile = () => {
       // country: "US",
       // userInterest: "Other",
     });
+  };
+
+  const logOut = async () => {
+    try {
+      console.log("currentUser: ", auth?.currentUser);
+      await signOut(auth);
+      localStorage.removeItem("userID");
+      localStorage.removeItem("userToken");
+      console.log("Logging out....");
+      navigate("/");
+      window.location.reload();
+    } catch (error) {
+      console.error("Log out Error: ", error);
+    }
   };
 
   return (
@@ -177,13 +194,18 @@ export const Profile = () => {
                   </Button>
                 </>
               ) : (
-                <Button
-                  variant="primary"
-                  onClick={handleEditBtn}
-                  className="px-4"
-                >
-                  Edit Profile
-                </Button>
+                <>
+                  <Button
+                    variant="primary"
+                    onClick={handleEditBtn}
+                    className="px-4"
+                  >
+                    Edit Profile
+                  </Button>
+                  <Button variant="primary" onClick={logOut} className="px-4">
+                    Log Out
+                  </Button>
+                </>
               )}
             </Col>
           </Row>

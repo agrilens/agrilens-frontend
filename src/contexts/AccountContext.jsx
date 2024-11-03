@@ -23,10 +23,10 @@ export function useAccountUpdateContext() {
 
 export const AccountProvider = ({ children }) => {
   const [userType, setUserType] = useState("");
-  const [userEmail, setUserEmail] = useState("user@example.com");
-  const [userName, setUserName] = useState("First Last");
-  const [userFName, setUserFName] = useState("First");
-  const [userLName, setUserLName] = useState("Last");
+  const [userEmail, setUserEmail] = useState("");
+  const [userName, setUserName] = useState("");
+  const [userFName, setUserFName] = useState("");
+  const [userLName, setUserLName] = useState("");
   const [userAccInfo, setUserAccInfo] = useState("");
   const [userAccDetail, setUserAccDetail] = useState({});
   const [userID, setUserID] = useState(localStorage.getItem("userID") || "");

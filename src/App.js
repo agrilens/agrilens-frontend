@@ -5,7 +5,6 @@ import HomePage from "./homePage/HomePage";
 import AboutUs from "./aboutUs/AboutUs";
 import ContactUs from "./contactUs/ContactUs";
 import SignIn from "./account/signIn/SignIn";
-import LogOut from "./account/logOut/LogOut";
 import SignUp from "./account/signUp/SignUp";
 import Profile from "./account/profile/Profile";
 import NotFound from "./common/NotFound";
