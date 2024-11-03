@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
@@ -54,6 +54,16 @@ export default function SignUp() {
     "https://app-id543mmv6a-uc.a.run.app/users/customer";
 
   const accountTypes = ["Gardner", "Farmer", "Researcher"];
+
+  useEffect(() => {
+    const savedUserID = localStorage.getItem("userID");
+    const savedUserToken = localStorage.getItem("userToken");
+
+    if (savedUserID && savedUserToken) {
+      //  If the user has a valid user Id and Token, navigate to the homepage.
+      navigate("/");
+    }
+  }, [navigate]);
 
   const validateForm = () => {
     const newErrors = {};
