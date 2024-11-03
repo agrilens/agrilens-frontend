@@ -13,17 +13,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 
 export default function NavBar() {
-  const { userID, userToken, userType } = useAccountContext();
-
-  useEffect(() => {
-    const savedUserID = localStorage.getItem("userID");
-    const savedUserToken = localStorage.getItem("userToken");
-
-    if (userID && userToken) {
-      //  If the user has a valid user Id and Token show profile Icon.
-      // navigate("/");
-    }
-  }, []);
+  const { userType } = useAccountContext();
 
   const [expanded, setExpanded] = useState(false);
   const handleNavClick = () => {

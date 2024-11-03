@@ -39,7 +39,7 @@ export default function SignIn() {
       //  If the user has a valid user Id and Token, navigate to the homepage.
       navigate("/");
     }
-  }, []);
+  }, [navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
