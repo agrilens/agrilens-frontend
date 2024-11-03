@@ -10,24 +10,47 @@ import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
 import "./Profile.css";
+import {
+  useAccountContext,
+  useAccountUpdateContext,
+} from "../../contexts/AccountContext";
+import LoadingSpinner from "../../common/LoadingSpinner";
 import emptyFileImage from "../../assets/images/emptyFileImage.png";
 
 export const Profile = () => {
+  const { userType, userEmail, userFName, userLName, userAccDetail } =
+    useAccountContext();
+  const {
+    updateUserType,
+    updateUserEmail,
+    updateUserFName,
+    updateUserLName,
+    updateUserAccDetail,
+  } = useAccountUpdateContext();
+
   const [editProfile, setEditProfile] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
-  const [profileName, setProfileName] = useState("User Full Name");
-  const [profileEmail, setProfileEmail] = useState("user@example.com");
-  const [profileType, setProfileType] = useState("Gardner");
 
-  const handleNameChange = (e) => setProfileName(e.target.value);
-  const handleEmailChange = (e) => setProfileEmail(e.target.value);
-  const handleTypeChange = (e) => setProfileType(e.target.value);
+  const handleFirstNameChange = (e) => updateUserFName(e.target.value);
+  const handleLastNameChange = (e) => updateUserLName(e.target.value);
+  const handleEmailChange = (e) => updateUserEmail(e.target.value);
+  const handleTypeChange = (e) => updateUserType(e.target.value);
 
   const handleCancelBtn = () => setEditProfile(false);
   const handleEditBtn = () => setEditProfile(!editProfile);
 
   const handleUpdateBtn = () => {
     setEditProfile(false);
+    updateUserAccDetail({
+      firstName: userFName,
+      lastName: userLName,
+      type: userType,
+      email: userEmail,
+      // city: "Denver",
+      // state: "",
+      // country: "US",
+      // userInterest: "Other",
+    });
   };
 
   return (
@@ -48,27 +71,39 @@ export const Profile = () => {
               />
             </Col>
             <Col xm="12" sm="6" className="profile-detail p-3 ">
-              {/* Name Section */}
               <div className="d-flex gap-2 align-items-center">
                 <h4>Name:</h4>
-                <div>{!editProfile && profileName}</div>
+                <div>{!editProfile && userFName + " " + userLName}</div>
               </div>
               {editProfile && (
-                <InputGroup className="mb-3">
-                  <InputGroup.Text id="inputGroup-sizing-name">
-                    Name
-                  </InputGroup.Text>
-                  <Form.Control
-                    value={profileName}
-                    onChange={handleNameChange}
-                    aria-label="Name"
-                    aria-describedby="inputGroup-sizing-name"
-                  />
-                </InputGroup>
+                <>
+                  <InputGroup className="mb-3">
+                    <InputGroup.Text id="inputGroup-sizing-name">
+                      First Name
+                    </InputGroup.Text>
+                    <Form.Control
+                      value={userFName}
+                      onChange={handleFirstNameChange}
+                      aria-label="userFName"
+                      aria-describedby="inputGroup-sizing-name"
+                    />
+                  </InputGroup>
+                  <InputGroup className="mb-3">
+                    <InputGroup.Text id="inputGroup-sizing-name">
+                      Last Name
+                    </InputGroup.Text>
+                    <Form.Control
+                      value={userLName}
+                      onChange={handleLastNameChange}
+                      aria-label="userLName"
+                      aria-describedby="inputGroup-sizing-name"
+                    />
+                  </InputGroup>
+                </>
               )}
               <div className="d-flex gap-2 align-items-center">
                 <h4>Email:</h4>
-                <div>{!editProfile && profileEmail}</div>
+                <div>{!editProfile && userEmail}</div>
               </div>
               {editProfile && (
                 <InputGroup className="mb-3">
@@ -76,7 +111,7 @@ export const Profile = () => {
                     Email
                   </InputGroup.Text>
                   <Form.Control
-                    value={profileEmail}
+                    value={userEmail}
                     onChange={handleEmailChange}
                     aria-label="Email"
                     aria-describedby="inputGroup-sizing-email"
@@ -85,11 +120,11 @@ export const Profile = () => {
               )}
               <div className="d-flex gap-2 align-items-center">
                 <h4>Account Type:</h4>
-                <div>{!editProfile && profileType}</div>
+                <div>{!editProfile && userType}</div>
               </div>
               {editProfile && (
                 <Form.Select
-                  value={profileType}
+                  value={userType}
                   onChange={handleTypeChange}
                   aria-label="Select Account Type"
                 >
@@ -99,6 +134,26 @@ export const Profile = () => {
                   <option value="Researcher">Researcher</option>
                 </Form.Select>
               )}
+              <div className="account-details border-top p-2 ">
+                <ul>
+                  <li>
+                    <span className="fw-bolder">City: </span>
+                    {userAccDetail.city}
+                  </li>
+                  <li>
+                    <span className="fw-bolder">State: </span>{" "}
+                    {userAccDetail.state}
+                  </li>
+                  <li>
+                    <span className="fw-bolder">Country: </span>{" "}
+                    {userAccDetail.country}
+                  </li>
+                  <li>
+                    <span className="fw-bolder">Use of AgriLens: </span>{" "}
+                    {userAccDetail.userInterest}
+                  </li>
+                </ul>
+              </div>
             </Col>
             <Col
               sm="12"
@@ -109,14 +164,14 @@ export const Profile = () => {
                   <Button
                     variant="secondary"
                     onClick={handleCancelBtn}
-                    className="px-2 fw-bold"
+                    className="px-4 fw-bold"
                   >
                     Cancel
                   </Button>
                   <Button
                     variant="primary"
                     onClick={handleUpdateBtn}
-                    className="px-4"
+                    className="px-5"
                   >
                     Save
                   </Button>
@@ -139,22 +194,3 @@ export const Profile = () => {
 };
 
 export default Profile;
-
-/* import React from "react";
-import {
-  useAccountContext,
-  useAccountUpdateContext,
-} from "../contexts/AccountContext";
-
-export default function Profile() {
-  const { userType } = useAccountContext();
-  const { updateUserType } = useAccountUpdateContext();
-
-  return (
-    <div>
-      <div>Profile : {userType}</div>
-      <button onClick={updateUserType}>Click to change user type</button>
-    </div>
-  );
-}
-*/
