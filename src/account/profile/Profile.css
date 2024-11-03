@@ -8,3 +8,7 @@
   box-shadow: 0 4px 10px #c8d1d2;
   transition: transform 0.6s;
 }
+.account-details ul {
+  padding: 0;
+  list-style: none;
+}

@@ -24,6 +24,8 @@ export default function LogOut() {
       console.log("currentUser: ", auth?.currentUser);
 
       await signOut(auth);
+      localStorage.removeItem("userID");
+      localStorage.removeItem("userToken");
       console.log("Logging out....");
     } catch (error) {
       console.error("Log out Error: ", error);

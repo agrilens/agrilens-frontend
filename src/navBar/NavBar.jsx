@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import "./NavBar.css";
 import { useAccountContext } from "../contexts/AccountContext";
@@ -77,12 +77,12 @@ export default function NavBar() {
                 >
                   Contact Us
                 </Nav.Link>
-                <Nav.Link as={Link} to="/profile" onClick={handleNavClick}>
+                {/* <Nav.Link as={Link} to="/profile" onClick={handleNavClick}>
                   Profile
-                </Nav.Link>
+                </Nav.Link> */}
               </Nav>
               <div
-                className={`acc-btn align-items-center ${userType === "FARMER" ? "d-none" : ""}`}
+                className={`acc-btn align-items-center ${userType === "" ? "" : "d-none"}`}
               >
                 <Nav.Link
                   as={Link}
@@ -101,9 +101,7 @@ export default function NavBar() {
                   Sign Up
                 </Nav.Link>
               </div>
-              <div
-                className={`acc-view  ${userType === "FARMER" ? "" : "d-none"}`}
-              >
+              <div className={`acc-view   ${userType === "" ? "d-none" : ""}`}>
                 <div className="acc-type text-center">
                   {userType}
                   <span>
