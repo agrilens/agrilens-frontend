@@ -22,7 +22,6 @@ import {
 } from "../../contexts/AccountContext";
 
 export default function SignIn() {
-  const { userID, userToken, userAccDetail } = useAccountContext();
   const { updateUserType, updateUserEmail, updateUserID, updateUserToken } =
     useAccountUpdateContext();
   const navigate = useNavigate();

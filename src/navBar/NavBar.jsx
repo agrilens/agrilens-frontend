@@ -77,9 +77,6 @@ export default function NavBar() {
                 >
                   Contact Us
                 </Nav.Link>
-                {/* <Nav.Link as={Link} to="/profile" onClick={handleNavClick}>
-                  Profile
-                </Nav.Link> */}
               </Nav>
               <div
                 className={`acc-btn align-items-center ${userType === "" ? "" : "d-none"}`}
