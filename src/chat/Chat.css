@@ -1,0 +1,109 @@
+#chat {
+  max-width: 1920px;
+  background-color: #f6f6f6;
+}
+#chat .row {
+  /* border: 1px solid red; */
+  position: relative;
+  height: 600px;
+  max-width: 1200px;
+}
+.cs-message-input {
+  /* background-color: red !important; */
+
+  width: 90% !important;
+  margin: 0 auto;
+}
+.cs-message__content-wrapper {
+  padding: 0 6vw;
+  /* border-radius: 8px !important; */
+}
+.cs-message__content {
+  background-color: white !important;
+  border-radius: 8px !important;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  margin-top: 10px;
+  font-size: 18px;
+}
+
+.cs-message-input__content-editor-wrapper {
+  border: 1px solid #aaaaaa;
+  border-radius: 8px;
+  background-color: #fff !important;
+  font-size: 18px;
+}
+.cs-message-input__content-editor {
+  background-color: #fff !important;
+}
+.cs-message--incoming .cs-message__content {
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #fff;
+  border-radius: 8px !important;
+}
+.cs-message-list .cs-typing-indicator {
+  background-color: transparent;
+}
+.cs-typing-indicator {
+  margin-left: 5vw;
+  margin-bottom: 0.5rem;
+}
+.cs-typing-indicator__text {
+  color: #204e51 !important;
+  font-weight: bold;
+}
+.cs-typing-indicator__dot {
+  background-color: #204e51;
+  height: 5px;
+  width: 5px;
+}
+.ps__thumb-y {
+  background-color: #204e51;
+}
+.svg-inline--fa {
+  background-color: transparent;
+  color: #2d6e72;
+
+  display: inline-block;
+  font-size: inherit;
+  height: 1.6em;
+  overflow: visible;
+  vertical-align: -0.125em;
+}
+.cs-chat-container {
+  /* background-color: #f6f6f6 !important; */
+  background-color: transparent;
+}
+.cs-chat-container .cs-message-list {
+  /* background-color: #f6f6f6; */
+  background-color: transparent;
+}
+
+.cs-chat-container .cs-message-input {
+  border: none;
+  /* padding-bottom: 10px; */
+
+  background-color: transparent;
+}
+
+.cs-main-container {
+  /* border: solid 1px #d1dbe3; */
+  /* border: 2px solid green; */
+  border: none;
+  /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+  box-shadow: 0 1px 3px;
+  border-radius: 22px;
+  /* position: relative; */
+  /* display: flex; */
+  /* flex-direction: row; */
+  /* height: 100%; */
+  /* overflow: auto; */
+  /* box-sizing: border-box; */
+  /* color: rgba(0, 0, 0, 0.87); */
+  /* background-color: #f6f6f6; */
+  background: radial-gradient(
+    circle at bottom center,
+    rgba(0, 0, 0, 0.3),
+    rgba(0, 0, 0, 0.1) 40%,
+    rgba(255, 255, 255, 1) 80%
+  );
+}

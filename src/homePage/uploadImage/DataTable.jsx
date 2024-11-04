@@ -19,7 +19,7 @@ const DataTable = ({ data, id }) => {
   //         : "danger";
 
   return (
-    <Col lg="4" md="6" id="dataTableCard" className={`mx-auto mb-5 `}>
+    <Col lg="4" md="6" id="dataTableCard" className={`mx-auto mb-2`}>
       <div className="dataTable-card-tag mx-auto fs-5 fw-bold ">
         Evaluation {id}
       </div>

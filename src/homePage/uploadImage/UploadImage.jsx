@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import FormData from "form-data";
 
@@ -65,7 +65,7 @@ export default function UploadImage() {
   const [status, setStatus] = useState(null);
   const [error, setError] = useState(null);
 
-  const imageUploadUrl = "https://app-id543mmv6a-uc.a.run.app/analyze";
+  const imageUploadUrl = "/analyze";
   const imageUploadUrlLocal =
     "http://127.0.0.1:5001/agrilens-web/us-central1/app/analyze";
   const uplaodHeaders = {
@@ -132,8 +132,25 @@ export default function UploadImage() {
       formData.append("insights[]", id);
     });
 
-    fetchData(imageUploadUrlLocal, formData, uplaodHeaders);
+    fetchData(imageUploadUrl, formData, uplaodHeaders);
   };
+
+  const evaluationCardsRef = useRef(null);
+  const dataTableRef = useRef(null);
+  useEffect(() => {
+    if (status === 200 && evaluationCardsRef.current) {
+      evaluationCardsRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+    if (selectedEvaluation !== "" && dataTableRef.current) {
+      dataTableRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  }, [status, selectedEvaluation]);
 
   return (
     <div>
@@ -233,29 +250,30 @@ export default function UploadImage() {
             </Button>
           </Col>
         </Row>
-        {/* {status === 200 && ()} */}
-        <Row className="text-center pb-5">
-          <EvaluationCard
-            evaluation={evaluations[0]}
-            id="1"
-            isSelected={selectedEvaluation === 0}
-            onSelect={() => toggleEvaluateSelection(0)}
-          />
-          <EvaluationCard
-            evaluation={evaluations[1]}
-            id="2"
-            isSelected={selectedEvaluation === 1}
-            onSelect={() => toggleEvaluateSelection(1)}
-          />
-          <EvaluationCard
-            evaluation={evaluations[2]}
-            id="3"
-            isSelected={selectedEvaluation === 2}
-            onSelect={() => toggleEvaluateSelection(2)}
-          />
-        </Row>
+        {status === 200 && (
+          <Row className="text-center pb-5" ref={evaluationCardsRef}>
+            <EvaluationCard
+              evaluation={evaluations[0]}
+              id="1"
+              isSelected={selectedEvaluation === 0}
+              onSelect={() => toggleEvaluateSelection(0)}
+            />
+            <EvaluationCard
+              evaluation={evaluations[1]}
+              id="2"
+              isSelected={selectedEvaluation === 1}
+              onSelect={() => toggleEvaluateSelection(1)}
+            />
+            <EvaluationCard
+              evaluation={evaluations[2]}
+              id="3"
+              isSelected={selectedEvaluation === 2}
+              onSelect={() => toggleEvaluateSelection(2)}
+            />
+          </Row>
+        )}
         {selectedEvaluation !== "" && (
-          <Row className="mt-5">
+          <Row className="mt-5" ref={dataTableRef}>
             {/* <DataTable data={analysisResult} /> */}
             <DataTable
               data={evaluations[selectedEvaluation]}

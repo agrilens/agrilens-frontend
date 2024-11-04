@@ -155,19 +155,19 @@ export const Profile = () => {
                 <ul>
                   <li>
                     <span className="fw-bolder">City: </span>
-                    {userAccDetail.city}
+                    {userAccDetail?.city}
                   </li>
                   <li>
                     <span className="fw-bolder">State: </span>{" "}
-                    {userAccDetail.state}
+                    {userAccDetail?.state}
                   </li>
                   <li>
                     <span className="fw-bolder">Country: </span>{" "}
-                    {userAccDetail.country}
+                    {userAccDetail?.country}
                   </li>
                   <li>
                     <span className="fw-bolder">Use of AgriLens: </span>{" "}
-                    {userAccDetail.userInterest}
+                    {userAccDetail?.userInterest}
                   </li>
                 </ul>
               </div>
