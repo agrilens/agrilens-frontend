@@ -7,28 +7,30 @@ import {
   Message,
   MessageInput,
   TypingIndicator,
+  Avatar,
 } from "@chatscope/chat-ui-kit-react";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
 
 import Row from "react-bootstrap/Row";
 
 import "./Chat.css";
+import AgriLensNewLogo from "../assets/images/AgriLensNewLogo.png";
 
 // "Explain things like you would to a 10 year old learning how to code."
 const systemMessage = {
   //  Explain things like you're talking to a software professional with 5 years of experience.
   role: "system",
   content:
-    "You are a chatbot for AgriLens App. The app provides users with plant diagnosis service where users would submit a plant picture and AgriLens by using a LVM provides analyses result. Your responsibility is to provide users with further questions to the result and the plant itself.",
+    "You are a chatbot for AgriLens App. The app provides users with plant diagnosis service where users would submit a plant picture and AgriLens by using a LVM provides analyses result. Your responsibility is to provide users with further questions to the result and the plant itself. If you're asked any question that is not related to plants, refuse to answer.",
 };
 
 export const Chat = () => {
   const [messages, setMessages] = useState([
-    {
-      message: "Hello, I'm AgriGPT! Ask me anything!",
-      sentTime: "just now",
-      sender: "ChatGPT",
-    },
+    // {
+    //   message: "Hello, I'm AgriGPT! Ask me anything!",
+    //   sentTime: "just now",
+    //   sender: "AgriLens",
+    // },
   ]);
   const [isTyping, setIsTyping] = useState(false);
 
@@ -117,16 +119,37 @@ export const Chat = () => {
                 ) : null
               }
             >
+              <Message
+                model={{
+                  direction: "incoming",
+                  type: "custom",
+                }}
+                className="custom-message-content-wrapper w-100 ms-auto"
+              >
+                <Message.CustomContent className="agriLesn-intro">
+                  <div className="agriLesn-intro-logo pb-1">
+                    <Avatar src={AgriLensNewLogo} name="AgriLenslogo" />
+                  </div>
+                  <div className="agriLesn-intro-text fw-bold fs-6">
+                    Hello, I'm AgriGPT! Ask me About your Results or Plants.
+                  </div>
+                </Message.CustomContent>
+              </Message>
               {messages.map((message, i) => {
-                console.log(message);
-                return <Message key={i} model={message} />;
+                console.log(i, message);
+                return (
+                  <Message key={i} model={message}>
+                    <Message.Header
+                      sender={message.sender == "user" ? "ME" : "AGRILENS"}
+                      sentTime="just now"
+                      className="chat-message-header bolder"
+                    />
+                  </Message>
+                );
               })}
             </MessageList>
             <MessageInput
-              style={{
-                color: "red",
-                height: "56px",
-              }}
+              className="chat-message-input"
               placeholder="Ask me anything about your results"
               onSend={handleSend}
             />
