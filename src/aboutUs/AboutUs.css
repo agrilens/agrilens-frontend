@@ -1,7 +1,7 @@
 .about-us-container {
   max-width: 1920px;
   margin: 0 auto;
-  padding: 40px min(8vw, 100px);
+  padding: 40px min(8vw, 100px) 10px;
   text-align: left;
 }
 

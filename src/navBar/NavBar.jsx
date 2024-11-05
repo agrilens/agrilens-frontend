@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import "./NavBar.css";
 import { useAccountContext } from "../contexts/AccountContext";
@@ -55,25 +55,35 @@ export default function NavBar() {
                 <Nav.Link as={Link} to="/" onClick={handleNavClick}>
                   Home
                 </Nav.Link>
-                <Nav.Link as={Link} to="/about" onClick={handleNavClick}>
-                  About Us
+                <Nav.Link as={Link} to="/dashboard" onClick={handleNavClick}>
+                  Dashboard
                 </Nav.Link>
                 <Nav.Link as={Link} to="/pages" onClick={handleNavClick}>
                   Pages
                 </Nav.Link>
-                <Nav.Link as={Link} to="/contact" onClick={handleNavClick}>
-                  Contact Us
+                <Nav.Link
+                  as={Link}
+                  to="/aboutus"
+                  onClick={handleNavClick}
+                  // className="text-nowrap"
+                >
+                  About Us
                 </Nav.Link>
-                <Nav.Link as={Link} to="/dashboard" onClick={handleNavClick}>
-                  Dashboard
+                <Nav.Link
+                  as={Link}
+                  to="/contactus"
+                  onClick={handleNavClick}
+                  // className="text-nowrap"
+                >
+                  Contact Us
                 </Nav.Link>
               </Nav>
               <div
-                className={`acc-btn align-items-center ${userType === "FARMER" ? "d-none" : ""}`}
+                className={`acc-btn align-items-center ${userType === "" ? "" : "d-none"}`}
               >
                 <Nav.Link
                   as={Link}
-                  to="/login"
+                  to="/signin"
                   onClick={handleNavClick}
                   className="py-1 text-center login-btn "
                 >
@@ -88,9 +98,7 @@ export default function NavBar() {
                   Sign Up
                 </Nav.Link>
               </div>
-              <div
-                className={`acc-view  ${userType === "FARMER" ? "" : "d-none"}`}
-              >
+              <div className={`acc-view   ${userType === "" ? "d-none" : ""}`}>
                 <div className="acc-type text-center">
                   {userType}
                   <span>

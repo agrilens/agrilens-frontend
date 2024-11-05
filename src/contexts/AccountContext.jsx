@@ -1,4 +1,12 @@
-import { createContext, useState, useContext } from "react";
+import { useContext, createContext, useState, useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../config/firebase";
+import axios from "axios";
+
+const createUserDBUrl_dev =
+  "http://127.0.0.1:5001/agrilens-web/us-central1/app/users/pTGGKTxkAPf6rQa5PTKSbqrECm82/account";
+const createUserDBUrl_prod =
+  "https://app-id543mmv6a-uc.a.run.app/users/pTGGKTxkAPf6rQa5PTKSbqrECm82/account";
 
 // Create contexts
 const AccountContext = createContext();
@@ -14,28 +22,156 @@ export function useAccountUpdateContext() {
 }
 
 export const AccountProvider = ({ children }) => {
-  const [userType, setUserType] = useState("Guest");
+  const [userType, setUserType] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userName, setUserName] = useState("");
-  const [userToken, setUserToken] = useState("");
+  const [userFName, setUserFName] = useState("");
+  const [userLName, setUserLName] = useState("");
+  const [userAccInfo, setUserAccInfo] = useState("");
+  const [userAccDetail, setUserAccDetail] = useState({});
+  const [userID, setUserID] = useState(localStorage.getItem("userID") || "");
+  const [userToken, setUserToken] = useState(
+    localStorage.getItem("userToken") || ""
+  );
+
+  const getUserAccInfo = async (userId, headers = {}) => {
+    try {
+      const getUserInfoUrl_dev = `http://127.0.0.1:5001/agrilens-web/us-central1/app/users/${userId}/account`;
+      const getUserInfoUrl_prod = `https://app-id543mmv6a-uc.a.run.app/users/${userId}/account`;
+
+      const response = await axios.get(getUserInfoUrl_dev, headers);
+      console.log("Response:", response.data);
+      console.log("Response:", response.status);
+      const data = response?.data;
+      setUserAccInfo(() => data?.account);
+
+      console.log("data: ", data);
+      return data;
+    } catch (err) {
+      console.error("fetchData() Error:", err);
+    } finally {
+    }
+  };
+  const updateUserAccInfoDB = async (userId, data, headers = {}) => {
+    try {
+      console.log(">> updateUserAccInfoDB: ", data);
+      const getUserInfoUrl_dev = `http://127.0.0.1:5001/agrilens-web/us-central1/app/users/${userId}/account`;
+      const getUserInfoUrl_prod = `https://app-id543mmv6a-uc.a.run.app/users/${userId}/account`;
+
+      const response = await axios.put(getUserInfoUrl_dev, data, headers);
+      // console.log("Response:", response.data);
+      // console.log("Response:", response.status);
+      const updatedData = response?.data;
+      setUserAccInfo(() => updatedData?.account);
+
+      // console.log("data: ", updatedData);
+      return updatedData;
+    } catch (err) {
+      console.error("fetchData() Error:", err);
+    } finally {
+    }
+  };
+
+  // useEffect(() => {
+  //   const savedUserID = localStorage.getItem("userID");
+  //   const savedUserToken = localStorage.getItem("userToken");
+
+  //   if (savedUserID && savedUserToken) {
+  //     setUserID(savedUserID);
+  //     setUserToken(savedUserToken);
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const userID = user.uid;
+        const userToken = user.accessToken;
+
+        setUserID(userID);
+        setUserToken(userToken);
+        localStorage.setItem("userID", userID);
+        localStorage.setItem("userToken", userToken);
+        setUserEmail(user.email);
+
+        // Wait for the account information to be fetched
+        const data = await getUserAccInfo(userID);
+        const accountInfo = data?.account;
+        console.log(">> 2 Context user account Data :", accountInfo);
+
+        setUserType(accountInfo?.type);
+        setUserFName(accountInfo?.firstName);
+        setUserLName(accountInfo?.lastName);
+        setUserName(accountInfo?.firstName + " " + accountInfo?.lastName);
+
+        setUserAccDetail(() => accountInfo);
+      } else {
+        // User is signed out
+        setUserID("");
+        setUserToken("");
+        setUserEmail("");
+      }
+    });
+
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, []);
 
   // Update functions
   const updateUserType = (type) => setUserType(type);
   const updateUserEmail = (email) => setUserEmail(email);
   const updateUserName = (name) => setUserName(name);
-  const updateUserToken = (token) => setUserToken(token);
+  const updateUserFName = (name) => setUserFName(name);
+  const updateUserLName = (name) => setUserLName(name);
+  const updateUserAccDetail = (detail) => {
+    console.log(">> 1 first: ", detail);
+
+    // Update user account detail state
+    setUserAccDetail((prevDetails) => {
+      const updatedDetails = {
+        ...prevDetails,
+        ...detail,
+      };
+
+      // console.log(">> 2. Updated Details: ", updatedDetails);
+      updateUserAccInfoDB(userID, updatedDetails);
+
+      return updatedDetails;
+    });
+  };
+  const updateUserID = (id) => {
+    setUserID(id);
+    localStorage.setItem("userID", id);
+  };
+  const updateUserToken = (token) => {
+    setUserToken(token);
+    localStorage.setItem("userToken", token);
+  };
 
   // Provide state and update functions as objects
   return (
     <AccountContext.Provider
-      value={{ userType, userEmail, userName, userToken }}
+      value={{
+        userType,
+        userEmail,
+        userName,
+        userFName,
+        userLName,
+        userAccDetail,
+        userID,
+        userToken,
+      }}
     >
       <AccountUpdateContext.Provider
         value={{
           updateUserType,
           updateUserEmail,
           updateUserName,
+          updateUserFName,
+          updateUserLName,
+          updateUserID,
           updateUserToken,
+          updateUserAccDetail,
         }}
       >
         {children}
