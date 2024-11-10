@@ -10,29 +10,19 @@ import {
   Avatar,
 } from "@chatscope/chat-ui-kit-react";
 import "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "remark-gfm";
 
 import Row from "react-bootstrap/Row";
 
 import "./Chat.css";
 import AgriLensNewLogo from "../assets/images/AgriLensNewLogo.png";
 
-// "Explain things like you would to a 10 year old learning how to code."
-const systemMessage = {
-  //  Explain things like you're talking to a software professional with 5 years of experience.
-  role: "system",
-  content:
-    "You are a chatbot for AgriLens App. The app provides users with plant diagnosis service where users would submit a plant picture and AgriLens by using a LVM provides analyses result. Your responsibility is to provide users with further questions to the result and the plant itself. If you're asked any question that is not related to plants, refuse to answer.",
-};
-
 export const Chat = () => {
-  const [messages, setMessages] = useState([
-    // {
-    //   message: "Hello, I'm AgriGPT! Ask me anything!",
-    //   sentTime: "just now",
-    //   sender: "AgriLens",
-    // },
-  ]);
+  const [messages, setMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
+  // console.log(">>>> 1. messages: ", messages);
 
   const handleSend = async (message) => {
     const newMessage = {
@@ -40,69 +30,60 @@ export const Chat = () => {
       direction: "outgoing",
       sender: "user",
     };
+    // console.log(">>>> 2. newMessage: ", newMessage);
 
     const newMessages = [...messages, newMessage];
-
     setMessages(newMessages);
-
-    // Initial system message to determine ChatGPT functionality
-    // How it responds, how it talks, etc.
     setIsTyping(true);
     await processMessageToChatGPT(newMessages);
   };
 
   async function processMessageToChatGPT(chatMessages) {
-    // messages is an array of messages
-    // Format messages for chatGPT API
-    // API is expecting objects in format of { role: "user" or "assistant", "content": "message here"}
-    // So we need to reformat
-
-    // let apiMessages = chatMessages.map((messageObject) => {
-    //   let role = "";
-    //   if (messageObject.sender === "ChatGPT") {
-    //     role = "assistant";
-    //   } else {
-    //     role = "user";
-    //   }
-    //   return { role: role, content: messageObject.message };
-    // });
     let apiMessages = chatMessages.map((messageObject) => {
-      let role = messageObject.sender === "ChatGPT" ? "assistant" : "user";
+      let role = messageObject.sender === "AgriChat" ? "assistant" : "user";
       return { role: role, content: messageObject.message };
     });
+    // console.log(">>>> 3. apiMessages: ", apiMessages);
 
-    // Get the request body set up with the model we plan to use
-    // and the messages which we formatted above. We add a system message in the front to'
-    // determine how we want chatGPT to act.
+    const lastFollowUpMessage =
+      apiMessages[apiMessages.length - 1]?.content || "";
+    // console.log(">>>> 3. lastFollowUpMessageContent: ", lastFollowUpMessage);
+
     const apiRequestBody = {
-      model: "gpt-3.5-turbo",
-      messages: [
-        systemMessage, // The system message DEFINES the logic of our chatGPT
-        ...apiMessages, // The messages from our chat with ChatGPT
-      ],
+      initialAnalysis:
+        '{\n  "overall_health_status": "Severe Issues",\n  "health_score": 40,\n  "pest_identification": "A large caterpillar is present, likely a corn earworm.",\n  "disease_identification": "None detected",\n  "weed_presence": "None detected",\n  "recommendations": [\n    "Apply appropriate insecticides to control the corn earworm.",\n    "Monitor the field for further pest infestations.",\n    "Consider using integrated pest management strategies to prevent future infestations."\n  ]\n}',
+      model: "qwen",
+      message: lastFollowUpMessage, // The message from our client chat input.
+      conversationId: "121212",
     };
+    // console.log(">>>> 4. apiRequestBody: ", apiRequestBody);
 
-    await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + process.env.REACT_APP_OPENAI_API_KEY,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(apiRequestBody),
-    })
+    await fetch(
+      "http://127.0.0.1:5001/agrilens-web/us-central1/app/chat/follow-up",
+      {
+        method: "POST",
+        headers: {
+          // Authorization: "Bearer " + process.env.REACT_APP_OPENAI_API_KEY,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(apiRequestBody),
+      }
+    )
       .then((data) => {
         return data.json();
       })
       .then((data) => {
-        console.log(data);
+        // console.log(">>>> 5. data: ", data);
         setMessages([
           ...chatMessages,
           {
-            message: data.choices[0].message.content,
-            sender: "ChatGPT",
+            // message: data.choices[0].message.content,
+            message: data.response,
+            sender: "AgriGPT",
             direction: "incoming",
           },
         ]);
+        // console.log(">>>> 5. res messages: ", messages);
         setIsTyping(false);
       });
   }
@@ -136,14 +117,22 @@ export const Chat = () => {
                 </Message.CustomContent>
               </Message>
               {messages.map((message, i) => {
-                console.log(i, message);
+                // console.log(i, message);
                 return (
                   <Message key={i} model={message}>
                     <Message.Header
-                      sender={message.sender == "user" ? "ME" : "AGRILENS"}
+                      sender={message.sender === "user" ? "ME" : "AGRILENS"}
                       sentTime="just now"
                       className="chat-message-header bolder"
                     />
+                    <Message.CustomContent className="chat-message-content">
+                      <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        rehypePlugins={[rehypeRaw]}
+                      >
+                        {message.message.trim()}
+                      </ReactMarkdown>
+                    </Message.CustomContent>
                   </Message>
                 );
               })}
@@ -155,6 +144,9 @@ export const Chat = () => {
             />
           </ChatContainer>
         </MainContainer>
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+          {messages[messages.length - 1]?.content}
+        </ReactMarkdown>
       </Row>
     </section>
   );

@@ -4,7 +4,7 @@
 }
 #chat .row {
   position: relative;
-  height: 600px;
+  height: 660px;
   max-width: 1200px;
 }
 .cs-main-container {
@@ -127,4 +127,28 @@
 .cs-message--incoming .cs-message__sent-time {
   display: none;
   /* display: block; */
+}
+.chat-message-content p {
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: 0 !important;
+}
+
+.chat-message-content li {
+  list-style: none;
+  /* line-height: 1.4; */
+  padding-bottom: 4px;
+  padding-left: 0.5vw !important;
+}
+.chat-message-content ul {
+  padding-left: 0.5vw !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-message-content ol {
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex;
+  flex-direction: column;
 }
