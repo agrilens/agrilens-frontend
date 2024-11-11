@@ -81,8 +81,8 @@ const DataTable = ({ selectedEval, id }) => {
     updateUserLastScanSummary(data?.summary);
   };
   const handleChatAboutResult = () => {
-     updateUserLastScanSummary(data?.summary);
-     updateUserSelectedModel(key);
+    updateUserLastScanSummary(data?.summary);
+    updateUserSelectedModel(key);
 
     if (chatBotRef.current) {
       // console.log(">>>>> chatBotRef?.current: ", chatBotRef.current);
