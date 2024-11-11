@@ -110,7 +110,7 @@ const DataTable = ({ selectedEval, id }) => {
           </div>
         </Card.Header>
         <Card.Body className="dataTable-card-body p-4">
-          <Card.Text>
+          <div className="dataTable-card-text">
             <ul className="dataTableCard-ul list-unstyled text-white p-3 ps-3">
               {evaluationFrame?.map((item, i) => (
                 <div
@@ -142,7 +142,7 @@ const DataTable = ({ selectedEval, id }) => {
                 </div>
               ))}
             </ul>
-          </Card.Text>
+          </div>
           <Button
             onClick={handleSaveResult}
             className="my-1 dataTableCard-card-btn text-primary text-center fs-5 me-md-3"

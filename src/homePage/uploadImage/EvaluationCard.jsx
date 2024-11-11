@@ -82,7 +82,6 @@ const EvaluationCard = ({ evaluation, id, isSelected, onSelect }) => {
     >
       <div className="evaluation-card-tag mx-auto fs-5 fw-bold ">
         {id} Evaluation
-        {/* {id.toUpperCase()} Evaluation */}
       </div>
       <Card className="evaluation-card text-center">
         <Card.Header className="p-4 evaluation-card-header">

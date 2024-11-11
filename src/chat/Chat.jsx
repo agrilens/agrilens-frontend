@@ -86,7 +86,6 @@ export const Chat = () => {
             direction: "incoming",
           },
         ]);
-        // console.log(">>>> 5. res messages: ", messages);
         setIsTyping(false);
       });
   }

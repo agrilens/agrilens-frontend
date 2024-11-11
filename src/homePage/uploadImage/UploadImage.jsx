@@ -235,7 +235,7 @@ export default function UploadImage() {
                     <EvaluationCard
                       key={key}
                       evaluation={value}
-                      id={index}
+                      id={key}
                       isSelected={selectedEvaluation === index}
                       onSelect={() => toggleEvaluateSelection(index)}
                     />
