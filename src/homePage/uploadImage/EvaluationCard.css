@@ -7,7 +7,7 @@
 
 #evaluationCard:hover {
   transform: scale(1.05);
-  background-color: transparent !important; 
+  background-color: transparent !important;
 }
 
 .evaluation-card-tag {
@@ -62,6 +62,12 @@
   background-color: var(--bs-primary-green) !important;
   opacity: 1 !important;
   color: white !important;
+}
+.fa-circle-check {
+  color: rgb(50, 227, 50);
+}
+.fa-circle-xmark {
+  color: red;
 }
 
 @media (min-width: 576px) and (max-width: 992px) {

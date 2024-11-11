@@ -1,4 +1,4 @@
-import { useContext, createContext, useState, useEffect } from "react";
+import { useContext, createContext, useState, useEffect, useRef } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../config/firebase";
 import axios from "axios";
@@ -33,6 +33,12 @@ export const AccountProvider = ({ children }) => {
   const [userToken, setUserToken] = useState(
     localStorage.getItem("userToken") || ""
   );
+  const [userLastScanSummary, setUserLastScanSummary] = useState(
+    "No chosen analysis result."
+  );
+  const [userSelectedModel, setUserSelectedModel] = useState("qwen");
+
+  const chatBotRef = useRef(null);
 
   const getUserAccInfo = async (userId, headers = {}) => {
     try {
@@ -40,12 +46,12 @@ export const AccountProvider = ({ children }) => {
       const getUserInfoUrl_prod = `https://app-id543mmv6a-uc.a.run.app/users/${userId}/account`;
 
       const response = await axios.get(getUserInfoUrl_dev, headers);
-      console.log("Response:", response.data);
-      console.log("Response:", response.status);
+      // console.log("Response:", response.data);
+      // console.log("Response:", response.status);
       const data = response?.data;
       setUserAccInfo(() => data?.account);
 
-      console.log("data: ", data);
+      // console.log("data: ", data);
       return data;
     } catch (err) {
       console.error("fetchData() Error:", err);
@@ -54,7 +60,7 @@ export const AccountProvider = ({ children }) => {
   };
   const updateUserAccInfoDB = async (userId, data, headers = {}) => {
     try {
-      console.log(">> updateUserAccInfoDB: ", data);
+      // console.log(">> updateUserAccInfoDB: ", data);
       const getUserInfoUrl_dev = `http://127.0.0.1:5001/agrilens-web/us-central1/app/users/${userId}/account`;
       const getUserInfoUrl_prod = `https://app-id543mmv6a-uc.a.run.app/users/${userId}/account`;
 
@@ -97,7 +103,7 @@ export const AccountProvider = ({ children }) => {
         // Wait for the account information to be fetched
         const data = await getUserAccInfo(userID);
         const accountInfo = data?.account;
-        console.log(">> 2 Context user account Data :", accountInfo);
+        // console.log(">> 2 Context user account Data :", accountInfo);
 
         setUserType(accountInfo?.type);
         setUserFName(accountInfo?.firstName);
@@ -124,18 +130,12 @@ export const AccountProvider = ({ children }) => {
   const updateUserFName = (name) => setUserFName(name);
   const updateUserLName = (name) => setUserLName(name);
   const updateUserAccDetail = (detail) => {
-    console.log(">> 1 first: ", detail);
-
-    // Update user account detail state
     setUserAccDetail((prevDetails) => {
       const updatedDetails = {
         ...prevDetails,
         ...detail,
       };
-
-      // console.log(">> 2. Updated Details: ", updatedDetails);
       updateUserAccInfoDB(userID, updatedDetails);
-
       return updatedDetails;
     });
   };
@@ -147,6 +147,9 @@ export const AccountProvider = ({ children }) => {
     setUserToken(token);
     localStorage.setItem("userToken", token);
   };
+  const updateUserLastScanSummary = (summary) =>
+    setUserLastScanSummary(summary);
+  const updateUserSelectedModel = (model) => setUserSelectedModel(model);
 
   // Provide state and update functions as objects
   return (
@@ -160,6 +163,9 @@ export const AccountProvider = ({ children }) => {
         userAccDetail,
         userID,
         userToken,
+        userLastScanSummary,
+        userSelectedModel,
+        chatBotRef,
       }}
     >
       <AccountUpdateContext.Provider
@@ -172,6 +178,8 @@ export const AccountProvider = ({ children }) => {
           updateUserID,
           updateUserToken,
           updateUserAccDetail,
+          updateUserLastScanSummary,
+          updateUserSelectedModel,
         }}
       >
         {children}

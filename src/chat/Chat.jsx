@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 
 import {
   MainContainer,
@@ -17,12 +17,20 @@ import rehypeRaw from "remark-gfm";
 import Row from "react-bootstrap/Row";
 
 import "./Chat.css";
+
+import {
+  useAccountContext,
+  useAccountUpdateContext,
+} from "../contexts/AccountContext";
+
 import AgriLensNewLogo from "../assets/images/AgriLensNewLogo.png";
 
 export const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
-  // console.log(">>>> 1. messages: ", messages);
+
+  const { userLastScanSummary, userSelectedModel, chatBotRef } =
+    useAccountContext();
 
   const handleSend = async (message) => {
     const newMessage = {
@@ -30,33 +38,28 @@ export const Chat = () => {
       direction: "outgoing",
       sender: "user",
     };
-    // console.log(">>>> 2. newMessage: ", newMessage);
 
     const newMessages = [...messages, newMessage];
     setMessages(newMessages);
     setIsTyping(true);
-    await processMessageToChatGPT(newMessages);
+    await processMessageToLLM(newMessages);
   };
 
-  async function processMessageToChatGPT(chatMessages) {
+  async function processMessageToLLM(chatMessages) {
     let apiMessages = chatMessages.map((messageObject) => {
       let role = messageObject.sender === "AgriChat" ? "assistant" : "user";
       return { role: role, content: messageObject.message };
     });
-    // console.log(">>>> 3. apiMessages: ", apiMessages);
 
     const lastFollowUpMessage =
       apiMessages[apiMessages.length - 1]?.content || "";
-    // console.log(">>>> 3. lastFollowUpMessageContent: ", lastFollowUpMessage);
 
     const apiRequestBody = {
-      initialAnalysis:
-        '{\n  "overall_health_status": "Severe Issues",\n  "health_score": 40,\n  "pest_identification": "A large caterpillar is present, likely a corn earworm.",\n  "disease_identification": "None detected",\n  "weed_presence": "None detected",\n  "recommendations": [\n    "Apply appropriate insecticides to control the corn earworm.",\n    "Monitor the field for further pest infestations.",\n    "Consider using integrated pest management strategies to prevent future infestations."\n  ]\n}',
-      model: "qwen",
+      initialAnalysis: userLastScanSummary,
+      model: userSelectedModel,
       message: lastFollowUpMessage, // The message from our client chat input.
       conversationId: "121212",
     };
-    // console.log(">>>> 4. apiRequestBody: ", apiRequestBody);
 
     await fetch(
       "http://127.0.0.1:5001/agrilens-web/us-central1/app/chat/follow-up",
@@ -89,7 +92,7 @@ export const Chat = () => {
   }
 
   return (
-    <section id="chat" className="pb-4">
+    <section id="chat" className="pb-4" ref={chatBotRef}>
       <Row className="m-auto px-3 py-5">
         <MainContainer className="pb-4 pt-4">
           <ChatContainer>

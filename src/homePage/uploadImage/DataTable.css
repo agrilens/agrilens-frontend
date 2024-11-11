@@ -29,9 +29,14 @@
 }
 
 .dataTableCard-li-wrapper {
-  display: flex !important;
-  align-items: baseline;
+  /* display: flex !important;
+  flex-direction: column; */
+  /* align-items: baseline; */
   border-bottom: 1px solid white;
+}
+.d-flex-row {
+  display: flex;
+  flex-direction: row !important;
 }
 .dataTableCard-li {
   text-align: left;
