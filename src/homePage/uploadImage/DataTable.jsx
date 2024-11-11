@@ -80,9 +80,9 @@ const DataTable = ({ selectedEval, id }) => {
   const handleSaveResult = (summary) => {
     updateUserLastScanSummary(data?.summary);
   };
-  const handleChatAboutResult = async () => {
-    await updateUserLastScanSummary(data?.summary);
-    await updateUserSelectedModel(key);
+  const handleChatAboutResult = () => {
+     updateUserLastScanSummary(data?.summary);
+     updateUserSelectedModel(key);
 
     if (chatBotRef.current) {
       // console.log(">>>>> chatBotRef?.current: ", chatBotRef.current);
