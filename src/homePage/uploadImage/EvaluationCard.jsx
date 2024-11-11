@@ -5,13 +5,72 @@ import Card from "react-bootstrap/Card";
 
 import "./EvaluationCard.css";
 
+import {
+  useAccountContext,
+  useAccountUpdateContext,
+} from "../../contexts/AccountContext";
+
 const EvaluationCard = ({ evaluation, id, isSelected, onSelect }) => {
   const [slideShow, setSlideShow] = useState("");
+
+  const { userLastScanSummary } = useAccountContext();
+  const { updateUserLastScanSummary } = useAccountUpdateContext();
+
+  useEffect(() => {
+    updateUserLastScanSummary(
+      "\n list of unselected evaluations:" +
+        userLastScanSummary +
+        "\n" +
+        evaluation?.summary
+    );
+    // eslint-disable-next-line
+  }, [evaluation]);
   //   window.onload = () => {
   //     setTimeout(() => {
   //       setSlideShow(() => "show");
   //     }, 30); // Delay of 300ms
   //   };
+
+  const evaluationFrame = [
+    {
+      label: "Identification",
+      value: evaluation?.health_score,
+      isValue: evaluation?.health_score !== "None detected" ? true : false,
+    },
+    {
+      label: "Health Status",
+      value: evaluation?.overall_health_status,
+      isValue: evaluation?.overall_health_status ? true : false,
+    },
+    {
+      label: "Health Score",
+      value: evaluation?.health_score,
+      isValue: evaluation?.health_score ? true : false,
+    },
+
+    {
+      label: "Pest Detected",
+      value: evaluation?.pest_identification,
+      isValue:
+        evaluation?.pest_identification !== "None detected" ? true : false,
+    },
+    {
+      label: "Disease Detected",
+      value: evaluation?.disease_identification,
+      isValue:
+        evaluation?.disease_identification !== "None detected" ? true : false,
+    },
+    {
+      label: "Weed Presence",
+      value: evaluation?.weed_presence,
+      isValue: evaluation?.weed_presence !== "None detected" ? true : false,
+    },
+    {
+      label: "Sustainable Practice Suggestion",
+      value: evaluation?.recommendations,
+      isValue: evaluation?.recommendations?.length !== 0 ? true : false,
+    },
+  ];
 
   return (
     <Col
@@ -22,7 +81,7 @@ const EvaluationCard = ({ evaluation, id, isSelected, onSelect }) => {
       className={`mx-auto ${isSelected ? "selected-evaluation" : ""}`}
     >
       <div className="evaluation-card-tag mx-auto fs-5 fw-bold ">
-        Evaluation {id}
+        {id} Evaluation
       </div>
       <Card className="evaluation-card text-center">
         <Card.Header className="p-4 evaluation-card-header">
@@ -32,21 +91,21 @@ const EvaluationCard = ({ evaluation, id, isSelected, onSelect }) => {
           <div className=" fs-1 fw-bolder">Severe Issues {}</div>
         </Card.Header>
         <Card.Body className="evaluation-card-body p-4">
-          <Card.Text>
+          <div>
             <ul className="evaluationCard-ul list-unstyled text-white p-3">
-              {evaluation?.map((item, i) => (
+              {evaluationFrame?.map((item, i) => (
                 <div
                   className="evaluationCard-li-wrapper fs-5 pb-2 mb-2"
                   key={i}
                 >
                   <i
-                    className={`fa-regular  me-2 fa-circle${item.isValue ? "-check" : ""}`}
+                    className={`fa-regular  me-2 fa-circle${item.isValue ? "-check" : "-xmark"}`}
                   ></i>
                   <li className="evaluationCard-li ">{item.label}</li>
                 </div>
               ))}
             </ul>
-          </Card.Text>
+          </div>
           <Button
             variant={`my-1 evaluationCard-card-btn ${isSelected ? "selected-evaluation-btn" : ""}`}
           >

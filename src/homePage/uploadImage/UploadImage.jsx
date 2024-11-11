@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import FormData from "form-data";
 
@@ -20,38 +20,10 @@ import pestDiagnosis from "../../assets/images/pestDiagnosis.png";
 import sustainablePractices from "../../assets/images/sustainablePractices.png";
 import "./UploadImage.css";
 
-const data = [
-  {
-    id: 1,
-    label: "Identification",
-    value: "",
-    isValue: true,
-  },
-  {
-    id: 2,
-    label: "Pest Detected",
-    value: "values",
-    isValue: false,
-  },
-  {
-    id: 3,
-    label: "Disease Detected",
-    value: "",
-    isValue: false,
-  },
-  {
-    id: 4,
-    label: "Weed Presence",
-    value: "values",
-    isValue: true,
-  },
-  {
-    id: 5,
-    label: "Sustainable Practice Suggestion",
-    value: "values",
-    isValue: true,
-  },
-];
+import {
+  useAccountContext,
+  useAccountUpdateContext,
+} from "../../contexts/AccountContext";
 
 export default function UploadImage() {
   const [selectedImage, setSelectedImage] = useState(null);
@@ -59,13 +31,16 @@ export default function UploadImage() {
   const [selectedEvaluation, setselectedEvaluation] = useState("");
   const [file, setFile] = useState();
   const [insightResponse, setInsightResponse] = useState([]);
-  const [analysisResult, setAnalysisResult] = useState([]);
-  const [evaluations, setEvaluations] = useState([data, data, data]);
+  const [analysisResults, setAnalysisResults] = useState([]);
+  const [evaluations, setEvaluations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null);
   const [error, setError] = useState(null);
 
-  const imageUploadUrl = "https://app-id543mmv6a-uc.a.run.app/analyze";
+  const { userLastScanSummary } = useAccountContext();
+  const { updateUserLastScanSummary } = useAccountUpdateContext();
+
+  const imageUploadUrl = "/analyze";
   const imageUploadUrlLocal =
     "http://127.0.0.1:5001/agrilens-web/us-central1/app/analyze";
   const uplaodHeaders = {
@@ -100,14 +75,15 @@ export default function UploadImage() {
     try {
       setLoading(true);
       const response = await axios.post(url, data, headers);
-      console.log("Response:", response.data);
-      console.log("Response:", response.status);
-      let jsonString = response?.data?.result;
-      const analysisObject = JSON.parse(jsonString);
-      console.log("jsObject: ", analysisObject);
-      setInsightResponse(() => response.data);
+      console.log(">>> 1. Response:", response.status);
+      console.log(">>> 2. Response:", response?.data?.results);
+      console.log(">>> 2. Response type:", typeof response?.data?.results);
+      // setInsightResponse(() => response.data);
+
       setStatus(() => response.status);
-      setAnalysisResult(() => analysisObject);
+      setAnalysisResults(() => response?.data?.results);
+      setEvaluations(() => response?.data?.results);
+      // console.log(">>> 3. analysisResult:", analysisResult);
     } catch (err) {
       console.error("fetchData() Error:", err);
       setError(err.message);
@@ -135,6 +111,23 @@ export default function UploadImage() {
     fetchData(imageUploadUrlLocal, formData, uplaodHeaders);
   };
 
+  const evaluationCardsRef = useRef(null);
+  const dataTableRef = useRef(null);
+  useEffect(() => {
+    if (status === 200 && evaluationCardsRef.current) {
+      evaluationCardsRef?.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+    if (selectedEvaluation !== "" && dataTableRef.current) {
+      dataTableRef?.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  }, [status, selectedEvaluation]);
+
   return (
     <div>
       <Container id="uploadImage" className="text-center">
@@ -152,7 +145,6 @@ export default function UploadImage() {
               style={{ maxWidth: "419px", width: "100%", radius: "20px" }}
               rounded
             />
-
             <input
               type="file"
               name="image-upload"
@@ -233,33 +225,31 @@ export default function UploadImage() {
             </Button>
           </Col>
         </Row>
-        {/* {status === 200 && ()} */}
-        <Row className="text-center pb-5">
-          <EvaluationCard
-            evaluation={evaluations[0]}
-            id="1"
-            isSelected={selectedEvaluation === 0}
-            onSelect={() => toggleEvaluateSelection(0)}
-          />
-          <EvaluationCard
-            evaluation={evaluations[1]}
-            id="2"
-            isSelected={selectedEvaluation === 1}
-            onSelect={() => toggleEvaluateSelection(1)}
-          />
-          <EvaluationCard
-            evaluation={evaluations[2]}
-            id="3"
-            isSelected={selectedEvaluation === 2}
-            onSelect={() => toggleEvaluateSelection(2)}
-          />
-        </Row>
+        {status === 200 && (
+          <Row className="text-center  pb-5" ref={evaluationCardsRef}>
+            {analysisResults.map((analysisResult, index) => (
+              <Col key={index}>
+                {Object.entries(analysisResult).map(([key, value]) => {
+                  console.log(`Key: ${key}, Value: ${value}`);
+                  return (
+                    <EvaluationCard
+                      key={key}
+                      evaluation={value}
+                      id={key}
+                      isSelected={selectedEvaluation === index}
+                      onSelect={() => toggleEvaluateSelection(index)}
+                    />
+                  );
+                })}
+              </Col>
+            ))}
+          </Row>
+        )}
         {selectedEvaluation !== "" && (
-          <Row className="mt-5">
-            {/* <DataTable data={analysisResult} /> */}
+          <Row className="mt-5" ref={dataTableRef}>
             <DataTable
-              data={evaluations[selectedEvaluation]}
-              id={selectedEvaluation + 1}
+              selectedEval={analysisResults[selectedEvaluation]}
+              id={selectedEvaluation}
             />
           </Row>
         )}

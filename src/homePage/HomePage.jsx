@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 
 import Banner from "./banner/Banner";
-import Banner2 from "./banner/Banner2";
 import UploadImage from "./uploadImage/UploadImage";
+import Chat from "../chat/Chat";
+import Banner2 from "./banner/Banner2";
 
 import "./HomePage.css";
 import {
@@ -20,6 +21,7 @@ export default function HomePage() {
       <div className="home-container">
         <Banner />
         <UploadImage />
+        <Chat />
         <Banner2 />
       </div>
     </section>
