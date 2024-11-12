@@ -15,7 +15,7 @@ Could you please provide more information on [specific request or question]?
 Thanks!
 [Your Name]
 [Your Affiliation]
-[Your Contact Information]`
+[Your Contact Information]`,
 };
 
 const ContactUs = () => {
@@ -35,9 +35,7 @@ const ContactUs = () => {
         <Container onSubmit={handleEmailUs}>
           <Row className="mb-3 align-items-center">
             <Col className="left-col p-0 d-flex flex-column">
-              <div className="info-title h1 text-primary">
-                Contact Us
-              </div>
+              <div className="info-title h1 text-primary">Contact Us</div>
               <div className="info-description h6">
                 <p>
                   Have a question? Want to learn more or get involved?
@@ -57,20 +55,14 @@ const ContactUs = () => {
                   </div>
                 </div>
               </div>
-              <a
-                href={mailtoLink}
-                id="btn-dont-show-on-mobile"
-              >
+              <a href={mailtoLink} id="btn-dont-show-on-mobile">
                 <Button className="email-us-btn" type="submit">
                   Email Us!
                 </Button>
               </a>
             </Col>
           </Row>
-          <a
-            href={mailtoLink}
-            id="btn-show-on-mobile"
-          >
+          <a href={mailtoLink} id="btn-show-on-mobile">
             <Button className="email-us-btn" type="submit">
               Email Us!
             </Button>
