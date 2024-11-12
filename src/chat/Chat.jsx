@@ -29,8 +29,13 @@ export const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
 
-  const { userLastScanSummary, userSelectedModel, chatBotRef } =
-    useAccountContext();
+  const {
+    userID,
+    userLastScanId,
+    userLastScanSummary,
+    userSelectedModel,
+    chatBotRef,
+  } = useAccountContext();
 
   const handleSend = async (message) => {
     const newMessage = {
@@ -58,7 +63,8 @@ export const Chat = () => {
       initialAnalysis: userLastScanSummary,
       model: userSelectedModel,
       message: lastFollowUpMessage, // The message from our client chat input.
-      conversationId: "121212",
+      conversationId: userLastScanId,
+      userID: userID,
     };
 
     await fetch(
@@ -76,7 +82,6 @@ export const Chat = () => {
         return data.json();
       })
       .then((data) => {
-        // console.log(">>>> 5. data: ", data);
         setMessages([
           ...chatMessages,
           {
