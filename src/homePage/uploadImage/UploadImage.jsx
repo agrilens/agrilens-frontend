@@ -36,7 +36,7 @@ export default function UploadImage() {
   const [status, setStatus] = useState(null);
   const [error, setError] = useState(null);
 
-  const { userLastScanId, userLastScanSummary } = useAccountContext();
+  const { userID, userLastScanSummary } = useAccountContext();
   const { updateUserLastScanId, updateUserLastScanSummary } =
     useAccountUpdateContext();
 
@@ -47,6 +47,7 @@ export default function UploadImage() {
     headers: {
       // Authorization: `Bearer ${"token"}`,
       "Content-Type": "multipart/form-data",
+      userID: userID,
     },
   };
 
