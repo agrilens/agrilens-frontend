@@ -1,5 +1,5 @@
 #contactUs {
-    background-color: #204E51;
+    background-color:#dbe0e0;
 }
 
 #contactUs .info-container {
@@ -10,7 +10,7 @@
 
 #contactUs .container {
     border-radius: 32px;
-    background-color: #fff;
+    background-color: #ffffff;
     max-width: min(94vw, 600px);
     padding: min(5vw, 100px);
     align-self: stretch;
