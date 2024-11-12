@@ -30,15 +30,15 @@ export default function UploadImage() {
   const [selectedInsightIds, setSelectedInsightIds] = useState([]);
   const [selectedEvaluation, setselectedEvaluation] = useState("");
   const [file, setFile] = useState();
-  const [insightResponse, setInsightResponse] = useState([]);
   const [analysisResults, setAnalysisResults] = useState([]);
   const [evaluations, setEvaluations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null);
   const [error, setError] = useState(null);
 
-  const { userLastScanSummary } = useAccountContext();
-  const { updateUserLastScanSummary } = useAccountUpdateContext();
+  const { userID, userLastScanSummary } = useAccountContext();
+  const { updateUserLastScanId, updateUserLastScanSummary } =
+    useAccountUpdateContext();
 
   const imageUploadUrl = "/analyze";
   const imageUploadUrlLocal =
@@ -47,6 +47,7 @@ export default function UploadImage() {
     headers: {
       // Authorization: `Bearer ${"token"}`,
       "Content-Type": "multipart/form-data",
+      userID: userID,
     },
   };
 
@@ -75,12 +76,14 @@ export default function UploadImage() {
     try {
       setLoading(true);
       const response = await axios.post(url, data, headers);
-      console.log(">>> 1. Response:", response.status);
-      console.log(">>> 2. Response:", response?.data?.results);
-      console.log(">>> 2. Response type:", typeof response?.data?.results);
+      // console.log(">>> 1. Response:", response.status);
+      // console.log(">>> 2. Response:", response?.data?.results);
+      // console.log(">>> 2. scanId:", response?.data?.scanId);
+      // console.log(">>> 2. Response type:", typeof response?.data?.results);
       // setInsightResponse(() => response.data);
 
-      setStatus(() => response.status);
+      setStatus(() => response?.status);
+      updateUserLastScanId(() => response?.data?.scanId);
       setAnalysisResults(() => response?.data?.results);
       setEvaluations(() => response?.data?.results);
       // console.log(">>> 3. analysisResult:", analysisResult);
@@ -230,7 +233,7 @@ export default function UploadImage() {
             {analysisResults.map((analysisResult, index) => (
               <Col key={index}>
                 {Object.entries(analysisResult).map(([key, value]) => {
-                  console.log(`Key: ${key}, Value: ${value}`);
+                  // console.log(`Key: ${key}, Value: ${value}`);
                   return (
                     <EvaluationCard
                       key={key}

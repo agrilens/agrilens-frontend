@@ -33,50 +33,13 @@ export const AccountProvider = ({ children }) => {
   const [userToken, setUserToken] = useState(
     localStorage.getItem("userToken") || ""
   );
+  const [userLastScanId, setUserLastScanId] = useState(0);
   const [userLastScanSummary, setUserLastScanSummary] = useState(
     "No chosen analysis result."
   );
-  const [userSelectedModel, setUserSelectedModel] = useState("qwen");
+  const [userSelectedModel, setUserSelectedModel] = useState("qwen"); // Qwen by default.
 
   const chatBotRef = useRef(null);
-
-  const getUserAccInfo = async (userId, headers = {}) => {
-    try {
-      const getUserInfoUrl_dev = `http://127.0.0.1:5001/agrilens-web/us-central1/app/users/${userId}/account`;
-      const getUserInfoUrl_prod = `https://app-id543mmv6a-uc.a.run.app/users/${userId}/account`;
-
-      const response = await axios.get(getUserInfoUrl_dev, headers);
-      // console.log("Response:", response.data);
-      // console.log("Response:", response.status);
-      const data = response?.data;
-      setUserAccInfo(() => data?.account);
-
-      // console.log("data: ", data);
-      return data;
-    } catch (err) {
-      console.error("fetchData() Error:", err);
-    } finally {
-    }
-  };
-  const updateUserAccInfoDB = async (userId, data, headers = {}) => {
-    try {
-      // console.log(">> updateUserAccInfoDB: ", data);
-      const getUserInfoUrl_dev = `http://127.0.0.1:5001/agrilens-web/us-central1/app/users/${userId}/account`;
-      const getUserInfoUrl_prod = `https://app-id543mmv6a-uc.a.run.app/users/${userId}/account`;
-
-      const response = await axios.put(getUserInfoUrl_dev, data, headers);
-      // console.log("Response:", response.data);
-      // console.log("Response:", response.status);
-      const updatedData = response?.data;
-      setUserAccInfo(() => updatedData?.account);
-
-      // console.log("data: ", updatedData);
-      return updatedData;
-    } catch (err) {
-      console.error("fetchData() Error:", err);
-    } finally {
-    }
-  };
 
   // useEffect(() => {
   //   const savedUserID = localStorage.getItem("userID");
@@ -123,7 +86,46 @@ export const AccountProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  // Update functions
+  // Account ifno initialization and update functions
+  const getUserAccInfo = async (userId, headers = {}) => {
+    try {
+      const getUserInfoUrl_dev = `http://127.0.0.1:5001/agrilens-web/us-central1/app/users/${userId}/account`;
+      const getUserInfoUrl_prod = `https://app-id543mmv6a-uc.a.run.app/users/${userId}/account`;
+
+      const response = await axios.get(getUserInfoUrl_dev, headers);
+      // console.log("Response:", response.data);
+      // console.log("Response:", response.status);
+      const data = response?.data;
+      setUserAccInfo(() => data?.account);
+
+      // console.log("data: ", data);
+      return data;
+    } catch (err) {
+      console.error("fetchData() Error:", err);
+    } finally {
+    }
+  };
+  const updateUserAccInfoDB = async (userId, data, headers = {}) => {
+    try {
+      // console.log(">> updateUserAccInfoDB: ", data);
+      const getUserInfoUrl_dev = `http://127.0.0.1:5001/agrilens-web/us-central1/app/users/${userId}/account`;
+      const getUserInfoUrl_prod = `https://app-id543mmv6a-uc.a.run.app/users/${userId}/account`;
+
+      const response = await axios.put(getUserInfoUrl_dev, data, headers);
+      // console.log("Response:", response.data);
+      // console.log("Response:", response.status);
+      const updatedData = response?.data;
+      setUserAccInfo(() => updatedData?.account);
+
+      // console.log("data: ", updatedData);
+      return updatedData;
+    } catch (err) {
+      console.error("fetchData() Error:", err);
+    } finally {
+    }
+  };
+
+  // Context state update functions
   const updateUserType = (type) => setUserType(type);
   const updateUserEmail = (email) => setUserEmail(email);
   const updateUserName = (name) => setUserName(name);
@@ -150,6 +152,7 @@ export const AccountProvider = ({ children }) => {
   const updateUserLastScanSummary = (summary) =>
     setUserLastScanSummary(summary);
   const updateUserSelectedModel = (model) => setUserSelectedModel(model);
+  const updateUserLastScanId = (id) => setUserLastScanId(id);
 
   // Provide state and update functions as objects
   return (
@@ -163,6 +166,7 @@ export const AccountProvider = ({ children }) => {
         userAccDetail,
         userID,
         userToken,
+        userLastScanId,
         userLastScanSummary,
         userSelectedModel,
         chatBotRef,
@@ -178,6 +182,7 @@ export const AccountProvider = ({ children }) => {
           updateUserID,
           updateUserToken,
           updateUserAccDetail,
+          updateUserLastScanId,
           updateUserLastScanSummary,
           updateUserSelectedModel,
         }}
