@@ -1,7 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./NavBar.css";
 import { useAccountContext } from "../contexts/AccountContext";
+import Modal from "react-bootstrap/Modal";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
 
 import AgriLens from "../common/AgriLens";
 import AgriLensWithLogo from "../common/AgriLensWithLogo";
@@ -14,11 +17,15 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 
 export default function NavBar() {
   const { userType } = useAccountContext();
-
   const [expanded, setExpanded] = useState(false);
+  const [showLegal, setShowLegal] = useState(false);
+
   const handleNavClick = () => {
     setExpanded(false);
   };
+
+  const handleCloseLegal = () => setShowLegal(false);
+  const handleShowLegal = () => setShowLegal(true);
 
   return (
     <section id="navbar">
@@ -61,31 +68,22 @@ export default function NavBar() {
                 <Nav.Link as={Link} to="/pages" onClick={handleNavClick}>
                   Pages
                 </Nav.Link>
-                <Nav.Link
-                  as={Link}
-                  to="/aboutus"
-                  onClick={handleNavClick}
-                  // className="text-nowrap"
-                >
+                <Nav.Link as={Link} to="/aboutus" onClick={handleNavClick}>
                   About Us
                 </Nav.Link>
-                <Nav.Link
-                  as={Link}
-                  to="/contactus"
-                  onClick={handleNavClick}
-                  // className="text-nowrap"
-                >
+                <Nav.Link as={Link} to="/contactus" onClick={handleNavClick}>
                   Contact Us
                 </Nav.Link>
+                <Nav.Link onClick={() => { handleNavClick(); handleShowLegal(); }}>
+                  Legal
+                </Nav.Link>
               </Nav>
-              <div
-                className={`acc-btn align-items-center ${userType === "" ? "" : "d-none"}`}
-              >
+              <div className={`acc-btn align-items-center ${userType === "" ? "" : "d-none"}`}>
                 <Nav.Link
                   as={Link}
                   to="/signin"
                   onClick={handleNavClick}
-                  className="py-1 text-center login-btn "
+                  className="py-1 text-center login-btn"
                 >
                   Log In
                 </Nav.Link>
@@ -93,23 +91,19 @@ export default function NavBar() {
                   as={Link}
                   to="/signup"
                   onClick={handleNavClick}
-                  className="py-1 text-center signup-btn "
+                  className="py-1 text-center signup-btn"
                 >
                   Sign Up
                 </Nav.Link>
               </div>
-              <div className={`acc-view   ${userType === "" ? "d-none" : ""}`}>
+              <div className={`acc-view ${userType === "" ? "d-none" : ""}`}>
                 <div className="acc-type text-center">
                   {userType}
                   <span>
                     <i className="fa-solid fa-square-check ms-3"></i>
                   </span>
                 </div>
-                <Link
-                  to="/profile"
-                  onClick={handleNavClick}
-                  className="text-center"
-                >
+                <Link to="/profile" onClick={handleNavClick} className="text-center">
                   <img src={userLoggedInIcon} alt="User is Logged In Icon" />
                 </Link>
               </div>
@@ -117,6 +111,47 @@ export default function NavBar() {
           </Navbar.Offcanvas>
         </Container>
       </Navbar>
+
+      {/* Legal Documents Modal */}
+      <Modal show={showLegal} onHide={handleCloseLegal} size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>Legal Documents</Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ maxHeight: '70vh', overflowY: 'auto' }}>
+          <Tabs
+            defaultActiveKey="tos"
+            className="mb-3"
+          >
+            <Tab eventKey="tos" title="Terms of Service">
+              <h2>Terms of Service</h2>
+              <p className="text-muted">Last Updated: November 14, 2024</p>
+              
+              <h3>1. Agreement to Terms</h3>
+              <p>
+                By accessing and using this application ("App"), you agree to be bound by these Terms of Service ("Terms"). 
+                If you disagree with any part of these terms, you may not access the App.
+              </p>
+
+              {/* Add the rest of your Terms of Service content here */}
+            </Tab>
+            <Tab eventKey="privacy" title="Privacy Policy">
+              <h2>Privacy Policy</h2>
+              <p className="text-muted">Last Updated: November 14, 2024</p>
+
+              <h3>1. Information We Collect</h3>
+              <h4>Personal Information</h4>
+              <ul>
+                <li>Name and email address</li>
+                <li>Student ID or verification</li>
+                <li>Profile information you provide</li>
+                <li>Device information and IP address</li>
+              </ul>
+
+              {/* Add the rest of your Privacy Policy content here */}
+            </Tab>
+          </Tabs>
+        </Modal.Body>
+      </Modal>
     </section>
   );
 }
