@@ -74,11 +74,18 @@ export default function NavBar() {
                 <Nav.Link as={Link} to="/contactus" onClick={handleNavClick}>
                   Contact Us
                 </Nav.Link>
-                <Nav.Link onClick={() => { handleNavClick(); handleShowLegal(); }}>
+                <Nav.Link
+                  onClick={() => {
+                    handleNavClick();
+                    handleShowLegal();
+                  }}
+                >
                   Legal
                 </Nav.Link>
               </Nav>
-              <div className={`acc-btn align-items-center ${userType === "" ? "" : "d-none"}`}>
+              <div
+                className={`acc-btn align-items-center ${userType === "" ? "" : "d-none"}`}
+              >
                 <Nav.Link
                   as={Link}
                   to="/signin"
@@ -103,7 +110,11 @@ export default function NavBar() {
                     <i className="fa-solid fa-square-check ms-3"></i>
                   </span>
                 </div>
-                <Link to="/profile" onClick={handleNavClick} className="text-center">
+                <Link
+                  to="/profile"
+                  onClick={handleNavClick}
+                  className="text-center"
+                >
                   <img src={userLoggedInIcon} alt="User is Logged In Icon" />
                 </Link>
               </div>
@@ -117,19 +128,17 @@ export default function NavBar() {
         <Modal.Header closeButton>
           <Modal.Title>Legal Documents</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{ maxHeight: '70vh', overflowY: 'auto' }}>
-          <Tabs
-            defaultActiveKey="tos"
-            className="mb-3"
-          >
+        <Modal.Body style={{ maxHeight: "70vh", overflowY: "auto" }}>
+          <Tabs defaultActiveKey="tos" className="mb-3">
             <Tab eventKey="tos" title="Terms of Service">
               <h2>Terms of Service</h2>
               <p className="text-muted">Last Updated: November 14, 2024</p>
-              
+
               <h3>1. Agreement to Terms</h3>
               <p>
-                By accessing and using this application ("App"), you agree to be bound by these Terms of Service ("Terms"). 
-                If you disagree with any part of these terms, you may not access the App.
+                By accessing and using this application ("App"), you agree to be
+                bound by these Terms of Service ("Terms"). If you disagree with
+                any part of these terms, you may not access the App.
               </p>
 
               {/* Add the rest of your Terms of Service content here */}

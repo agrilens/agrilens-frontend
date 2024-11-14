@@ -300,8 +300,7 @@ export default function SignUp() {
                   <option value="Other">Other</option>
                 </Form.Select>
               </div>
-            
-              
+
               <div className="ask-sign-in text-end">
                 Already have an account?
               </div>
@@ -335,30 +334,37 @@ export default function SignUp() {
                   Terms of Service and Privacy Policy
                 </button>
                 {/* Legal Documents Modal */}
-                <Modal show={showLegal} onHide={() => setShowLegal(false)} size="lg">
+                <Modal
+                  show={showLegal}
+                  onHide={() => setShowLegal(false)}
+                  size="lg"
+                >
                   <Modal.Header closeButton>
                     <Modal.Title>Legal Documents</Modal.Title>
                   </Modal.Header>
                   <Modal.Body style={{ maxHeight: "70vh", overflowY: "auto" }}>
-                    <Tabs
-                      defaultActiveKey="tos"
-                      className="mb-3"
-                    >
+                    <Tabs defaultActiveKey="tos" className="mb-3">
                       <Tab eventKey="tos" title="Terms of Service">
                         <h2>Terms of Service</h2>
-                        <p className="text-muted">Last Updated: November 14, 2024</p>
-                        
+                        <p className="text-muted">
+                          Last Updated: November 14, 2024
+                        </p>
+
                         <h3>1. Agreement to Terms</h3>
                         <p>
-                          By accessing and using this application ("App"), you agree to be bound by these Terms of Service ("Terms"). 
-                          If you disagree with any part of these terms, you may not access the App.
+                          By accessing and using this application ("App"), you
+                          agree to be bound by these Terms of Service ("Terms").
+                          If you disagree with any part of these terms, you may
+                          not access the App.
                         </p>
 
                         {/* Add the rest of your Terms of Service content here */}
                       </Tab>
                       <Tab eventKey="privacy" title="Privacy Policy">
                         <h2>Privacy Policy</h2>
-                        <p className="text-muted">Last Updated: November 14, 2024</p>
+                        <p className="text-muted">
+                          Last Updated: November 14, 2024
+                        </p>
 
                         <h3>1. Information We Collect</h3>
                         <h4>Personal Information</h4>
