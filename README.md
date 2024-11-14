@@ -209,10 +209,10 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ## Libraries Used
 - This project uses a variety of libraries and frameworks to streamline development and testing:
-
-### React: Core library for building user interfaces
-### Firebase: Backend and hosting platform
-### Cypress: End-to-end and component testing framework
-### ESLint: JavaScript linting tool
-### Prettier: Code formatting tool
-### Husky: Git hooks manager for enforcing code quality on commit
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+React: Core library for building user interfaces
+Firebase: Backend and hosting platform
+Cypress: End-to-end and component testing framework
+ESLint: JavaScript linting tool
+Prettier: Code formatting tool
+Husky: Git hooks manager for enforcing code quality on commit
