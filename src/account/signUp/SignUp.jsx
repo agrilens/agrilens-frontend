@@ -19,6 +19,8 @@ import {
 } from "../../contexts/AccountContext";
 import LoadingSpinner from "../../common/LoadingSpinner";
 
+import { Modal, Tabs, Tab } from "react-bootstrap";
+
 export default function SignUp() {
   const { userType, userEmail, userName, userID, userToken, userAccDetail } =
     useAccountContext();
@@ -42,6 +44,7 @@ export default function SignUp() {
   const [state, setState] = useState("");
   const [country, setCountry] = useState("");
   const [userInterest, setUserInterest] = useState("");
+  const [showLegal, setShowLegal] = useState(false);
 
   const [errors, setErrors] = useState({});
   const [serverError, setServerError] = useState(null);
@@ -297,6 +300,7 @@ export default function SignUp() {
                   <option value="Other">Other</option>
                 </Form.Select>
               </div>
+
               <div className="ask-sign-in text-end">
                 Already have an account?
               </div>
@@ -310,6 +314,72 @@ export default function SignUp() {
                 >
                   Sign In
                 </Link>
+              </div>
+              <br></br>
+              <div className="agreement-text text-muted text-center mb-3">
+                By signing up, you agree to our{" "}
+                <button
+                  type="button"
+                  className="legal-link"
+                  onClick={() => setShowLegal(true)}
+                  style={{
+                    background: "none",
+                    border: "none",
+                    padding: 0,
+                    color: "#0d6efd",
+                    textDecoration: "underline",
+                    cursor: "pointer",
+                  }}
+                >
+                  Terms of Service and Privacy Policy
+                </button>
+                {/* Legal Documents Modal */}
+                <Modal
+                  show={showLegal}
+                  onHide={() => setShowLegal(false)}
+                  size="lg"
+                >
+                  <Modal.Header closeButton>
+                    <Modal.Title>Legal Documents</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body style={{ maxHeight: "70vh", overflowY: "auto" }}>
+                    <Tabs defaultActiveKey="tos" className="mb-3">
+                      <Tab eventKey="tos" title="Terms of Service">
+                        <h2>Terms of Service</h2>
+                        <p className="text-muted">
+                          Last Updated: November 14, 2024
+                        </p>
+
+                        <h3>1. Agreement to Terms</h3>
+                        <p>
+                          By accessing and using this application ("App"), you
+                          agree to be bound by these Terms of Service ("Terms").
+                          If you disagree with any part of these terms, you may
+                          not access the App.
+                        </p>
+
+                        {/* Add the rest of your Terms of Service content here */}
+                      </Tab>
+                      <Tab eventKey="privacy" title="Privacy Policy">
+                        <h2>Privacy Policy</h2>
+                        <p className="text-muted">
+                          Last Updated: November 14, 2024
+                        </p>
+
+                        <h3>1. Information We Collect</h3>
+                        <h4>Personal Information</h4>
+                        <ul>
+                          <li>Name and email address</li>
+                          <li>Student ID or verification</li>
+                          <li>Profile information you provide</li>
+                          <li>Device information and IP address</li>
+                        </ul>
+
+                        {/* Add the rest of your Privacy Policy content here */}
+                      </Tab>
+                    </Tabs>
+                  </Modal.Body>
+                </Modal>
               </div>
             </Col>
           </Form>
