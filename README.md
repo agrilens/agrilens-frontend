@@ -1,3 +1,9 @@
+# Agrilens Frontend Repo
+
+## Works Cited & Sources
+
+- We used generative AI in this project. Artifacts and other documents where we used generative AI contain a note about the source and a link to the conversation. 
+
 ## App structures:
 
 ### File/folder Structre
