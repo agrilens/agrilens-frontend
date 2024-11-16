@@ -8,6 +8,8 @@ const createUserDBUrl_dev =
 const createUserDBUrl_prod =
   "https://app-id543mmv6a-uc.a.run.app/users/pTGGKTxkAPf6rQa5PTKSbqrECm82/account";
 
+const url = process.env.REACT_APP_BACKEND_API_URL_DEV;
+
 // Create contexts
 const AccountContext = createContext();
 const AccountUpdateContext = createContext();
