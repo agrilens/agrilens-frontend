@@ -10,7 +10,7 @@ import {
   useAccountUpdateContext,
 } from "../../contexts/AccountContext";
 
-const url = process.env.REACT_APP_BACKEND_API_URL_DEV;
+const url = process.env.REACT_APP_BACKEND_API_URL;
 
 const DataTable = ({ selectedEval, id }) => {
   const score = selectedEval?.health_score;

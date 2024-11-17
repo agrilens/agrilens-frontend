@@ -23,6 +23,8 @@ import LoadingSpinner from "../../common/LoadingSpinner";
 
 import { Modal } from "react-bootstrap";
 
+const url = process.env.REACT_APP_BACKEND_API_URL;
+
 export default function SignUp() {
   const { userToken } = useAccountContext();
   const {
@@ -50,11 +52,6 @@ export default function SignUp() {
   const [loading, setLoading] = useState(false);
   const [successUserId, setSuccessUserId] = useState(null);
   const [legalTermsAccepted, setLegalTermsAccepted] = useState(false);
-
-  const createUserDBUrl_dev =
-    "http://127.0.0.1:5001/agrilens-web/us-central1/app/users/customer";
-  const createUserDBUrl_prod =
-    "https://app-id543mmv6a-uc.a.run.app/users/customer";
 
   const accountTypes = ["Gardner", "Farmer", "Researcher"];
 
@@ -133,7 +130,7 @@ export default function SignUp() {
         };
 
         console.log("accountDetail: ", accountDetail);
-        await createUserDb(createUserDBUrl_dev, accountDetail);
+        await createUserDb(`${url}/users/customer`, accountDetail);
         await updateUserAccDetail(accountDetail);
         await updateUserEmail(accountDetail.email);
         await updateUserName(accountDetail.firstName + accountDetail.lastName);
