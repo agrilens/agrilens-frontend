@@ -1,0 +1,65 @@
+#signUp {
+  background-color: #769192;
+}
+
+#signUp .row {
+  /* height: 600px; */
+  max-width: 568px;
+  /* background-color: #769192; */
+}
+
+.form-wrapper {
+  flex-direction: column;
+  background-color: #c3d0d1;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px #769192;
+  transition: transform 0.6s;
+}
+.form-required,
+.form-optional {
+  width: 85vw;
+}
+.form-required {
+  max-width: 400px;
+}
+.form-optional input {
+  max-width: 250px;
+}
+
+.form-interest {
+  max-width: 340px;
+}
+.form-btns-wrapper {
+  gap: 14vw;
+}
+.form-btns-wrapper .btn {
+  width: 130px;
+}
+.ask-sign-in {
+  margin-top: 6rem;
+}
+.btn-sign-up {
+  height: 30px;
+}
+.sign-in-btn {
+  border: solid 3px !important;
+  border-radius: 8px !important;
+  background-color: white !important ;
+}
+
+@media (min-width: 768px) {
+  /*  Small devices (768px and up) */
+  .form-wrapper {
+    display: flex;
+    flex-direction: row;
+    margin-left: auto;
+    max-width: 800px;
+    gap: 20px;
+  }
+  .form-btns-wrapper {
+    gap: 80px;
+  }
+  .ask-sign-in {
+    margin-top: 250px !important;
+  }
+}

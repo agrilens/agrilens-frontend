@@ -1,0 +1,154 @@
+#chat {
+  max-width: 1920px;
+  background-color: #f6f6f6;
+}
+#chat .row {
+  position: relative;
+  height: 660px;
+  max-width: 1200px;
+}
+.cs-main-container {
+  border: none;
+  border-radius: 22px;
+  box-shadow: 1px 1px 3px;
+  background: radial-gradient(
+    circle at bottom center,
+    rgba(0, 0, 0, 0.3),
+    rgba(0, 0, 0, 0.1) 40%,
+    rgba(255, 255, 255, 1) 80%
+  );
+}
+
+.agriLesn-intro {
+  color: #204e51;
+  background-color: transparent;
+}
+.agriLesn-intro-logo {
+  margin: 0 auto;
+  transform: scale(1.2);
+}
+
+.cs-message-input {
+  width: 90% !important;
+  margin: 0 auto;
+}
+.cs-message-input__tools .cs-button--attachment {
+  /* display: none; */
+}
+.cs-message__content-wrapper {
+  padding: 0 6vw;
+}
+
+.custom-message-content-wrapper .cs-message__content-wrapper {
+  background-color: transparent;
+  margin: 0 auto !important;
+}
+.custom-message-content-wrapper .cs-message__content {
+  background-color: transparent !important;
+  box-shadow: none;
+}
+
+.cs-message__custom-content {
+  background-color: transparent;
+  display: flex !important;
+  flex-direction: column;
+}
+
+.cs-message__content {
+  background-color: white !important;
+  border-radius: 8px !important;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+.cs-message-input__content-editor-wrapper {
+  border: 1px solid #aaaaaa;
+  border-radius: 8px;
+  background-color: #fff !important;
+  font-size: 18px;
+}
+.cs-message-input__content-editor {
+  background-color: #fff !important;
+}
+.cs-message--incoming .cs-message__content {
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #fff;
+  border-radius: 8px !important;
+}
+.cs-message-list .cs-typing-indicator {
+  background-color: transparent;
+}
+.cs-typing-indicator {
+  margin-left: 5vw;
+  margin-bottom: 0.5rem;
+}
+.cs-typing-indicator__text {
+  color: #204e51 !important;
+  font-weight: bold;
+}
+.cs-typing-indicator__dot {
+  background-color: #204e51;
+  height: 5px;
+  width: 5px;
+}
+.ps__thumb-y {
+  background-color: #204e51;
+}
+.svg-inline--fa {
+  background-color: transparent;
+  color: #2d6e72;
+  display: inline-block;
+  font-size: inherit;
+  height: 1.6em;
+  overflow: visible;
+  vertical-align: -0.125em;
+}
+.cs-chat-container {
+  background-color: transparent;
+}
+.cs-chat-container .cs-message-list {
+  background-color: transparent;
+}
+
+.cs-chat-container .cs-message-input {
+  border: none;
+  background-color: transparent;
+}
+.cs-message-input__content-editor {
+  /* min-height: 56px !important; */
+}
+
+.cs-message--outgoing .cs-message__sender-name,
+.cs-message--incoming .cs-message__sender-name {
+  display: block;
+  color: grey;
+}
+.cs-message--outgoing .cs-message__sent-time,
+.cs-message--incoming .cs-message__sent-time {
+  display: none;
+  /* display: block; */
+}
+.chat-message-content p {
+  margin: 0 !important;
+  padding: 0 !important;
+  gap: 0 !important;
+}
+
+.chat-message-content li {
+  list-style: none;
+  /* line-height: 1.4; */
+  padding-bottom: 4px;
+  padding-left: 0.5vw !important;
+}
+.chat-message-content ul {
+  padding-left: 0.5vw !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-message-content ol {
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex;
+  flex-direction: column;
+}

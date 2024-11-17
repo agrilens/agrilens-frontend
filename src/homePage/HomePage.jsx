@@ -1,5 +1,10 @@
 import React, { useContext } from "react";
+
+import Banner from "./banner/Banner";
 import UploadImage from "./uploadImage/UploadImage";
+import Chat from "../chat/Chat";
+import Banner2 from "./banner/Banner2";
+
 import "./HomePage.css";
 import {
   useAccountContext,
@@ -14,7 +19,10 @@ export default function HomePage() {
   return (
     <section id="homePage">
       <div className="home-container">
+        <Banner />
         <UploadImage />
+        <Chat />
+        <Banner2 />
       </div>
     </section>
   );

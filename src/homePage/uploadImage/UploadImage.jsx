@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import FormData from "form-data";
 
@@ -8,8 +8,9 @@ import Col from "react-bootstrap/Col";
 import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
 
-import LoadingSpinner from "../../common/LoadingSpinner";
 import DataTable from "./DataTable";
+import EvaluationCard from "./EvaluationCard";
+import LoadingSpinner from "../../common/LoadingSpinner";
 
 import InsightCard from "./InsightCard";
 import emptyFileImage from "../../assets/images/emptyFileImage.png";
@@ -19,21 +20,33 @@ import pestDiagnosis from "../../assets/images/pestDiagnosis.png";
 import sustainablePractices from "../../assets/images/sustainablePractices.png";
 import "./UploadImage.css";
 
+import {
+  useAccountContext,
+  useAccountUpdateContext,
+} from "../../contexts/AccountContext";
+
+const url = process.env.REACT_APP_BACKEND_API_URL;
+
 export default function UploadImage() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedInsightIds, setSelectedInsightIds] = useState([]);
+  const [selectedEvaluation, setselectedEvaluation] = useState("");
   const [file, setFile] = useState();
-  const [insightResponse, setInsightResponse] = useState([]);
-  const [analysisResult, setAnalysisResult] = useState([]);
+  const [analysisResults, setAnalysisResults] = useState([]);
+  const [evaluations, setEvaluations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null);
   const [error, setError] = useState(null);
 
-  const imageUploadUrl = "https://app-id543mmv6a-uc.a.run.app/analyze";
+  const { userID, userLastScanSummary } = useAccountContext();
+  const { updateUserLastScanId, updateUserLastScanSummary } =
+    useAccountUpdateContext();
+
   const uplaodHeaders = {
     headers: {
       // Authorization: `Bearer ${"token"}`,
       "Content-Type": "multipart/form-data",
+      userID: userID,
     },
   };
 
@@ -54,19 +67,20 @@ export default function UploadImage() {
       prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
   };
+  const toggleEvaluateSelection = (id) => {
+    setselectedEvaluation(() => id);
+  };
 
   const fetchData = async (url, data, headers = {}) => {
     try {
       setLoading(true);
       const response = await axios.post(url, data, headers);
-      console.log("Response:", response.data);
-      console.log("Response:", response.status);
-      let jsonString = response?.data?.result;
-      const analysisObject = JSON.parse(jsonString);
-      console.log("jsObject: ", analysisObject);
-      setInsightResponse(() => response.data);
-      setStatus(() => response.status);
-      setAnalysisResult(() => analysisObject);
+
+      setStatus(() => response?.status);
+      updateUserLastScanId(() => response?.data?.scanId);
+      setAnalysisResults(() => response?.data?.results);
+      setEvaluations(() => response?.data?.results);
+      // console.log(">>> 3. analysisResult:", analysisResult);
     } catch (err) {
       console.error("fetchData() Error:", err);
       setError(err.message);
@@ -91,12 +105,29 @@ export default function UploadImage() {
       formData.append("insights[]", id);
     });
 
-    fetchData(imageUploadUrl, formData, uplaodHeaders);
+    fetchData(`${url}/analyze`, formData, uplaodHeaders);
   };
+
+  const evaluationCardsRef = useRef(null);
+  const dataTableRef = useRef(null);
+  useEffect(() => {
+    if (status === 200 && evaluationCardsRef.current) {
+      evaluationCardsRef?.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+    if (selectedEvaluation !== "" && dataTableRef.current) {
+      dataTableRef?.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }
+  }, [status, selectedEvaluation]);
 
   return (
     <div>
-      <Container id="uploadImage">
+      <Container id="uploadImage" className="text-center">
         <Row className="text-primary py-5">
           {loading && <LoadingSpinner />}
           <Col md="5">
@@ -111,7 +142,6 @@ export default function UploadImage() {
               style={{ maxWidth: "419px", width: "100%", radius: "20px" }}
               rounded
             />
-
             <input
               type="file"
               name="image-upload"
@@ -193,11 +223,31 @@ export default function UploadImage() {
           </Col>
         </Row>
         {status === 200 && (
-          <Row>
-            <Col sm="12">
-              <h4> {insightResponse.message}</h4>
-            </Col>
-            <DataTable data={analysisResult} />
+          <Row className="text-center  pb-5" ref={evaluationCardsRef}>
+            {analysisResults.map((analysisResult, index) => (
+              <Col key={index}>
+                {Object.entries(analysisResult).map(([key, value]) => {
+                  // console.log(`Key: ${key}, Value: ${value}`);
+                  return (
+                    <EvaluationCard
+                      key={key}
+                      evaluation={value}
+                      id={key}
+                      isSelected={selectedEvaluation === index}
+                      onSelect={() => toggleEvaluateSelection(index)}
+                    />
+                  );
+                })}
+              </Col>
+            ))}
+          </Row>
+        )}
+        {selectedEvaluation !== "" && (
+          <Row className="mt-5" ref={dataTableRef}>
+            <DataTable
+              selectedEval={analysisResults[selectedEvaluation]}
+              id={selectedEvaluation}
+            />
           </Row>
         )}
       </Container>

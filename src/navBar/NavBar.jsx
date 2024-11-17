@@ -1,9 +1,13 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./NavBar.css";
 import { useAccountContext } from "../contexts/AccountContext";
+import Modal from "react-bootstrap/Modal";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
 
 import AgriLens from "../common/AgriLens";
+import LegalTerms from "../common/LegalTerms";
 import AgriLensWithLogo from "../common/AgriLensWithLogo";
 import userLoggedInIcon from "../assets/images/userLoggedInIcon.png";
 
@@ -14,11 +18,15 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 
 export default function NavBar() {
   const { userType } = useAccountContext();
-
   const [expanded, setExpanded] = useState(false);
+  const [showLegal, setShowLegal] = useState(false);
+
   const handleNavClick = () => {
     setExpanded(false);
   };
+
+  const handleCloseLegal = () => setShowLegal(false);
+  const handleShowLegal = () => setShowLegal(true);
 
   return (
     <section id="navbar">
@@ -55,27 +63,35 @@ export default function NavBar() {
                 <Nav.Link as={Link} to="/" onClick={handleNavClick}>
                   Home
                 </Nav.Link>
-                <Nav.Link as={Link} to="/about" onClick={handleNavClick}>
-                  About Us
+                <Nav.Link as={Link} to="/dashboard" onClick={handleNavClick}>
+                  Dashboard
                 </Nav.Link>
                 <Nav.Link as={Link} to="/pages" onClick={handleNavClick}>
                   Pages
                 </Nav.Link>
-                <Nav.Link as={Link} to="/contact" onClick={handleNavClick}>
+                <Nav.Link as={Link} to="/aboutus" onClick={handleNavClick}>
+                  About Us
+                </Nav.Link>
+                <Nav.Link as={Link} to="/contactus" onClick={handleNavClick}>
                   Contact Us
                 </Nav.Link>
-                <Nav.Link as={Link} to="/contact" onClick={handleNavClick}>
-                  Dashboard
+                <Nav.Link
+                  onClick={() => {
+                    handleNavClick();
+                    handleShowLegal();
+                  }}
+                >
+                  Legal
                 </Nav.Link>
               </Nav>
               <div
-                className={`acc-btn align-items-center ${userType === "FARMER" ? "d-none" : ""}`}
+                className={`acc-btn align-items-center ${userType === "" ? "" : "d-none"}`}
               >
                 <Nav.Link
                   as={Link}
-                  to="/login"
+                  to="/signin"
                   onClick={handleNavClick}
-                  className="py-1 text-center login-btn "
+                  className="py-1 text-center login-btn"
                 >
                   Log In
                 </Nav.Link>
@@ -83,14 +99,12 @@ export default function NavBar() {
                   as={Link}
                   to="/signup"
                   onClick={handleNavClick}
-                  className="py-1 text-center signup-btn "
+                  className="py-1 text-center signup-btn"
                 >
                   Sign Up
                 </Nav.Link>
               </div>
-              <div
-                className={`acc-view  ${userType === "FARMER" ? "" : "d-none"}`}
-              >
+              <div className={`acc-view ${userType === "" ? "d-none" : ""}`}>
                 <div className="acc-type text-center">
                   {userType}
                   <span>
@@ -109,6 +123,11 @@ export default function NavBar() {
           </Navbar.Offcanvas>
         </Container>
       </Navbar>
+
+      {/* Legal Documents Modal */}
+      <Modal show={showLegal} onHide={handleCloseLegal} size="lg">
+        <LegalTerms />
+      </Modal>
     </section>
   );
 }
