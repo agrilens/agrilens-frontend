@@ -86,10 +86,7 @@ export const AccountProvider = ({ children }) => {
   // Account ifno initialization and update functions
   const getUserAccInfo = async (userId, headers = {}) => {
     try {
-      const response = await axios.get(
-        `${url}/users/${userId}/account`,
-        headers
-      );
+      const response = await axios.get(`/users/${userId}/account`, headers);
       // console.log("Response:", response.data);
       // console.log("Response:", response.status);
       const data = response?.data;
