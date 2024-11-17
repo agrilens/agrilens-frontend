@@ -36,7 +36,7 @@
   width: 130px;
 }
 .ask-sign-in {
-  margin-top: 4rem;
+  margin-top: 6rem;
 }
 .btn-sign-up {
   height: 30px;
@@ -60,6 +60,6 @@
     gap: 80px;
   }
   .ask-sign-in {
-    margin-top: 200px !important;
+    margin-top: 250px !important;
   }
 }

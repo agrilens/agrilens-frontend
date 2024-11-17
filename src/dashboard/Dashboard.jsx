@@ -1,59 +1,105 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import axios from "axios";
+
 import HealthScoreChart from "./components/HealthScoreChart";
 import IssuesBarChart from "./components/IssuesBarChart";
 import StatsDisplay from "./components/StatsDisplay";
 import DateRangeFilter from "./components/DateRangeFilter";
 import "./Dashboard.css";
 
-const mockData = [
-  {
-    timestamp: "1730238145043",
-    healthScore: "90",
-    pestPresence: "true",
-    diseasePresence: "true",
-  },
-  {
-    timestamp: "1729983673431",
-    healthScore: "85",
-    pestPresence: "true",
-    diseasePresence: "false",
-  },
-  {
-    timestamp: "1729983673231",
-    healthScore: "78",
-    pestPresence: "false",
-    diseasePresence: "true",
-  },
-  {
-    timestamp: "1729983667309",
-    healthScore: "88",
-    pestPresence: "false",
-    diseasePresence: "false",
-  },
-];
+import {
+  useAccountContext,
+  useAccountUpdateContext,
+} from "../contexts/AccountContext";
+
+const url = process.env.REACT_APP_BACKEND_API_URL;
 
 const Dashboard = () => {
+  const [userScanHistory, setUserScanHistory] = useState([]);
   const [startDate, setStartDate] = useState(() => {
     const date = new Date();
     date.setDate(date.getDate() - 30);
     return date.toISOString().split("T")[0];
   });
+  const { userID } = useAccountContext();
+
+  useEffect(() => {
+    getUserScanHistory();
+    // eslint-disable-next-line
+  }, []);
+
+  const getUserScanHistory = async () => {
+    try {
+      const uplaodHeaders = {
+        headers: {
+          // Authorization: `Bearer ${"token"}`,
+          userID: userID,
+        },
+      };
+
+      const response = await axios.get(
+        `${url}/users/scan-history`,
+        uplaodHeaders
+      );
+
+      const scans = response?.data?.scans || [];
+      const formattedScans = restructureScans(scans);
+
+      setUserScanHistory(formattedScans);
+      // console.log("userScanHistory: ", userScanHistory);
+      // console.log("formattedScans: ", formattedScans);
+
+      return formattedScans;
+    } catch (err) {
+      console.error("fetchData() Error:", err);
+    } finally {
+    }
+  };
+
+  const restructureScans = (scans) => {
+    return scans.map((scan) => {
+      const getEvaluation = (evaluationObj) => {
+        if (!evaluationObj) return null;
+        const key = Object.keys(evaluationObj)[0];
+        return evaluationObj[key] || null;
+      };
+
+      const evaluation =
+        getEvaluation(scan.selectedEvaluation) ||
+        getEvaluation(scan.defaultEvaluation) ||
+        {};
+
+      return {
+        id: scan.id,
+        timestamp: scan.timestamp,
+        imgUrl: scan.imageUrl,
+        plant_id: evaluation?.plant_id || null,
+        overall_health_status: evaluation?.overall_health_status || null,
+        health_score: evaluation?.health_score || null,
+        pest_identification: evaluation?.pest_identification || null,
+        disease_identification: evaluation?.disease_identification || null,
+        weed_presence: evaluation?.weed_presence || null,
+        recommendations: evaluation?.recommendations || [],
+        summary: evaluation?.summary || null,
+      };
+    });
+  };
 
   const [endDate, setEndDate] = useState(() => {
     return new Date().toISOString().split("T")[0];
   });
 
   const filteredData = useMemo(() => {
-    if (!startDate || !endDate) return mockData;
+    if (!startDate || !endDate) return userScanHistory;
 
     const start = new Date(startDate).getTime();
     const end = new Date(endDate).getTime();
 
-    return mockData.filter((item) => {
+    return userScanHistory.filter((item) => {
       const timestamp = parseInt(item.timestamp);
       return timestamp >= start && timestamp <= end;
     });
-  }, [startDate, endDate]);
+  }, [startDate, endDate, userScanHistory]);
 
   const handleDownload = () => {
     // Create a formatted version of the data with readable dates
@@ -108,6 +154,7 @@ const Dashboard = () => {
             alignItems: "center",
             gap: "8px",
           }}
+          className="download-btn fw-bold px-3 text-primary"
         >
           <svg
             width="16"

@@ -1,16 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { Modal } from "react-bootstrap";
 
 import "./Footer.css";
 
 import AgriLens from "../common/AgriLens";
+import LegalTerms from "../common/LegalTerms";
 import gitHubLogo from "../assets/images/gitHubLogo.png";
 
 const Footer = () => {
+  const [showLegal, setShowLegal] = useState(false);
+
   return (
     <footer id="footer">
       <Container
@@ -48,8 +52,36 @@ const Footer = () => {
             <div className="d-flex flex-column ">
               <h4 className="footer-about text-nowrap">About</h4>
               <Link to="/aboutus">About Us</Link>
-              <Link to="/aboutus">Our Team</Link>
+              <Link to="/aboutus#ourTeam">Our Team</Link>
               <Link to="contactus">Contact Us</Link>
+              <div className="agreement-text text-muted  mb-3">
+                <p
+                  type="button"
+                  className="legal-link"
+                  onClick={() => setShowLegal(true)}
+                  style={{
+                    background: "none",
+                    color: "#FFF",
+                    textDecoration: "underline",
+                    cursor: "pointer",
+                    textWrap: "wrap",
+                    // width: "20px",
+                  }}
+                >
+                  Terms of Service and Privacy Policy
+                </p>
+                {/* 
+                  Legal Documents Modal 
+                  Link to conversation: https://claude.site/artifacts/d3859245-07d9-405c-9eee-34b7313ac98e
+                */}
+                <Modal
+                  show={showLegal}
+                  onHide={() => setShowLegal(false)}
+                  size="lg"
+                >
+                  <LegalTerms />
+                </Modal>
+              </div>
             </div>
           </Col>
         </Row>

@@ -3,10 +3,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../config/firebase";
 import axios from "axios";
 
-const createUserDBUrl_dev =
-  "http://127.0.0.1:5001/agrilens-web/us-central1/app/users/pTGGKTxkAPf6rQa5PTKSbqrECm82/account";
-const createUserDBUrl_prod =
-  "https://app-id543mmv6a-uc.a.run.app/users/pTGGKTxkAPf6rQa5PTKSbqrECm82/account";
+const url = process.env.REACT_APP_BACKEND_API_URL;
 
 // Create contexts
 const AccountContext = createContext();
@@ -89,10 +86,10 @@ export const AccountProvider = ({ children }) => {
   // Account ifno initialization and update functions
   const getUserAccInfo = async (userId, headers = {}) => {
     try {
-      const getUserInfoUrl_dev = `http://127.0.0.1:5001/agrilens-web/us-central1/app/users/${userId}/account`;
-      const getUserInfoUrl_prod = `https://app-id543mmv6a-uc.a.run.app/users/${userId}/account`;
-
-      const response = await axios.get(getUserInfoUrl_dev, headers);
+      const response = await axios.get(
+        `${url}/users/${userId}/account`,
+        headers
+      );
       // console.log("Response:", response.data);
       // console.log("Response:", response.status);
       const data = response?.data;
@@ -107,17 +104,15 @@ export const AccountProvider = ({ children }) => {
   };
   const updateUserAccInfoDB = async (userId, data, headers = {}) => {
     try {
-      // console.log(">> updateUserAccInfoDB: ", data);
-      const getUserInfoUrl_dev = `http://127.0.0.1:5001/agrilens-web/us-central1/app/users/${userId}/account`;
-      const getUserInfoUrl_prod = `https://app-id543mmv6a-uc.a.run.app/users/${userId}/account`;
+      const response = await axios.put(
+        `${url}/users/${userId}/account`,
+        data,
+        headers
+      );
 
-      const response = await axios.put(getUserInfoUrl_dev, data, headers);
-      // console.log("Response:", response.data);
-      // console.log("Response:", response.status);
       const updatedData = response?.data;
       setUserAccInfo(() => updatedData?.account);
 
-      // console.log("data: ", updatedData);
       return updatedData;
     } catch (err) {
       console.error("fetchData() Error:", err);

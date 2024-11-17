@@ -8,8 +8,8 @@ const DateRangeFilter = ({
   onEndDateChange,
 }) => (
   <div className="flex gap-4 mb-6 items-center">
-    <div>
-      <label htmlFor="startDate" className="block text-sm text-gray-600 mb-1">
+    <div className="mb-1">
+      <label htmlFor="startDate" className="block text-sm text-gray-600  pe-2">
         Start Date
       </label>
       <input
@@ -21,7 +21,10 @@ const DateRangeFilter = ({
       />
     </div>
     <div>
-      <label htmlFor="endDate" className="block text-sm text-gray-600 mb-1">
+      <label
+        htmlFor="endDate"
+        className="block text-sm text-gray-600 mb-1 pe-3"
+      >
         End Date
       </label>
       <input

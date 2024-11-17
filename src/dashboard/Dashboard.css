@@ -61,3 +61,10 @@
   font-size: 1.125rem;
   font-weight: 600;
 }
+
+.download-btn {
+  border: 1px solid #204e51 !important;
+}
+.download-btn:hover {
+  background-color: #a7efac !important;
+}

@@ -25,6 +25,8 @@ import {
   useAccountUpdateContext,
 } from "../../contexts/AccountContext";
 
+const url = process.env.REACT_APP_BACKEND_API_URL;
+
 export default function UploadImage() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedInsightIds, setSelectedInsightIds] = useState([]);
@@ -40,9 +42,6 @@ export default function UploadImage() {
   const { updateUserLastScanId, updateUserLastScanSummary } =
     useAccountUpdateContext();
 
-  const imageUploadUrl = "/analyze";
-  const imageUploadUrlLocal =
-    "http://127.0.0.1:5001/agrilens-web/us-central1/app/analyze";
   const uplaodHeaders = {
     headers: {
       // Authorization: `Bearer ${"token"}`,
@@ -76,11 +75,6 @@ export default function UploadImage() {
     try {
       setLoading(true);
       const response = await axios.post(url, data, headers);
-      // console.log(">>> 1. Response:", response.status);
-      // console.log(">>> 2. Response:", response?.data?.results);
-      // console.log(">>> 2. scanId:", response?.data?.scanId);
-      // console.log(">>> 2. Response type:", typeof response?.data?.results);
-      // setInsightResponse(() => response.data);
 
       setStatus(() => response?.status);
       updateUserLastScanId(() => response?.data?.scanId);
@@ -111,7 +105,7 @@ export default function UploadImage() {
       formData.append("insights[]", id);
     });
 
-    fetchData(imageUploadUrlLocal, formData, uplaodHeaders);
+    fetchData(`${url}/analyze`, formData, uplaodHeaders);
   };
 
   const evaluationCardsRef = useRef(null);

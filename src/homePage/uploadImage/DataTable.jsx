@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import PropTypes from "prop-types";
+import axios from "axios";
 import "./DataTable.css";
 
 import {
@@ -10,10 +10,11 @@ import {
   useAccountUpdateContext,
 } from "../../contexts/AccountContext";
 
+const url = process.env.REACT_APP_BACKEND_API_URL;
+
 const DataTable = ({ selectedEval, id }) => {
   const score = selectedEval?.health_score;
-  const { userLastScanSummary, userSelectedModel, chatBotRef } =
-    useAccountContext();
+  const { userID, userLastScanId, chatBotRef } = useAccountContext();
   const { updateUserLastScanSummary, updateUserSelectedModel } =
     useAccountUpdateContext();
 
@@ -77,8 +78,32 @@ const DataTable = ({ selectedEval, id }) => {
   //   }
   // }, [status, selectedEvaluation]);
 
-  const handleSaveResult = (summary) => {
+  const handleSaveResult = async () => {
     updateUserLastScanSummary(data?.summary);
+    updateUserSelectedModel(key);
+    try {
+      const uplaodHeaders = {
+        headers: {
+          // Authorization: `Bearer ${"token"}`,
+          userID: userID,
+        },
+      };
+      // console.log(">> updateUserAccInfoDB: ", data);
+      const response = await axios.put(
+        `${url}/users/save-evaluation`,
+        { scanId: userLastScanId, evaluation: selectedEval },
+        uplaodHeaders
+      );
+
+      const updatedEvaluation = response?.data;
+
+      // console.log("updatedEvaluation: ", updatedEvaluation);
+      return updatedEvaluation;
+    } catch (err) {
+      console.error("handleSaveResult() Error:", err);
+    }
+
+    return;
   };
   const handleChatAboutResult = () => {
     updateUserLastScanSummary(data?.summary);

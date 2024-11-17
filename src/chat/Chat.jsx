@@ -24,6 +24,7 @@ import {
 } from "../contexts/AccountContext";
 
 import AgriLensNewLogo from "../assets/images/AgriLensNewLogo.png";
+const url = process.env.REACT_APP_BACKEND_API_URL;
 
 export const Chat = () => {
   const [messages, setMessages] = useState([]);
@@ -67,17 +68,14 @@ export const Chat = () => {
       userID: userID,
     };
 
-    await fetch(
-      "http://127.0.0.1:5001/agrilens-web/us-central1/app/chat/follow-up",
-      {
-        method: "POST",
-        headers: {
-          // Authorization: "Bearer " + process.env.REACT_APP_OPENAI_API_KEY,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(apiRequestBody),
-      }
-    )
+    await fetch(`${url}/chat/follow-up`, {
+      method: "POST",
+      headers: {
+        // Authorization: "Bearer " + process.env.REACT_APP_OPENAI_API_KEY,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(apiRequestBody),
+    })
       .then((data) => {
         return data.json();
       })

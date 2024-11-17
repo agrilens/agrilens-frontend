@@ -9,11 +9,10 @@ import SignUp from "./account/signUp/SignUp";
 import Profile from "./account/profile/Profile";
 import NotFound from "./common/NotFound";
 import LoadingSpinner from "./common/LoadingSpinner";
-import Dashboard from "./features/dashboard/Dashboard";
+import Dashboard from "./dashboard/Dashboard";
 import Footer from "./footer/Footer";
 
 import "bootstrap/dist/css/bootstrap.css";
-// import "bootstrap/dist/css/bootstrap.min.css"; // Recommended in production for optimized page loading.
 import "./assets/styles/style.css";
 import "./App.css";
 
