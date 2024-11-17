@@ -86,10 +86,10 @@ export const AccountProvider = ({ children }) => {
   // Account ifno initialization and update functions
   const getUserAccInfo = async (userId, headers = {}) => {
     try {
-      const getUserInfoUrl_dev = `http://127.0.0.1:5001/agrilens-web/us-central1/app/users/${userId}/account`;
-      const getUserInfoUrl_prod = `https://app-id543mmv6a-uc.a.run.app/users/${userId}/account`;
-
-      const response = await axios.get(getUserInfoUrl_dev, headers);
+      const response = await axios.get(
+        `${url}/users/${userId}/account`,
+        headers
+      );
       // console.log("Response:", response.data);
       // console.log("Response:", response.status);
       const data = response?.data;
