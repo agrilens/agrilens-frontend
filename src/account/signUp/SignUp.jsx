@@ -21,17 +21,14 @@ import {
 } from "../../contexts/AccountContext";
 import LoadingSpinner from "../../common/LoadingSpinner";
 
-import { Modal, Tabs, Tab } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 
 export default function SignUp() {
-  const { userType, userEmail, userName, userID, userToken, userAccDetail } =
-    useAccountContext();
+  const { userToken } = useAccountContext();
   const {
     updateUserType,
     updateUserEmail,
     updateUserName,
-    updateUserID,
-    updateUserToken,
     updateUserAccDetail,
   } = useAccountUpdateContext();
 
@@ -52,6 +49,7 @@ export default function SignUp() {
   const [serverError, setServerError] = useState(null);
   const [loading, setLoading] = useState(false);
   const [successUserId, setSuccessUserId] = useState(null);
+  const [legalTermsAccepted, setLegalTermsAccepted] = useState(false);
 
   const createUserDBUrl_dev =
     "http://127.0.0.1:5001/agrilens-web/us-central1/app/users/customer";
@@ -75,6 +73,8 @@ export default function SignUp() {
     if (!firstName) newErrors.firstName = "First Name is required";
     if (!email) newErrors.email = "Email address is required";
     if (!password) newErrors.password = "Password is required";
+    if (!legalTermsAccepted)
+      newErrors.legalTerms = "You must accept the Legal Terms";
     return newErrors;
   };
 
@@ -231,6 +231,61 @@ export default function SignUp() {
                   {errors.password}
                 </Form.Control.Feedback>
               </Form.Group>
+
+              {/* <div className="agreement-text text-muted  mb-3">
+                By signing up, you agree to our
+                <span
+                  className="legal-link"
+                  onClick={() => setShowLegal(true)}
+                  style={{
+                    background: "none",
+                    padding: "0 0 0 7px",
+                    color: "#0d6efd",
+                    textDecoration: "underline",
+                    cursor: "pointer",
+                  }}
+                >
+                  Terms of Service and Privacy Policy
+                </span> */}
+              {/* 
+                  Legal Documents Modal 
+                  Link to conversation: https://claude.site/artifacts/d3859245-07d9-405c-9eee-34b7313ac98e
+                */}
+              {/* </div> */}
+              <Form.Group className="d-block mt-4 " controlId="formLegalTerms">
+                <Form.Check
+                  type="checkbox"
+                  label="By signing up, I agree to the "
+                  checked={legalTermsAccepted}
+                  onChange={(e) => setLegalTermsAccepted(e.target.checked)}
+                  isInvalid={!!errors.legalTerms}
+                  className="text-nowrap "
+                />
+
+                <span
+                  className="legal-link text-nowrap"
+                  onClick={() => setShowLegal(true)}
+                  style={{
+                    background: "none",
+                    padding: "0 0 0 25px",
+                    color: "#0d6efd",
+                    textDecoration: "underline",
+                    cursor: "pointer",
+                  }}
+                >
+                  Terms of Service and Privacy Policy
+                </span>
+                <Form.Control.Feedback type="invalid">
+                  {errors.legalTerms}
+                </Form.Control.Feedback>
+                <Modal
+                  show={showLegal}
+                  onHide={() => setShowLegal(false)}
+                  size="lg"
+                >
+                  <LegalTerms />
+                </Modal>
+              </Form.Group>
             </Col>
             <Col className="form-optional ms-2 mt-3">
               <h4 className="">Optional</h4>
@@ -316,36 +371,6 @@ export default function SignUp() {
                 >
                   Sign In
                 </Link>
-              </div>
-              <br></br>
-              <div className="agreement-text text-muted text-center mb-3">
-                By signing up, you agree to our
-                <button
-                  type="button"
-                  className="legal-link"
-                  onClick={() => setShowLegal(true)}
-                  style={{
-                    background: "none",
-                    border: "none",
-                    padding: 0,
-                    color: "#0d6efd",
-                    textDecoration: "underline",
-                    cursor: "pointer",
-                  }}
-                >
-                  Terms of Service and Privacy Policy
-                </button>
-                {/* 
-                  Legal Documents Modal 
-                  Link to conversation: https://claude.site/artifacts/d3859245-07d9-405c-9eee-34b7313ac98e
-                */}
-                <Modal
-                  show={showLegal}
-                  onHide={() => setShowLegal(false)}
-                  size="lg"
-                >
-                  <LegalTerms />
-                </Modal>
               </div>
             </Col>
           </Form>
