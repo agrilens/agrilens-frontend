@@ -6,8 +6,8 @@
 .footer-container {
   max-width: 1900px;
   padding-top: 50px;
-  padding-left: min(10vw, 100px) !important;
-  padding-right: min(10vw, 80px) !important;
+  padding-left: min(4vw, 100px) !important;
+  padding-right: min(5vw, 80px) !important;
 }
 .footer-logo img {
   background-color: white;
