@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import "./NavBar.css";
 import { useAccountContext } from "../contexts/AccountContext";
 import Modal from "react-bootstrap/Modal";
-import Tab from "react-bootstrap/Tab";
-import Tabs from "react-bootstrap/Tabs";
 
 import AgriLens from "../common/AgriLens";
 import LegalTerms from "../common/LegalTerms";
@@ -59,30 +57,40 @@ export default function NavBar() {
               </Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-              <Nav className="justify-content-end flex-grow-1 pe-3">
+              <Nav className="justify-content-end flex-grow-1">
                 <Nav.Link as={Link} to="/" onClick={handleNavClick}>
                   Home
                 </Nav.Link>
                 <Nav.Link as={Link} to="/dashboard" onClick={handleNavClick}>
                   Dashboard
                 </Nav.Link>
-                <Nav.Link as={Link} to="/pages" onClick={handleNavClick}>
-                  Pages
-                </Nav.Link>
-                <Nav.Link as={Link} to="/aboutus" onClick={handleNavClick}>
-                  About Us
-                </Nav.Link>
-                <Nav.Link as={Link} to="/contactus" onClick={handleNavClick}>
-                  Contact Us
+                <Nav.Link as={Link} to="/insights" onClick={handleNavClick}>
+                  Insights
                 </Nav.Link>
                 <Nav.Link
+                  as={Link}
+                  to="/aboutus"
+                  onClick={handleNavClick}
+                  className="text-nowrap"
+                >
+                  About Us
+                </Nav.Link>
+                <Nav.Link
+                  as={Link}
+                  to="/contactus"
+                  onClick={handleNavClick}
+                  className="text-nowrap"
+                >
+                  Contact Us
+                </Nav.Link>
+                {/* <Nav.Link
                   onClick={() => {
                     handleNavClick();
                     handleShowLegal();
                   }}
                 >
                   Legal
-                </Nav.Link>
+                </Nav.Link> */}
               </Nav>
               <div
                 className={`acc-btn align-items-center ${userType === "" ? "" : "d-none"}`}

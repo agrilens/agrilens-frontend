@@ -10,6 +10,7 @@ import Profile from "./account/profile/Profile";
 import NotFound from "./common/NotFound";
 import LoadingSpinner from "./common/LoadingSpinner";
 import Dashboard from "./dashboard/Dashboard";
+import Insights from "./insights/Insights";
 import Footer from "./footer/Footer";
 
 import "bootstrap/dist/css/bootstrap.css";
@@ -32,12 +33,13 @@ function App() {
           <main>
             <Routes>
               <Route path="/" element={<HomePage />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/insights" element={<Insights />} />
               <Route path="/aboutus" element={<AboutUs />} />
               <Route path="/contactus" element={<ContactUs />} />
-              <Route path="/signin" element={<SignIn />} />
               <Route path="/signup" element={<SignUp />} />
+              <Route path="/signin" element={<SignIn />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="*" element={<NotFound />} />
 
               {/* Route Nesting Framework. We can also create a Layout component to make it visible to every component. */}

@@ -138,6 +138,7 @@ export default function UploadImage() {
         block: "center",
       });
     }
+    // eslint-disable-next-line
   }, [status, selectedEvaluation]);
 
   return (

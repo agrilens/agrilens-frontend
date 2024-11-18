@@ -44,6 +44,7 @@ export const Chat = () => {
 
   useEffect(() => {
     updateMessages(lastConversation);
+    // eslint-disable-next-line
   }, [lastConversation]);
 
   const handleSend = async (message) => {

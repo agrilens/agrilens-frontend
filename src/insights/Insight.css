@@ -1,0 +1,11 @@
+#insightPage {
+  max-width: 1600px;
+}
+.insight-image {
+  /* height: 250px; */
+  border-radius: 4px;
+  width: 100%;
+}
+.insight-table table {
+  border-radius: 4px;
+}

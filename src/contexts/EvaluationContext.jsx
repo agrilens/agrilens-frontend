@@ -39,6 +39,7 @@ export const EvaluationProvider = ({ children }) => {
     if (userID !== "") {
       getUserRecentConversation();
     }
+    // eslint-disable-next-line
   }, []);
 
   const getUserRecentConversation = async () => {
