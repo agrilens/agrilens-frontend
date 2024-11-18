@@ -95,7 +95,7 @@ export const AccountProvider = ({ children }) => {
       };
       const response = await axios.get(`${url}/users/account`, getHeaders);
       // console.log("Response:", response.data);
-      console.log("Response:", response.status);
+      // console.log("Response:", response.status);
       const data = response?.data;
       if (response.status === 200) setUserAccInfo(() => data?.account);
       else if (response.status === 404) setUserAccInfo({});

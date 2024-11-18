@@ -63,7 +63,7 @@ export const EvaluationProvider = ({ children }) => {
         const conversations = response?.data?.conversations || [];
         setLastConversation(() => conversations);
         updateUserLastScanId(() => response?.data?.docId);
-        updateUserLastScanSummary(() => response?.data?.docId);
+        updateUserLastScanSummary(() => response?.data?.initialAnalysisSummary);
       }
 
       return response?.data;
