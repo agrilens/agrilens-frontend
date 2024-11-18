@@ -4,7 +4,6 @@ import { auth } from "../config/firebase";
 import axios from "axios";
 
 const url = process.env.REACT_APP_BACKEND_API_URL;
-
 // Create contexts
 const AccountContext = createContext();
 const AccountUpdateContext = createContext();

@@ -3,18 +3,17 @@ import axios from "axios";
 
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Image from "react-bootstrap/Image";
 import Button from "react-bootstrap/Button";
 
 import Insight from "./Insight";
-
 import { useAccountContext } from "../contexts/AccountContext";
 
 const url = process.env.REACT_APP_BACKEND_API_URL;
 
 const Insights = () => {
   const [evaluations, setEvaluations] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   const { userID } = useAccountContext();
 
@@ -27,7 +26,6 @@ const Insights = () => {
     try {
       const uplaodHeaders = {
         headers: {
-          // Authorization: `Bearer ${"token"}`,
           userID: userID,
         },
       };
@@ -36,23 +34,17 @@ const Insights = () => {
         `${url}/users/scan-history`,
         uplaodHeaders
       );
-      // const response = await axios.get(
-      //   `https://app-id543mmv6a-uc.a.run.app/users/scan-history`,
-      //   uplaodHeaders
-      // );
 
       const scans = response?.data?.scans || [];
       const formattedScans = restructureScans(scans);
 
       setEvaluations(formattedScans);
       console.log("formattedScans: ", formattedScans);
-
-      return formattedScans;
     } catch (err) {
       console.error("fetchData() Error:", err);
-    } finally {
     }
   };
+
   const restructureScans = (scans) => {
     return scans.map((scan) => {
       const getEvaluation = (evaluationObj) => {
@@ -81,16 +73,45 @@ const Insights = () => {
       };
     });
   };
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => prevPage + 1);
+  };
+
+  const handlePreviousPage = () => {
+    setCurrentPage((prevPage) => prevPage - 1);
+  };
+
+  const paginatedEvaluations = evaluations.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
   return (
     <Container id="insightPage" className="py-5">
       <div className="display-4 fw-bold text-primary mb-2">Insights</div>
-      {evaluations.map((evaluation) => {
-        return (
-          <Row>
-            <Insight insight={evaluation} />
-          </Row>
-        );
-      })}
+      {paginatedEvaluations.map((evaluation) => (
+        <Row key={evaluation.id}>
+          <Insight insight={evaluation} />
+        </Row>
+      ))}
+
+      <div className="d-flex justify-content-between mt-4">
+        <Button
+          variant="primary"
+          onClick={handlePreviousPage}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </Button>
+        <Button
+          variant="primary"
+          onClick={handleNextPage}
+          disabled={currentPage * itemsPerPage >= evaluations.length}
+        >
+          Next
+        </Button>
+      </div>
     </Container>
   );
 };
