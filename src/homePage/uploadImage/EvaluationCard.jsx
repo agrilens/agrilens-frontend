@@ -34,8 +34,8 @@ const EvaluationCard = ({ evaluation, id, isSelected, onSelect }) => {
   const evaluationFrame = [
     {
       label: "Identification",
-      value: evaluation?.health_score,
-      isValue: evaluation?.health_score !== "None detected" ? true : false,
+      value: evaluation?.plant_id,
+      isValue: evaluation?.plant_id !== "None detected" ? true : false,
     },
     {
       label: "Health Status",

@@ -34,14 +34,9 @@ const DataTable = ({ selectedEval, id }) => {
   const evaluationFrame = [
     {
       label: "Identification",
-      value: data?.health_score,
-      isValue: data?.health_score !== "None detected" ? true : false,
+      value: data?.plant_id,
+      isValue: data?.plant_id !== "None detected" ? true : false,
     },
-    // {
-    //   label: "Health Status",
-    //   value: data?.overall_health_status,
-    //   isValue: data?.overall_health_status ? true : false,
-    // },
     {
       label: "Health Score",
       value: data?.health_score,
