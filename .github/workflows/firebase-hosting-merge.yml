@@ -21,9 +21,11 @@ jobs:
         run: |
           echo "FIREBASE_API_KEY: $REACT_APP_FIREBASE_API_KEY"
           echo "FIREBASE_PROJECT_ID: $REACT_APP_FIREBASE_PROJECT_ID"
+          echo "REACT_APP_BACKEND_API_URL: $REACT_APP_BACKEND_API_URL"
         env:
           REACT_APP_FIREBASE_API_KEY: ${{ vars.REACT_APP_FIREBASE_API_KEY }}
           REACT_APP_FIREBASE_PROJECT_ID: ${{ vars.REACT_APP_FIREBASE_PROJECT_ID }}
+          REACT_APP_BACKEND_API_URL: ${{ vars.REACT_APP_BACKEND_API_URL }}
 
       - name: Install dependencies
         env:
