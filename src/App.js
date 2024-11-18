@@ -17,6 +17,7 @@ import "./assets/styles/style.css";
 import "./App.css";
 
 import { AccountProvider } from "./contexts/AccountContext";
+import { EvaluationProvider } from "./contexts/EvaluationContext";
 
 function App() {
   // const location = useLocation(); // Use to pass state object from current location of component to the navigating page.
@@ -27,24 +28,26 @@ function App() {
         <header>
           <NavBar />
         </header>
-        <main>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/aboutus" element={<AboutUs />} />
-            <Route path="/contactus" element={<ContactUs />} />
-            <Route path="/signin" element={<SignIn />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="*" element={<NotFound />} />
+        <EvaluationProvider className="">
+          <main>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/aboutus" element={<AboutUs />} />
+              <Route path="/contactus" element={<ContactUs />} />
+              <Route path="/signin" element={<SignIn />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="*" element={<NotFound />} />
 
-            {/* Route Nesting Framework. We can also create a Layout component to make it visible to every component. */}
-            {/* <Route path="/nest">
+              {/* Route Nesting Framework. We can also create a Layout component to make it visible to every component. */}
+              {/* <Route path="/nest">
           <Route path="home" element={<HomePage/>}/>
           <Route path="about" element={<AboutUs/>}/>
         </Route> */}
-          </Routes>
-        </main>
+            </Routes>
+          </main>
+        </EvaluationProvider>
         <footer>
           <Footer />
         </footer>
