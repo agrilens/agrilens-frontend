@@ -13,8 +13,10 @@ import {
 } from "../contexts/AccountContext";
 
 const url = process.env.REACT_APP_BACKEND_API_URL;
-
+console.log("url: ", url);
 const Dashboard = () => {
+  const url2 = process.env.REACT_APP_BACKEND_API_URL;
+  console.log("url: ", url2);
   const [userScanHistory, setUserScanHistory] = useState([]);
   const [startDate, setStartDate] = useState(() => {
     const date = new Date();
