@@ -25,10 +25,6 @@ const Insight = ({ insight }) => {
     return `${month}/${day}/${year} ${hours}:${minutes}`;
   }
 
-  // Example usage
-  const unixTimestamp = "1731906588575"; // Replace with your actual timestamp
-  console.log(formatUnixTimestamp(unixTimestamp));
-
   return (
     <div>
       <Row className="py-3">

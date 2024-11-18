@@ -39,7 +39,8 @@ const Insights = () => {
       const formattedScans = restructureScans(scans);
 
       setEvaluations(formattedScans);
-      console.log("formattedScans: ", formattedScans);
+
+      return formattedScans;
     } catch (err) {
       console.error("fetchData() Error:", err);
     }
