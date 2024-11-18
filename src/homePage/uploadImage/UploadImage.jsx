@@ -24,11 +24,15 @@ import {
   useAccountContext,
   useAccountUpdateContext,
 } from "../../contexts/AccountContext";
+import {
+  useEvaluationContext,
+  useEvaluationUpdateContext,
+} from "../../contexts/EvaluationContext";
 
 const url = process.env.REACT_APP_BACKEND_API_URL;
 
 export default function UploadImage() {
-  const [selectedImage, setSelectedImage] = useState(null);
+  // const [selectedImage, setSelectedImage] = useState(null);
   const [selectedInsightIds, setSelectedInsightIds] = useState([]);
   const [selectedEvaluation, setselectedEvaluation] = useState("");
   const [file, setFile] = useState();
@@ -42,6 +46,13 @@ export default function UploadImage() {
   const { updateUserLastScanId, updateUserLastScanSummary } =
     useAccountUpdateContext();
 
+  const { selectedImage, selectedEvaluationDetail } = useEvaluationContext();
+  const {
+    updateSelectedImage,
+    updateSelectedEvaluationDetail,
+    updateLastConversation,
+  } = useEvaluationUpdateContext();
+
   const uplaodHeaders = {
     headers: {
       // Authorization: `Bearer ${"token"}`,
@@ -50,14 +61,14 @@ export default function UploadImage() {
     },
   };
 
-  useEffect(() => {}, [setStatus]);
+  useEffect(() => {}, [status]);
 
   const handleImageChange = (event) => {
     const file = event?.target?.files[0];
     if (file) {
       setFile(() => file);
       const reader = new FileReader();
-      reader.onloadend = () => setSelectedImage(reader?.result);
+      reader.onloadend = () => updateSelectedImage(reader?.result);
       reader.readAsDataURL(file);
     }
   };
@@ -99,6 +110,9 @@ export default function UploadImage() {
       return;
     }
 
+    updateSelectedEvaluationDetail(null);
+    updateLastConversation([]);
+
     const formData = new FormData();
     formData.append("image", file);
     selectedInsightIds.forEach((id) => {
@@ -118,6 +132,7 @@ export default function UploadImage() {
       });
     }
     if (selectedEvaluation !== "" && dataTableRef.current) {
+      updateSelectedEvaluationDetail(analysisResults[selectedEvaluation]);
       dataTableRef?.current?.scrollIntoView({
         behavior: "smooth",
         block: "center",
@@ -248,6 +263,11 @@ export default function UploadImage() {
               selectedEval={analysisResults[selectedEvaluation]}
               id={selectedEvaluation}
             />
+          </Row>
+        )}
+        {selectedEvaluationDetail !== null && selectedEvaluation === "" && (
+          <Row className="mt-5" ref={dataTableRef}>
+            <DataTable selectedEval={selectedEvaluationDetail} />
           </Row>
         )}
       </Container>

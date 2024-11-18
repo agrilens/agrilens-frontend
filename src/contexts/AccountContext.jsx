@@ -86,16 +86,21 @@ export const AccountProvider = ({ children }) => {
   // Account ifno initialization and update functions
   const getUserAccInfo = async (userId, headers = {}) => {
     try {
-      const response = await axios.get(
-        `${url}/users/${userId}/account`,
-        headers
-      );
+      const getHeaders = {
+        headers: {
+          // Authorization: `Bearer ${"token"}`,
+          "Content-Type": "multipart/form-data",
+          userID: userId,
+        },
+      };
+      const response = await axios.get(`${url}/users/account`, getHeaders);
       // console.log("Response:", response.data);
-      // console.log("Response:", response.status);
+      console.log("Response:", response.status);
       const data = response?.data;
-      setUserAccInfo(() => data?.account);
+      if (response.status === 200) setUserAccInfo(() => data?.account);
+      else if (response.status === 404) setUserAccInfo({});
 
-      // console.log("data: ", data);
+      // console.log("users data: ", data);
       return data;
     } catch (err) {
       console.error("fetchData() Error:", err);

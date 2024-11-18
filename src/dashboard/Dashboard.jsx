@@ -39,14 +39,14 @@ const Dashboard = () => {
         },
       };
 
-      // const response = await axios.get(
-      //   `${url}/users/scan-history`,
-      //   uplaodHeaders
-      // );
       const response = await axios.get(
-        `https://app-id543mmv6a-uc.a.run.app/users/scan-history`,
+        `${url}/users/scan-history`,
         uplaodHeaders
       );
+      // const response = await axios.get(
+      //   `https://app-id543mmv6a-uc.a.run.app/users/scan-history`,
+      //   uplaodHeaders
+      // );
 
       const scans = response?.data?.scans || [];
       const formattedScans = restructureScans(scans);
