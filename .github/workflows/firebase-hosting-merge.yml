@@ -17,6 +17,14 @@ jobs:
       - name: Remove build folder
         run: rm -rf build
 
+      - name: Debug environment variables
+        run: |
+          echo "FIREBASE_API_KEY: $REACT_APP_FIREBASE_API_KEY"
+          echo "FIREBASE_PROJECT_ID: $REACT_APP_FIREBASE_PROJECT_ID"
+        env:
+          REACT_APP_FIREBASE_API_KEY: ${{ vars.REACT_APP_FIREBASE_API_KEY }}
+          REACT_APP_FIREBASE_PROJECT_ID: ${{ vars.REACT_APP_FIREBASE_PROJECT_ID }}
+
       - name: Install dependencies
         env:
           REACT_APP_FIREBASE_API_KEY: ${{ vars.REACT_APP_FIREBASE_API_KEY }}
