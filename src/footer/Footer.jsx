@@ -43,9 +43,8 @@ const Footer = () => {
               <Link to="/" className="footer-contact-link text-white">
                 Home
               </Link>
-              <Link to="/insights">Insights</Link>
               <Link to="/dashboard">Dashboard</Link>
-              <Link to="/pages">Pages</Link>
+              <Link to="/insights">Insights</Link>
             </div>
           </Col>
           <Col xs="6" sm="2" className="ps-4">

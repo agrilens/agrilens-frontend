@@ -7,10 +7,7 @@ import StatsDisplay from "./components/StatsDisplay";
 import DateRangeFilter from "./components/DateRangeFilter";
 import "./Dashboard.css";
 
-import {
-  useAccountContext,
-  useAccountUpdateContext,
-} from "../contexts/AccountContext";
+import { useAccountContext } from "../contexts/AccountContext";
 
 const url = process.env.REACT_APP_BACKEND_API_URL;
 
@@ -41,6 +38,10 @@ const Dashboard = () => {
         `${url}/users/scan-history`,
         uplaodHeaders
       );
+      // const response = await axios.get(
+      //   `https://app-id543mmv6a-uc.a.run.app/users/scan-history`,
+      //   uplaodHeaders
+      // );
 
       const scans = response?.data?.scans || [];
       const formattedScans = restructureScans(scans);

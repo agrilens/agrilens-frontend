@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import {
   MainContainer,
@@ -18,16 +18,17 @@ import Row from "react-bootstrap/Row";
 
 import "./Chat.css";
 
+import { useAccountContext } from "../contexts/AccountContext";
 import {
-  useAccountContext,
-  useAccountUpdateContext,
-} from "../contexts/AccountContext";
+  useEvaluationContext,
+  useEvaluationUpdateContext,
+} from "../contexts/EvaluationContext";
 
 import AgriLensNewLogo from "../assets/images/AgriLensNewLogo.png";
 const url = process.env.REACT_APP_BACKEND_API_URL;
 
 export const Chat = () => {
-  const [messages, setMessages] = useState([]);
+  // const [messages, setMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
 
   const {
@@ -38,6 +39,14 @@ export const Chat = () => {
     chatBotRef,
   } = useAccountContext();
 
+  const { lastConversation, messages } = useEvaluationContext();
+  const { updateMessages } = useEvaluationUpdateContext();
+
+  useEffect(() => {
+    updateMessages(lastConversation);
+    // eslint-disable-next-line
+  }, [lastConversation]);
+
   const handleSend = async (message) => {
     const newMessage = {
       message,
@@ -46,7 +55,7 @@ export const Chat = () => {
     };
 
     const newMessages = [...messages, newMessage];
-    setMessages(newMessages);
+    updateMessages(newMessages);
     setIsTyping(true);
     await processMessageToLLM(newMessages);
   };
@@ -80,7 +89,7 @@ export const Chat = () => {
         return data.json();
       })
       .then((data) => {
-        setMessages([
+        updateMessages([
           ...chatMessages,
           {
             // message: data.choices[0].message.content,
@@ -113,7 +122,7 @@ export const Chat = () => {
                 className="custom-message-content-wrapper w-100 ms-auto"
               >
                 <Message.CustomContent className="agriLesn-intro">
-                  <div className="agriLesn-intro-logo pb-1">
+                  <div className="agriLesn-intro-logo pb-1 mb-1">
                     <Avatar src={AgriLensNewLogo} name="AgriLenslogo" />
                   </div>
                   <div className="agriLesn-intro-text fw-bold fs-6">
@@ -130,7 +139,7 @@ export const Chat = () => {
                       sentTime="just now"
                       className="chat-message-header bolder"
                     />
-                    <Message.CustomContent className="chat-message-content">
+                    <Message.CustomContent className="chat-message-content pt-1">
                       <ReactMarkdown
                         remarkPlugins={[remarkGfm]}
                         rehypePlugins={[rehypeRaw]}
