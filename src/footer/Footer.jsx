@@ -35,9 +35,46 @@ const Footer = () => {
               <Link to="https://github.com/agrilens">
                 <img src={gitHubLogo} alt="" />
               </Link>
-              <div>
-                <p xmlns:cc="http://creativecommons.org/ns#" >This work by <span property="cc:attributionName">AgriLens Team</span> is licensed under <a href="https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1" target="_blank" rel="license noopener noreferrer" style="display:inline-block;">Creative Commons Attribution-ShareAlike 4.0 International<img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1" alt=""><img style="height:22px!important;margin-left:3px;vertical-align:text-bottom;" src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1" alt=""></a></p>
-              </div>
+            </div>
+            <div>
+              <p>
+                This work by <span>AgriLens Team</span> is licensed under{" "}
+                <a
+                  href="https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1"
+                  target="_blank"
+                  rel="license noopener noreferrer"
+                  style={{ display: "inline-block" }}
+                >
+                  Creative Commons Attribution-ShareAlike 4.0 International
+                  <img
+                    style={{
+                      height: "22px",
+                      marginLeft: "3px",
+                      verticalAlign: "text-bottom",
+                    }}
+                    src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"
+                    alt="CC"
+                  />
+                  <img
+                    style={{
+                      height: "22px",
+                      marginLeft: "3px",
+                      verticalAlign: "text-bottom",
+                    }}
+                    src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"
+                    alt="BY"
+                  />
+                  <img
+                    style={{
+                      height: "22px",
+                      marginLeft: "3px",
+                      verticalAlign: "text-bottom",
+                    }}
+                    src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1"
+                    alt="SA"
+                  />
+                </a>
+              </p>
             </div>
           </Col>
           <Col xs="6" sm="2" className="ps-4">
