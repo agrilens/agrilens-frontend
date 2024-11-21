@@ -61,9 +61,15 @@ export const LegalTerms = () => {
             </ul>
             <h3>5. Intellectual Property</h3>
             <p>
-              All content, features, and functionality of the App are owned by
-              us and are protected by international copyright, trademark, and
-              other intellectual property laws.
+              Copyright © 2024 AgriLens Project Team - Metropolitan State University of Denver.
+            </p>
+            <p>
+              Created by Jihadu Yassien, Jessica Nguyen, Luke Farchione, Jacqueline Hernandez, and Blair Ednie. 
+            </p>
+            <p>
+              This work is licensed under Creative Commons Attribution-ShareAlike 4.0 International.
+              To view a copy of this license, visit https://creativecommons.org/licenses/by-sa/4.0/
+              All content, features, and functionality of this application are the property of the AgriLens Project Team and are protected by copyright laws.
             </p>
             <h3>6. Termination</h3>
             <p>
