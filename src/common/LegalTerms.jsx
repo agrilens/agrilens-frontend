@@ -61,9 +61,67 @@ export const LegalTerms = () => {
             </ul>
             <h3>5. Intellectual Property</h3>
             <p>
-              All content, features, and functionality of the App are owned by
-              us and are protected by international copyright, trademark, and
-              other intellectual property laws.
+              This work created by AgriLens Team members Jihadu Yassien, Jessica
+              Nguyen, Luke Farchione, Jacqueline Hernandez, and Blair Ednie.
+            </p>
+            <p>
+              <a href="https://agrilens-web.web.app/">This work</a> by{" "}
+              <span>AgriLens Team</span> is licensed under{" "}
+              <a
+                href="https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1"
+                target="_blank"
+                rel="license noopener noreferrer"
+                style={{ display: "inline-block" }}
+              >
+                Creative Commons Attribution-ShareAlike 4.0 International
+                <img
+                  style={{
+                    height: "22px",
+                    marginLeft: "3px",
+                    verticalAlign: "text-bottom",
+                  }}
+                  src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"
+                  alt="CC"
+                />
+                <img
+                  style={{
+                    height: "22px",
+                    marginLeft: "3px",
+                    verticalAlign: "text-bottom",
+                  }}
+                  src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"
+                  alt="BY"
+                />
+                <img
+                  style={{
+                    height: "22px",
+                    marginLeft: "3px",
+                    verticalAlign: "text-bottom",
+                  }}
+                  src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1"
+                  alt="SA"
+                />
+              </a>
+            </p>
+            <p>
+              To view a copy of this license, visit
+              https://creativecommons.org/licenses/by-sa/4.0/
+            </p>
+            <p>
+              All content, features, and functionality of this application,
+              including but not limited to text, images, graphics, logos, button
+              icons, and scripts, are the exclusive property of the AgriLens
+              Project Team and are protected by United States and international
+              copyright, trademark, and other intellectual property laws.
+            </p>
+            <p>
+              By using this application, you agree to respect all copyright,
+              trademark, and other proprietary notices. You may not reproduce,
+              modify, distribute, or republish any materials from this
+              application without our prior written consent, except as strictly
+              necessary for your personal, non-commercial use as authorized by
+              the Creative Commons Attribution-ShareAlike 4.0 International
+              License.
             </p>
             <h3>6. Termination</h3>
             <p>
