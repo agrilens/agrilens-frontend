@@ -26,4 +26,10 @@
   text-decoration: none;
   padding-bottom: 2px;
   text-wrap: nowrap;
+  opacity: 0.9;
+}
+.footer-links a:hover {
+  opacity: 1;
+  /* color: #abf87f; */
+  text-decoration: underline;
 }

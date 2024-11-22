@@ -38,14 +38,19 @@ const Footer = () => {
                 <img src={gitHubLogo} alt="" />
               </Link>
             </div>
-            <div>
+            <div className="pt-5 ">
               <p>
-                This work by <span>AgriLens Team</span> is licensed under{" "}
+                <span className="pe-1">
+                  This work by AgriLens Team is licensed under
+                </span>
                 <a
                   href="https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1"
                   target="_blank"
                   rel="license noopener noreferrer"
-                  style={{ display: "inline-block" }}
+                  style={{
+                    display: "inline-block",
+                    textDecoration: "underline",
+                  }}
                 >
                   Creative Commons Attribution-ShareAlike 4.0 International
                   <img
