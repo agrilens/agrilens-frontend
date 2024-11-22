@@ -31,9 +31,6 @@
   --hover-secondary-color: #9191919a;
   --txt-dec-color: #204e51;
 }
-/* .container {
-  max-width: 1920px !important;
-} */
 .text-primary {
   color: var(--bs-primary-green) !important;
 }
@@ -60,10 +57,8 @@
   --bs-btn-disabled-color: var(--bs-primary-green);
   --bs-btn-disabled-border-color: var(--bs-primary-green);
 }
-
 #agrilens-brand,
 #agrilens-brand-with-logo {
-  background-color: transparent;
   border-radius: 10px;
   padding: 5px;
   box-sizing: border-box;
@@ -72,7 +67,7 @@
     padding 0.1s ease;
 }
 
-#agrilens-brand:hover,
+/* #agrilens-brand:hover, */
 #agrilens-brand-with-logo:hover {
   background-color: var(--hover-secondary-color);
 }

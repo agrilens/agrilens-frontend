@@ -29,14 +29,12 @@
 }
 
 .cs-message-input {
-  width: 90% !important;
+  width: 96% !important;
   margin: 0 auto;
 }
-.cs-message-input__tools .cs-button--attachment {
-  /* display: none; */
-}
+
 .cs-message__content-wrapper {
-  padding: 0 6vw;
+  padding: 0 1vw;
 }
 
 .custom-message-content-wrapper .cs-message__content-wrapper {
@@ -79,7 +77,7 @@
   background-color: transparent;
 }
 .cs-typing-indicator {
-  margin-left: 5vw;
+  margin-left: 3vw;
   margin-bottom: 0.5rem;
 }
 .cs-typing-indicator__text {
@@ -113,9 +111,6 @@
 .cs-chat-container .cs-message-input {
   border: none;
   background-color: transparent;
-}
-.cs-message-input__content-editor {
-  /* min-height: 56px !important; */
 }
 
 .cs-message--outgoing .cs-message__sender-name,

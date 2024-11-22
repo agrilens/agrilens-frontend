@@ -83,14 +83,6 @@ export default function NavBar() {
                 >
                   Contact Us
                 </Nav.Link>
-                {/* <Nav.Link
-                  onClick={() => {
-                    handleNavClick();
-                    handleShowLegal();
-                  }}
-                >
-                  Legal
-                </Nav.Link> */}
               </Nav>
               <div
                 className={`acc-btn align-items-center ${userType === "" ? "" : "d-none"}`}

@@ -97,9 +97,11 @@ const Insights = () => {
         </Row>
       ))}
 
-      <div className="d-flex justify-content-between mt-4">
+      <div className="d-flex justify-content-center gap-5 mt-4 mx-auto">
         <Button
           variant="primary"
+          size="md"
+          className="px-3"
           onClick={handlePreviousPage}
           disabled={currentPage === 1}
         >
@@ -107,6 +109,8 @@ const Insights = () => {
         </Button>
         <Button
           variant="primary"
+          size="md"
+          className="px-4"
           onClick={handleNextPage}
           disabled={currentPage * itemsPerPage >= evaluations.length}
         >

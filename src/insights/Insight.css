@@ -1,11 +1,16 @@
 #insightPage {
   max-width: 1600px;
 }
+
 .insight-image {
-  /* height: 250px; */
-  border-radius: 4px;
   width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
 }
 .insight-table table {
-  border-radius: 4px;
+  border-radius: 8px;
 }
