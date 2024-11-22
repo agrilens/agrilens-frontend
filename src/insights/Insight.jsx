@@ -28,7 +28,7 @@ const Insight = ({ insight }) => {
   return (
     <div>
       <Row className="py-3">
-        <Col sm="3" md="4" className="border text-start mb-3">
+        <Col sm="3" md="4" className="border text-center mb-3">
           <img src={insight?.imgUrl} alt="" className="insight-image " />
         </Col>
         <Col className="insight-table">

@@ -9,6 +9,9 @@
   padding-left: min(4vw, 100px) !important;
   padding-right: min(5vw, 80px) !important;
 }
+.footer-agri-logo {
+  color: #fff !important;
+}
 .footer-logo img {
   background-color: white;
   transform: scale(1.5);

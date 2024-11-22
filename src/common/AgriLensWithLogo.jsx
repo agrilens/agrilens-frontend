@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 
 import AgriLens from "./AgriLens";
-import AgriLensLogoCircleMobile from "../assets/images/AgriLensLogoCircleMobile.png";
-import AgriLensLogoCircleTablet from "../assets/images/AgriLensLogoCircleTablet.png";
-import AgriLensLogoCircleDesktop from "../assets/images/AgriLensLogoCircleDesktop.png";
+import AgriLensLogoCircleMobile from "../assets/images/agriLensLogoMob.png";
+import AgriLensLogoCircleTablet from "../assets/images/agriLensLogoTab.png";
+import AgriLensLogoCircleDesktop from "../assets/images/agriLensLogoDesk.png";
 
 const AgriLensWithLogo = () => {
   const [screenSize, setScreenSize] = useState(window.innerWidth);

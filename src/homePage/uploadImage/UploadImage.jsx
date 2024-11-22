@@ -11,6 +11,7 @@ import Button from "react-bootstrap/Button";
 import DataTable from "./DataTable";
 import EvaluationCard from "./EvaluationCard";
 import LoadingSpinner from "../../common/LoadingSpinner";
+import UserErrorPopup from "../../common/UserErrorPopup";
 
 import InsightCard from "./InsightCard";
 import emptyFileImage from "../../assets/images/emptyFileImage.png";
@@ -32,7 +33,6 @@ import {
 const url = process.env.REACT_APP_BACKEND_API_URL;
 
 export default function UploadImage() {
-  // const [selectedImage, setSelectedImage] = useState(null);
   const [selectedInsightIds, setSelectedInsightIds] = useState([]);
   const [selectedEvaluation, setselectedEvaluation] = useState("");
   const [file, setFile] = useState();
@@ -103,7 +103,7 @@ export default function UploadImage() {
   const handleGetInsight = () => {
     if (!selectedImage) {
       console.log("Please select a valid image.");
-      return;
+      return UserErrorPopup;
     }
     if (selectedInsightIds.length === 0) {
       console.log("Please select at least one insight.");

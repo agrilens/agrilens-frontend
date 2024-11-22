@@ -24,13 +24,15 @@ const Footer = () => {
         <Row className="">
           <Col sm="8" className=" text-start ">
             <Link to="/">
-              <AgriLens />
+              <div className="footer-agrilens-brand text-white fs-1 fw-bold">
+                AgriLens
+              </div>
             </Link>
 
-            <p className="ps-2">
+            <p className="ps-1">
               Revolutionizing Agriculture through AI Vision Technology
             </p>
-            <div className="p-2 ps-4 mb-sm-3 footer-logo">
+            <div className="p-2 ps-3 mb-sm-3 footer-logo">
               {/* <img src={gitHubLogo} alt="" /> */}
               <Link to="https://github.com/agrilens">
                 <img src={gitHubLogo} alt="" />
