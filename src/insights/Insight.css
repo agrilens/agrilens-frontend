@@ -1,5 +1,6 @@
 #insightPage {
   max-width: 1600px;
+  min-height: 550px !important;
 }
 
 .insight-image {
@@ -14,6 +15,7 @@
 .insight-table table {
   border-radius: 8px;
 }
-.insights-account-error section {
-  height: 250px !important;
+#insightPage #NoAccountError {
+  max-width: 1600px;
+  max-height: 350px;
 }

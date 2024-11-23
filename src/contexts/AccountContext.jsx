@@ -62,7 +62,6 @@ export const AccountProvider = ({ children }) => {
         // Wait for the account information to be fetched
         const data = await getUserAccInfo(userID);
         const accountInfo = data?.account;
-        // console.log(">> 2 Context user account Data :", accountInfo);
 
         setUserType(accountInfo?.type);
         setUserFName(accountInfo?.firstName);

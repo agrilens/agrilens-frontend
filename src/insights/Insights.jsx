@@ -20,7 +20,9 @@ const Insights = () => {
   const { userID } = useAccountContext();
 
   useEffect(() => {
-    getUserScanHistory();
+    if (userID) {
+      getUserScanHistory();
+    }
     // eslint-disable-next-line
   }, []);
 
@@ -40,7 +42,7 @@ const Insights = () => {
       const scans = response?.data?.scans || [];
       const formattedScans = restructureScans(scans);
 
-      setEvaluations([]);
+      setEvaluations(formattedScans);
 
       return formattedScans;
     } catch (err) {
@@ -98,9 +100,6 @@ const Insights = () => {
           <Insight insight={evaluation} />
         </Row>
       ))}
-      <div className="insights-account-error">
-        <NoAccountError />
-      </div>
       <div className="d-flex justify-content-center gap-5 mt-4 mx-auto">
         <Button
           variant="primary"
@@ -121,6 +120,7 @@ const Insights = () => {
           Next
         </Button>
       </div>
+      <NoAccountError />
     </Container>
   );
 };

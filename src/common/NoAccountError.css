@@ -1,10 +1,9 @@
 #NoAccountError {
-  /* height: 300px; */
+  height: 300px;
   height: 85%;
-  width: 98%;
-  /* margin: 0 auto; */
+  width: 100%;
+  display: block;
   position: absolute;
-  /* border: 1px solid red; */
   background: rgba(238, 237, 237, 0.8);
   transform: scale(0.9);
   transition: transform 0.3s ease-in-out;
@@ -21,6 +20,12 @@
 }
 .error-btns-wrapper .btn {
   transition: transform;
-
   width: min(220px);
+}
+
+@media (max-width: 576px) {
+  .error-btns-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
 }

@@ -23,7 +23,9 @@ const Dashboard = () => {
   const { userID } = useAccountContext();
 
   useEffect(() => {
-    getUserScanHistory();
+    if (userID) {
+      getUserScanHistory();
+    }
     // eslint-disable-next-line
   }, []);
 
@@ -181,7 +183,9 @@ const Dashboard = () => {
         <HealthScoreChart data={filteredData} />
         <IssuesBarChart data={filteredData} />
       </div>
+      {/* <div className="dashboard-account-error"> */}
       <NoAccountError />
+      {/* </div> */}
     </div>
   );
 };

@@ -7,11 +7,10 @@ import "./NoAccountError.css";
 
 const NoAccountError = ({}) => {
   return (
-    // <div>
     <section id="NoAccountError" className="">
-      <div className="h-100 my-auto d-flex flex-column justify-content-center align-items-center">
-        <i className="fa-sharp fa-solid fa-circle-info  mb-5" />
-        <h2 className="display-5 fw-bolder  mt-4">
+      <div className="h-100 w-100 border my-auto mx-auto d-flex flex-column justify-content-center align-items-center">
+        <i class="fa-sharp fa-solid fa-circle-info  mb-5" />
+        <h2 className="display-5 fw-bolder mt-4 text-center">
           You must be logged in for full access!
         </h2>
         <div className="error-btns-wrapper d-flex justify-content-center gap-4 align-items-center mt-3">
@@ -22,7 +21,7 @@ const NoAccountError = ({}) => {
           >
             Sign In
           </Link>
-          <h2 className="display-6 fw-bolder mx-3">OR</h2>
+          <h2 className="display-6 fw-bolder text-primary mx-3">OR</h2>
           <Link
             to="/signup"
             variant="primary"
@@ -33,7 +32,6 @@ const NoAccountError = ({}) => {
         </div>
       </div>
     </section>
-    // </div>
   );
 };
 
