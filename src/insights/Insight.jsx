@@ -1,6 +1,7 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
 
+import NoAccountError from "../common/NoAccountError";
 import "./Insight.css";
 
 const Insight = ({ insight }) => {
@@ -74,6 +75,7 @@ const Insight = ({ insight }) => {
             </tbody>
           </table>
         </Col>
+        {/* <NoAccountError /> */}
       </Row>
     </div>
   );

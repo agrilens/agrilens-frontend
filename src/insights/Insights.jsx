@@ -6,6 +6,8 @@ import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 
 import Insight from "./Insight";
+import NoAccountError from "../common/NoAccountError";
+
 import { useAccountContext } from "../contexts/AccountContext";
 
 const url = process.env.REACT_APP_BACKEND_API_URL;
@@ -38,7 +40,7 @@ const Insights = () => {
       const scans = response?.data?.scans || [];
       const formattedScans = restructureScans(scans);
 
-      setEvaluations(formattedScans);
+      setEvaluations([]);
 
       return formattedScans;
     } catch (err) {
@@ -96,7 +98,9 @@ const Insights = () => {
           <Insight insight={evaluation} />
         </Row>
       ))}
-
+      <div className="insights-account-error">
+        <NoAccountError />
+      </div>
       <div className="d-flex justify-content-center gap-5 mt-4 mx-auto">
         <Button
           variant="primary"

@@ -14,3 +14,6 @@
 .insight-table table {
   border-radius: 8px;
 }
+.insights-account-error section {
+  height: 250px !important;
+}

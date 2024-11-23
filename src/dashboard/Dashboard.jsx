@@ -5,6 +5,8 @@ import HealthScoreChart from "./components/HealthScoreChart";
 import IssuesBarChart from "./components/IssuesBarChart";
 import StatsDisplay from "./components/StatsDisplay";
 import DateRangeFilter from "./components/DateRangeFilter";
+import NoAccountError from "../common/NoAccountError";
+
 import "./Dashboard.css";
 
 import { useAccountContext } from "../contexts/AccountContext";
@@ -179,6 +181,7 @@ const Dashboard = () => {
         <HealthScoreChart data={filteredData} />
         <IssuesBarChart data={filteredData} />
       </div>
+      <NoAccountError />
     </div>
   );
 };
