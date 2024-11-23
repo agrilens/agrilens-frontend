@@ -9,6 +9,7 @@ import SignUp from "./account/signUp/SignUp";
 import Profile from "./account/profile/Profile";
 import NotFound from "./common/NotFound";
 import LoadingSpinner from "./common/LoadingSpinner";
+import ActionErrorPopup from "./common/ActionErrorPopup";
 import Dashboard from "./dashboard/Dashboard";
 import Insights from "./insights/Insights";
 import Footer from "./footer/Footer";
@@ -31,6 +32,7 @@ function App() {
         </header>
         <EvaluationProvider className="">
           <main>
+            <ActionErrorPopup />
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/dashboard" element={<Dashboard />} />

@@ -15,6 +15,7 @@ import remarkGfm from "remark-gfm";
 import rehypeRaw from "remark-gfm";
 
 import Row from "react-bootstrap/Row";
+import NoAccountError from "../common/NoAccountError";
 
 import "./Chat.css";
 
@@ -105,7 +106,7 @@ export const Chat = () => {
   return (
     <section id="chat" className="pb-4" ref={chatBotRef}>
       <Row className="m-auto px-3 py-5">
-        <MainContainer className="pb-4 pt-4">
+        <MainContainer className="pb-4 pt-4 ">
           <ChatContainer>
             <MessageList
               typingIndicator={
@@ -161,6 +162,7 @@ export const Chat = () => {
         <ReactMarkdown remarkPlugins={[remarkGfm]}>
           {messages[messages.length - 1]?.content}
         </ReactMarkdown>
+        <NoAccountError />
       </Row>
     </section>
   );

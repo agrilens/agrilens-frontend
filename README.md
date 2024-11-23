@@ -221,3 +221,9 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 - ESLint: JavaScript linting tool
 - Prettier: Code formatting tool
 - Husky: Git hooks manager for enforcing code quality on commit
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Large Vision Models
+- Llama: Mixtral is from the Llama family. [Hyperbolic - This is what hosts our LVM's](https://hyperbolic.xyz/)
+- Qwen: Qwen is an independent research org that releases state-of-the-art LVM models [Hyperbolic - This is what hosts our LVM's](https://hyperbolic.xyz/)
+- Plant ID: Plant ID uses iNaturalist, which uses a closed-source model. [Plant ID API Docs](https://documenter.getpostman.com/view/24599534/2s93z5A4v2)
+  

@@ -24,13 +24,15 @@ const Footer = () => {
         <Row className="">
           <Col sm="8" className=" text-start ">
             <Link to="/">
-              <AgriLens />
+              <div className="footer-agrilens-brand text-white fs-1 fw-bold">
+                AgriLens
+              </div>
             </Link>
 
-            <p className="ps-2">
+            <p className="ps-1">
               Revolutionizing Agriculture through AI Vision Technology
             </p>
-            <div className="p-2 ps-4 mb-sm-3 footer-logo">
+            <div className="p-2 ps-3 mb-sm-3 footer-logo">
               {/* <img src={gitHubLogo} alt="" /> */}
               <Link to="https://github.com/agrilens">
                 <img src={gitHubLogo} alt="" />
@@ -81,6 +83,54 @@ const Footer = () => {
                   <LegalTerms />
                 </Modal>
               </div>
+            </div>
+          </Col>
+          <Col xs="12">
+            <div className="pt-1 text-wrap">
+              <p>
+                <span className="pe-1">
+                  This work by AgriLens Team is licensed under
+                </span>
+                <a
+                  href="https://creativecommons.org/licenses/by-sa/4.0/?ref=chooser-v1"
+                  target="_blank"
+                  rel="license noopener noreferrer"
+                  style={{
+                    // display: "inline-block",
+                    whiteSpace: "wrap",
+                    textDecoration: "underline",
+                  }}
+                >
+                  Creative Commons Attribution-ShareAlike 4.0 International
+                  <img
+                    style={{
+                      height: "22px",
+                      marginLeft: "3px",
+                      verticalAlign: "text-bottom",
+                    }}
+                    src="https://mirrors.creativecommons.org/presskit/icons/cc.svg?ref=chooser-v1"
+                    alt="CC"
+                  />
+                  <img
+                    style={{
+                      height: "22px",
+                      marginLeft: "3px",
+                      verticalAlign: "text-bottom",
+                    }}
+                    src="https://mirrors.creativecommons.org/presskit/icons/by.svg?ref=chooser-v1"
+                    alt="BY"
+                  />
+                  <img
+                    style={{
+                      height: "22px",
+                      marginLeft: "3px",
+                      verticalAlign: "text-bottom",
+                    }}
+                    src="https://mirrors.creativecommons.org/presskit/icons/sa.svg?ref=chooser-v1"
+                    alt="SA"
+                  />
+                </a>
+              </p>
             </div>
           </Col>
         </Row>

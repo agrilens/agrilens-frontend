@@ -9,6 +9,9 @@
   padding-left: min(4vw, 100px) !important;
   padding-right: min(5vw, 80px) !important;
 }
+.footer-agri-logo {
+  color: #fff !important;
+}
 .footer-logo img {
   background-color: white;
   transform: scale(1.5);
@@ -23,4 +26,10 @@
   text-decoration: none;
   padding-bottom: 2px;
   text-wrap: nowrap;
+  opacity: 0.9;
+}
+.footer-links a:hover {
+  opacity: 1;
+  /* color: #abf87f; */
+  text-decoration: underline;
 }

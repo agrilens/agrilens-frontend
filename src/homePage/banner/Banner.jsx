@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import Container from "react-bootstrap/Container";
 import Card from "react-bootstrap/Card";
@@ -8,6 +9,14 @@ import "./Banner.css";
 import bannerBackground from "../../assets/images/bannerBackground.png";
 
 const Banner = () => {
+  const handleScrollToNextSection = () => {
+    const currentScrollPosition = window.scrollY; // Current scroll position
+    const viewportHeight = window.innerHeight; // Height of the viewport
+    window.scrollTo({
+      top: currentScrollPosition + viewportHeight,
+      behavior: "smooth",
+    });
+  };
   return (
     <Container fluid id="banner" className="px-0 text-center">
       <Card className="my-auto text-white">
@@ -29,12 +38,18 @@ const Banner = () => {
               location
             </Card.Text>
             <div className="banner-btns-wrapper">
-              <Button className="banner-btns fw-bold px-4 border-primary-green">
+              <Button
+                onClick={handleScrollToNextSection}
+                className="banner-btns fw-bold px-4 d-flex border-primary-green"
+              >
                 Get Started
               </Button>
-              <Button className="banner-btns fw-bold px-4 bg-transparent border-white">
+              <Link
+                to="/aboutus"
+                className="banner-btns d-flex align-items-center fw-bold px-4 pb-1 text-white bg-transparent border-white"
+              >
                 Learn More
-              </Button>
+              </Link>
             </div>
           </div>
         </Card.ImgOverlay>

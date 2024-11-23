@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import Card from "react-bootstrap/Card";
 
-import defaultImg from "../assets/images/AgriLensLogo1.png";
+import defaultImg from "../assets/images/agriLensLogo.png";
 
 const MemberCard = ({ member }) => {
   const imgSrc = member.imgSrc || defaultImg;

@@ -1,6 +1,7 @@
 import React from "react";
 import { Row, Col } from "react-bootstrap";
 
+import NoAccountError from "../common/NoAccountError";
 import "./Insight.css";
 
 const Insight = ({ insight }) => {
@@ -28,7 +29,7 @@ const Insight = ({ insight }) => {
   return (
     <div>
       <Row className="py-3">
-        <Col sm="3" md="4" className="border text-start mb-3">
+        <Col sm="3" md="4" className="border text-center mb-3">
           <img src={insight?.imgUrl} alt="" className="insight-image " />
         </Col>
         <Col className="insight-table">
@@ -74,6 +75,7 @@ const Insight = ({ insight }) => {
             </tbody>
           </table>
         </Col>
+        {/* <NoAccountError /> */}
       </Row>
     </div>
   );

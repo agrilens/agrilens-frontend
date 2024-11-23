@@ -1,11 +1,22 @@
 #insightPage {
   max-width: 1600px;
+  min-height: 550px !important;
 }
+
 .insight-image {
-  /* height: 250px; */
-  border-radius: 4px;
   width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
 }
 .insight-table table {
-  border-radius: 4px;
+  border-radius: 8px;
+}
+
+#insightPage #NoAccountError {
+  max-width: 1600px;
+  max-height: 350px;
 }
