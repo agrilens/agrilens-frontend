@@ -50,15 +50,15 @@ export default function SignIn() {
         email,
         password
       );
-      console.log("Logging in....");
-      console.log("login currentUser: ", auth.currentUser);
+      // console.log("Logging in....");
+      // console.log("login currentUser: ", auth.currentUser);
 
       const user = auth.currentUser;
       const userEmail = user.email;
       const userID = user.uid;
       const userToken = await user.getIdToken();
 
-      console.log("User details:", { userEmail, userID, userToken });
+      // console.log("User details:", { userEmail, userID, userToken });
 
       updateUserEmail(userEmail);
       updateUserID(userID);
