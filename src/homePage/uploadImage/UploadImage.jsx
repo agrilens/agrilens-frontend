@@ -39,6 +39,7 @@ export default function UploadImage() {
   const [evaluations, setEvaluations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null);
+  const [isImageValid, setIsImageValid] = useState("");
   const [error, setError] = useState(false);
 
   const { userID, userLastScanSummary } = useAccountContext();
@@ -61,7 +62,17 @@ export default function UploadImage() {
     },
   };
 
-  useEffect(() => {}, [status]);
+  useEffect(() => {
+    if (isImageValid === false) {
+      handleShowErrorModal({
+        errorTitle: "Invalid Image",
+        errorMessage:
+          "The uploaded image doesn't appear to be of a plant. Please upload a clear and valid plant image to proceed with the analysis.",
+      });
+      return;
+    }
+    // eslint-disable-next-line
+  }, [status, isImageValid]);
 
   const handleImageChange = (event) => {
     const file = event?.target?.files[0];
@@ -88,10 +99,11 @@ export default function UploadImage() {
       const response = await axios.post(url, data, headers);
 
       setStatus(() => response?.status);
+      setIsImageValid(() => response?.data?.isImageValid);
       updateUserLastScanId(() => response?.data?.scanId);
       setAnalysisResults(() => response?.data?.results);
       setEvaluations(() => response?.data?.results);
-      // console.log(">>> 3. analysisResult:", analysisResult);
+      // console.log(">>> 3. response?.data: ", response?.data);
     } catch (err) {
       console.error("fetchData() Error:", err);
       setError(err.message);
@@ -108,10 +120,6 @@ export default function UploadImage() {
       });
       return;
     }
-    // if (selectedInsightIds.length === 0) {
-    //   console.log("Please select at least one insight.");
-    //   return;
-    // }
 
     updateSelectedEvaluationDetail(null);
     updateLastConversation([]);
@@ -128,7 +136,7 @@ export default function UploadImage() {
   const evaluationCardsRef = useRef(null);
   const dataTableRef = useRef(null);
   useEffect(() => {
-    if (status === 200 && evaluationCardsRef.current) {
+    if (status === 200 && isImageValid && evaluationCardsRef.current) {
       evaluationCardsRef?.current?.scrollIntoView({
         behavior: "smooth",
         block: "center",
@@ -242,10 +250,10 @@ export default function UploadImage() {
           </Col>
         </Row>
         {status === 200 && (
-          <Row className="text-center  pb-5" ref={evaluationCardsRef}>
+          <Row className="text-center pb-5" ref={evaluationCardsRef}>
             {analysisResults.map((analysisResult, index) => (
               <Col key={index}>
-                {Object.entries(analysisResult).map(([key, value]) => {
+                {Object?.entries(analysisResult).map(([key, value]) => {
                   // console.log(`Key: ${key}, Value: ${value}`);
                   return (
                     <EvaluationCard

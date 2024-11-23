@@ -9,26 +9,25 @@ import {
   useAccountContext,
   useAccountUpdateContext,
 } from "../../contexts/AccountContext";
+import { useEvaluationUpdateContext } from "../../contexts/EvaluationContext";
 
 const url = process.env.REACT_APP_BACKEND_API_URL;
 
 const DataTable = ({ selectedEval, id }) => {
-  const score = selectedEval?.health_score;
+  const [saveBtnTxt, setSaveBtnTxt] = useState("");
+  const [saveBtnClass, setSaveBtnClass] = useState("");
+
   const { userID, userLastScanId, chatBotRef } = useAccountContext();
   const { updateUserLastScanSummary, updateUserSelectedModel } =
     useAccountUpdateContext();
+  const { handleShowErrorModal } = useEvaluationUpdateContext();
 
-  /* Healthy >= 98 | 98 < Mild Issues >= 80 | 80 < Moderate Issues >= 50 |Severe Issues < 50 */
-  const statusColor =
-    score >= 98
-      ? "success"
-      : score >= 80
-        ? " mild-success"
-        : score >= 50
-          ? "warning"
-          : "danger";
+  useEffect(() => {
+    setSaveBtnTxt("Save Result");
+    setSaveBtnClass("white text-primary active");
+  }, [selectedEval]);
 
-  const key = Object.keys(selectedEval)[0];
+  const key = Object?.keys(selectedEval)[0];
   let data = selectedEval[key];
 
   const evaluationFrame = [
@@ -64,18 +63,28 @@ const DataTable = ({ selectedEval, id }) => {
     },
   ];
 
-  // useEffect(() => {
-  //   if (selectedEvaluation !== "" && dataTableRef.current) {
-  //     dataTableRef.current.scrollIntoView({
-  //       behavior: "smooth",
-  //       block: "center",
-  //     });
-  //   }
-  // }, [status, selectedEvaluation]);
+  const score = data?.health_score;
+  /* Healthy >= 98 | 98 < Mild Issues >= 80 | 80 < Moderate Issues >= 50 |Severe Issues < 50 */
+
+  const statusColor =
+    score >= 98
+      ? "success"
+      : score >= 80
+        ? " mild-success"
+        : score >= 50
+          ? "warning"
+          : "danger";
 
   const handleSaveResult = async () => {
     updateUserLastScanSummary(data?.summary);
     updateUserSelectedModel(key);
+    if (userID === "") {
+      handleShowErrorModal({
+        errorTitle: "User Not Logged In",
+        errorMessage: "User must be logged in to save results.",
+      });
+      return;
+    }
     try {
       const uplaodHeaders = {
         headers: {
@@ -91,6 +100,8 @@ const DataTable = ({ selectedEval, id }) => {
       );
 
       const updatedEvaluation = response?.data;
+      setSaveBtnTxt("Result Saved");
+      setSaveBtnClass("success text-white disabled");
 
       // console.log("updatedEvaluation: ", updatedEvaluation);
       return updatedEvaluation;
@@ -165,13 +176,13 @@ const DataTable = ({ selectedEval, id }) => {
           </div>
           <Button
             onClick={handleSaveResult}
-            className="my-1 dataTableCard-card-btn text-primary text-center fs-5 me-md-3"
+            className={`dataTableCard-card-btn my-1 bg-${saveBtnClass} text-center fs-5 me-md-3`}
           >
-            Save Result
+            {saveBtnTxt}
           </Button>
           <Button
             onClick={handleChatAboutResult}
-            className="my-1 dataTableCard-card-btn text-primary text-center fs-5"
+            className="my-1 dataTableCard-card-btn text-primary bg-white text-center fs-6"
           >
             Ask About your Result
           </Button>
@@ -180,16 +191,5 @@ const DataTable = ({ selectedEval, id }) => {
     </Col>
   );
 };
-
-// DataTable.propTypes = {
-//   data: PropTypes.shape({
-//     overall_health_status: PropTypes.string,
-//     health_score: PropTypes.number,
-//     pest_identification: PropTypes.string,
-//     disease_identification: PropTypes.string,
-//     weed_presence: PropTypes.string,
-//     recommendations: PropTypes.arrayOf(PropTypes.string),
-//   }).isRequired,
-// };
 
 export default DataTable;

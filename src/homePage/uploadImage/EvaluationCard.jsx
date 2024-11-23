@@ -78,7 +78,7 @@ const EvaluationCard = ({ evaluation, id, isSelected, onSelect }) => {
       md="6"
       id="evaluationCard"
       onClick={onSelect}
-      className={`mx-auto ${isSelected ? "selected-evaluation" : ""}`}
+      className={`mx-auto ${isSelected ? "selected-evaluation" : ""} mt-5`}
     >
       <div className="evaluation-card-tag mx-auto fs-5 fw-bold ">
         {id} Evaluation

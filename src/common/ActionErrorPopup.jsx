@@ -20,9 +20,11 @@ const ActionErrorPopup = ({ errorTitle, errorMessage }) => {
             {modalErrorMessage.errorTitle || "Error"}
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body className="text-primary fs-2">
-          <i className="fa-sharp fa-solid fa-circle-info me-2" />
-          {modalErrorMessage.errorMessage || "Something wrong happened."}
+        <Modal.Body className="d-flex text-primary gap-2 fs-2">
+          <i className="fa-sharp fa-solid fa-circle-info pt-2" />
+          <div>
+            {modalErrorMessage.errorMessage || "Something wrong happened."}
+          </div>
         </Modal.Body>
         <Modal.Footer>
           <Button

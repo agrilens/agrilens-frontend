@@ -1,5 +1,6 @@
 #evaluationCard {
-  width: 430px !important;
+  min-width: 330px !important;
+  width: 88vw !important;
   transition:
     transform 0.3s ease,
     box-shadow 0.3s ease;
@@ -70,7 +71,7 @@
   color: red;
 }
 
-@media (min-width: 576px) and (max-width: 992px) {
+@media (min-width: 576px) {
   /*  Medium devices (tablets, 768px and up) */
   #evaluationCard {
     width: 490px !important;
