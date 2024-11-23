@@ -9,6 +9,7 @@ import {
   useAccountContext,
   useAccountUpdateContext,
 } from "../../contexts/AccountContext";
+import { useEvaluationUpdateContext } from "../../contexts/EvaluationContext";
 
 const url = process.env.REACT_APP_BACKEND_API_URL;
 
@@ -19,6 +20,7 @@ const DataTable = ({ selectedEval, id }) => {
   const { userID, userLastScanId, chatBotRef } = useAccountContext();
   const { updateUserLastScanSummary, updateUserSelectedModel } =
     useAccountUpdateContext();
+  const { handleShowErrorModal } = useEvaluationUpdateContext();
 
   useEffect(() => {
     setSaveBtnTxt("Save Result");
@@ -62,8 +64,8 @@ const DataTable = ({ selectedEval, id }) => {
   ];
 
   const score = data?.health_score;
-  console.log("score: ", score);
   /* Healthy >= 98 | 98 < Mild Issues >= 80 | 80 < Moderate Issues >= 50 |Severe Issues < 50 */
+
   const statusColor =
     score >= 98
       ? "success"
@@ -76,6 +78,13 @@ const DataTable = ({ selectedEval, id }) => {
   const handleSaveResult = async () => {
     updateUserLastScanSummary(data?.summary);
     updateUserSelectedModel(key);
+    if (userID === "") {
+      handleShowErrorModal({
+        errorTitle: "User Not Logged In",
+        errorMessage: "User must be logged in to save results.",
+      });
+      return;
+    }
     try {
       const uplaodHeaders = {
         headers: {

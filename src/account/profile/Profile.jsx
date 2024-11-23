@@ -58,7 +58,7 @@ export const Profile = () => {
 
   const logOut = async () => {
     try {
-      console.log("currentUser: ", auth?.currentUser);
+      // console.log("currentUser: ", auth?.currentUser);
       await signOut(auth);
       localStorage.removeItem("userID");
       localStorage.removeItem("userToken");
