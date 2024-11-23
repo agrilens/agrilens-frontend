@@ -29,6 +29,7 @@ export const AccountProvider = ({ children }) => {
   const [userToken, setUserToken] = useState(
     localStorage.getItem("userToken") || ""
   );
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
   const [userLastScanId, setUserLastScanId] = useState(0);
   const [userLastScanSummary, setUserLastScanSummary] = useState(
     "No chosen analysis result."
@@ -37,15 +38,16 @@ export const AccountProvider = ({ children }) => {
 
   const chatBotRef = useRef(null);
 
-  // useEffect(() => {
-  //   const savedUserID = localStorage.getItem("userID");
-  //   const savedUserToken = localStorage.getItem("userToken");
+  useEffect(() => {
+    // const savedUserID = localStorage.getItem("userID");
+    // const savedUserToken = localStorage.getItem("userToken");
 
-  //   if (savedUserID && savedUserToken) {
-  //     setUserID(savedUserID);
-  //     setUserToken(savedUserToken);
-  //   }
-  // }, []);
+    // if (savedUserID && savedUserToken) {
+    //   setUserID(savedUserID);
+    //   setUserToken(savedUserToken);
+    // }
+    if (userID && userToken) setIsUserLoggedIn(true);
+  }, [userID, userToken]);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
@@ -58,6 +60,7 @@ export const AccountProvider = ({ children }) => {
         localStorage.setItem("userID", userID);
         localStorage.setItem("userToken", userToken);
         setUserEmail(user.email);
+        setIsUserLoggedIn(true);
 
         // Wait for the account information to be fetched
         const data = await getUserAccInfo(userID);
@@ -164,6 +167,7 @@ export const AccountProvider = ({ children }) => {
         userAccDetail,
         userID,
         userToken,
+        isUserLoggedIn,
         userLastScanId,
         userLastScanSummary,
         userSelectedModel,
