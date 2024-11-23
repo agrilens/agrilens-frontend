@@ -11,7 +11,6 @@ import Button from "react-bootstrap/Button";
 import DataTable from "./DataTable";
 import EvaluationCard from "./EvaluationCard";
 import LoadingSpinner from "../../common/LoadingSpinner";
-import ActionErrorPopup from "../../common/ActionErrorPopup";
 
 import InsightCard from "./InsightCard";
 import emptyFileImage from "../../assets/images/emptyFileImage.png";
@@ -147,7 +146,6 @@ export default function UploadImage() {
 
   return (
     <div>
-      {/* <ActionErrorPopup /> */}
       <Container id="uploadImage" className="text-center">
         <Row className="text-primary py-5">
           {loading && <LoadingSpinner />}
