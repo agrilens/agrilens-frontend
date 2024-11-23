@@ -250,10 +250,10 @@ export default function UploadImage() {
           </Col>
         </Row>
         {status === 200 && (
-          <Row className="text-center  pb-5" ref={evaluationCardsRef}>
+          <Row className="text-center pb-5" ref={evaluationCardsRef}>
             {analysisResults.map((analysisResult, index) => (
               <Col key={index}>
-                {Object.entries(analysisResult).map(([key, value]) => {
+                {Object?.entries(analysisResult).map(([key, value]) => {
                   // console.log(`Key: ${key}, Value: ${value}`);
                   return (
                     <EvaluationCard

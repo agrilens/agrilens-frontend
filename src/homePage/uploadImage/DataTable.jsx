@@ -173,7 +173,7 @@ const DataTable = ({ selectedEval, id }) => {
           </Button>
           <Button
             onClick={handleChatAboutResult}
-            className="my-1 dataTableCard-card-btn text-primary bg-white text-center fs-5"
+            className="my-1 dataTableCard-card-btn text-primary bg-white text-center fs-6"
           >
             Ask About your Result
           </Button>
