@@ -103,7 +103,7 @@ export default function UploadImage() {
       updateUserLastScanId(() => response?.data?.scanId);
       setAnalysisResults(() => response?.data?.results);
       setEvaluations(() => response?.data?.results);
-      console.log(">>> 3. response?.data: ", response?.data);
+      // console.log(">>> 3. response?.data: ", response?.data);
     } catch (err) {
       console.error("fetchData() Error:", err);
       setError(err.message);

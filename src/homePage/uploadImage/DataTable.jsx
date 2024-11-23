@@ -35,7 +35,7 @@ const DataTable = ({ selectedEval, id }) => {
           ? "warning"
           : "danger";
 
-  const key = Object.keys(selectedEval)[0];
+  const key = Object?.keys(selectedEval)[0];
   let data = selectedEval[key];
 
   const evaluationFrame = [
