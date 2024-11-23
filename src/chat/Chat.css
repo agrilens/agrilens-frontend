@@ -101,6 +101,9 @@
   overflow: visible;
   vertical-align: -0.125em;
 }
+.fa-paperclip {
+  display: none;
+}
 .cs-chat-container {
   background-color: transparent;
 }
