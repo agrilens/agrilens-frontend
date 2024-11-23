@@ -15,7 +15,7 @@ const url = process.env.REACT_APP_BACKEND_API_URL;
 const DataTable = ({ selectedEval, id }) => {
   const [saveBtnTxt, setSaveBtnTxt] = useState("");
   const [saveBtnClass, setSaveBtnClass] = useState("");
-  const score = selectedEval?.health_score;
+
   const { userID, userLastScanId, chatBotRef } = useAccountContext();
   const { updateUserLastScanSummary, updateUserSelectedModel } =
     useAccountUpdateContext();
@@ -24,16 +24,6 @@ const DataTable = ({ selectedEval, id }) => {
     setSaveBtnTxt("Save Result");
     setSaveBtnClass("white text-primary active");
   }, [selectedEval]);
-
-  /* Healthy >= 98 | 98 < Mild Issues >= 80 | 80 < Moderate Issues >= 50 |Severe Issues < 50 */
-  const statusColor =
-    score >= 98
-      ? "success"
-      : score >= 80
-        ? " mild-success"
-        : score >= 50
-          ? "warning"
-          : "danger";
 
   const key = Object?.keys(selectedEval)[0];
   let data = selectedEval[key];
@@ -70,6 +60,18 @@ const DataTable = ({ selectedEval, id }) => {
       isValue: data?.recommendations?.length !== 0 ? true : false,
     },
   ];
+
+  const score = data?.health_score;
+  console.log("score: ", score);
+  /* Healthy >= 98 | 98 < Mild Issues >= 80 | 80 < Moderate Issues >= 50 |Severe Issues < 50 */
+  const statusColor =
+    score >= 98
+      ? "success"
+      : score >= 80
+        ? " mild-success"
+        : score >= 50
+          ? "warning"
+          : "danger";
 
   const handleSaveResult = async () => {
     updateUserLastScanSummary(data?.summary);
