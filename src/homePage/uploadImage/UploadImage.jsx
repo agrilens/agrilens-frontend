@@ -71,6 +71,7 @@ export default function UploadImage() {
       });
       return;
     }
+    // eslint-disable-next-line
   }, [status, isImageValid]);
 
   const handleImageChange = (event) => {
