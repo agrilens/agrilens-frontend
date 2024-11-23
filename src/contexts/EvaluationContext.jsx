@@ -20,6 +20,12 @@ export function useEvaluationUpdateContext() {
 export const EvaluationProvider = ({ children }) => {
   // Temporary content storage states
   const [selectedImage, setSelectedImage] = useState(null);
+  const [showErrorModal, setShowErrorModal] = useState(false);
+  const [modalErrorMessage, setModalErrorMessage] = useState({
+    errorTitle: "",
+    errorMessage: "",
+  });
+
   const [selectedEvaluationDetail, setSelectedEvaluationDetail] =
     useState(null);
   const [lastConversation, setLastConversation] = useState([]);
@@ -34,6 +40,18 @@ export const EvaluationProvider = ({ children }) => {
     setSelectedEvaluationDetail(evaluation);
   const updateLastConversation = (messages) => setLastConversation(messages);
   const updateMessages = (messages) => setMessages(messages);
+
+  const handleCloseErrorModal = () => {
+    setModalErrorMessage({
+      errorTitle: "",
+      errorMessage: "",
+    });
+    setShowErrorModal(false);
+  };
+  const handleShowErrorModal = (message) => {
+    setModalErrorMessage(message);
+    setShowErrorModal(true);
+  };
 
   useEffect(() => {
     if (userID !== "") {
@@ -80,6 +98,8 @@ export const EvaluationProvider = ({ children }) => {
         selectedEvaluationDetail,
         messages,
         lastConversation,
+        showErrorModal,
+        modalErrorMessage,
       }}
     >
       <EvaluationUpdateContext.Provider
@@ -88,6 +108,8 @@ export const EvaluationProvider = ({ children }) => {
           updateSelectedEvaluationDetail,
           updateMessages,
           updateLastConversation,
+          handleCloseErrorModal,
+          handleShowErrorModal,
         }}
       >
         {children}
