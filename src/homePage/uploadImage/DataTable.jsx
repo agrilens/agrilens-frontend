@@ -13,10 +13,17 @@ import {
 const url = process.env.REACT_APP_BACKEND_API_URL;
 
 const DataTable = ({ selectedEval, id }) => {
+  const [saveBtnTxt, setSaveBtnTxt] = useState("");
+  const [saveBtnClass, setSaveBtnClass] = useState("");
   const score = selectedEval?.health_score;
   const { userID, userLastScanId, chatBotRef } = useAccountContext();
   const { updateUserLastScanSummary, updateUserSelectedModel } =
     useAccountUpdateContext();
+
+  useEffect(() => {
+    setSaveBtnTxt("Save Result");
+    setSaveBtnClass("white text-primary active");
+  }, [selectedEval]);
 
   /* Healthy >= 98 | 98 < Mild Issues >= 80 | 80 < Moderate Issues >= 50 |Severe Issues < 50 */
   const statusColor =
@@ -64,15 +71,6 @@ const DataTable = ({ selectedEval, id }) => {
     },
   ];
 
-  // useEffect(() => {
-  //   if (selectedEvaluation !== "" && dataTableRef.current) {
-  //     dataTableRef.current.scrollIntoView({
-  //       behavior: "smooth",
-  //       block: "center",
-  //     });
-  //   }
-  // }, [status, selectedEvaluation]);
-
   const handleSaveResult = async () => {
     updateUserLastScanSummary(data?.summary);
     updateUserSelectedModel(key);
@@ -91,6 +89,8 @@ const DataTable = ({ selectedEval, id }) => {
       );
 
       const updatedEvaluation = response?.data;
+      setSaveBtnTxt("Result Saved");
+      setSaveBtnClass("success text-white disabled");
 
       // console.log("updatedEvaluation: ", updatedEvaluation);
       return updatedEvaluation;
@@ -165,13 +165,13 @@ const DataTable = ({ selectedEval, id }) => {
           </div>
           <Button
             onClick={handleSaveResult}
-            className="my-1 dataTableCard-card-btn text-primary text-center fs-5 me-md-3"
+            className={`dataTableCard-card-btn my-1 bg-${saveBtnClass} text-center fs-5 me-md-3`}
           >
-            Save Result
+            {saveBtnTxt}
           </Button>
           <Button
             onClick={handleChatAboutResult}
-            className="my-1 dataTableCard-card-btn text-primary text-center fs-5"
+            className="my-1 dataTableCard-card-btn text-primary bg-white text-center fs-5"
           >
             Ask About your Result
           </Button>
@@ -180,16 +180,5 @@ const DataTable = ({ selectedEval, id }) => {
     </Col>
   );
 };
-
-// DataTable.propTypes = {
-//   data: PropTypes.shape({
-//     overall_health_status: PropTypes.string,
-//     health_score: PropTypes.number,
-//     pest_identification: PropTypes.string,
-//     disease_identification: PropTypes.string,
-//     weed_presence: PropTypes.string,
-//     recommendations: PropTypes.arrayOf(PropTypes.string),
-//   }).isRequired,
-// };
 
 export default DataTable;
