@@ -11,7 +11,6 @@ import Button from "react-bootstrap/Button";
 import DataTable from "./DataTable";
 import EvaluationCard from "./EvaluationCard";
 import LoadingSpinner from "../../common/LoadingSpinner";
-import UserErrorPopup from "../../common/UserErrorPopup";
 
 import InsightCard from "./InsightCard";
 import emptyFileImage from "../../assets/images/emptyFileImage.png";
@@ -40,7 +39,7 @@ export default function UploadImage() {
   const [evaluations, setEvaluations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
 
   const { userID, userLastScanSummary } = useAccountContext();
   const { updateUserLastScanId, updateUserLastScanSummary } =
@@ -51,6 +50,7 @@ export default function UploadImage() {
     updateSelectedImage,
     updateSelectedEvaluationDetail,
     updateLastConversation,
+    handleShowErrorModal,
   } = useEvaluationUpdateContext();
 
   const uplaodHeaders = {
@@ -102,13 +102,16 @@ export default function UploadImage() {
 
   const handleGetInsight = () => {
     if (!selectedImage) {
-      console.log("Please select a valid image.");
-      return UserErrorPopup;
-    }
-    if (selectedInsightIds.length === 0) {
-      console.log("Please select at least one insight.");
+      handleShowErrorModal({
+        errorTitle: "No Image",
+        errorMessage: "Please upload a valid image for evaluation.",
+      });
       return;
     }
+    // if (selectedInsightIds.length === 0) {
+    //   console.log("Please select at least one insight.");
+    //   return;
+    // }
 
     updateSelectedEvaluationDetail(null);
     updateLastConversation([]);

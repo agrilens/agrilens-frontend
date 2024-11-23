@@ -6,6 +6,8 @@ import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 
 import Insight from "./Insight";
+import NoAccountError from "../common/NoAccountError";
+
 import { useAccountContext } from "../contexts/AccountContext";
 
 const url = process.env.REACT_APP_BACKEND_API_URL;
@@ -18,7 +20,9 @@ const Insights = () => {
   const { userID } = useAccountContext();
 
   useEffect(() => {
-    getUserScanHistory();
+    if (userID) {
+      getUserScanHistory();
+    }
     // eslint-disable-next-line
   }, []);
 
@@ -96,7 +100,6 @@ const Insights = () => {
           <Insight insight={evaluation} />
         </Row>
       ))}
-
       <div className="d-flex justify-content-center gap-5 mt-4 mx-auto">
         <Button
           variant="primary"
@@ -117,6 +120,7 @@ const Insights = () => {
           Next
         </Button>
       </div>
+      <NoAccountError />
     </Container>
   );
 };
