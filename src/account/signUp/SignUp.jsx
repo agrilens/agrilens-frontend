@@ -38,7 +38,7 @@ export default function SignUp() {
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [accountType, setAccountType] = useState("Gardner");
+  const [accountType, setAccountType] = useState("Gardener");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [city, setCity] = useState("");
@@ -53,7 +53,7 @@ export default function SignUp() {
   const [successUserId, setSuccessUserId] = useState(null);
   const [legalTermsAccepted, setLegalTermsAccepted] = useState(false);
 
-  const accountTypes = ["Gardner", "Farmer", "Researcher"];
+  const accountTypes = ["Gardener", "Farmer", "Researcher"];
 
   useEffect(() => {
     const savedUserID = localStorage.getItem("userID");

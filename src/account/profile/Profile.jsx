@@ -146,7 +146,7 @@ export const Profile = () => {
                   aria-label="Select Account Type"
                 >
                   <option>Choose Account Type</option>
-                  <option value="Gardner">Gardner</option>
+                  <option value="Gardener">Gardener</option>
                   <option value="Farmer">Farmer</option>
                   <option value="Researcher">Researcher</option>
                 </Form.Select>
