@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import { auth, GoogleProvider } from "../../config/firebase";
+import { setupTokenRefresh } from "../../config/refreshToken";
+
 import {
   signInWithRedirect,
   signInWithEmailAndPassword,
@@ -10,17 +12,14 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 
-import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
 import "./SignIn.css";
 
-import {
-  useAccountContext,
-  useAccountUpdateContext,
-} from "../../contexts/AccountContext";
+import { useAccountUpdateContext } from "../../contexts/AccountContext";
+import LoadingSpinner from "../../common/LoadingSpinner";
 
 export default function SignIn() {
   const { updateUserType, updateUserEmail, updateUserID, updateUserToken } =
@@ -30,6 +29,7 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const savedUserID = localStorage.getItem("userID");
@@ -37,6 +37,7 @@ export default function SignIn() {
 
     if (savedUserID && savedUserToken) {
       //  If the user has a valid user Id and Token, navigate to the homepage.
+      window.location.reload();
       navigate("/");
     }
   }, [navigate]);
@@ -44,6 +45,7 @@ export default function SignIn() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
     try {
       const userCredential = await signInWithEmailAndPassword(
@@ -56,15 +58,22 @@ export default function SignIn() {
       const userEmail = user.email;
       const userID = user.uid;
       const userToken = await user.getIdToken();
+      const refreshToken = user.refreshToken; // Get the refreshToken
 
       updateUserEmail(userEmail);
       updateUserID(userID);
       updateUserToken(userToken);
-      updateUserType("User");
+      // updateUserType("User");
+
+      console.log("refreshToken: ", refreshToken);
 
       // Save user ID and token in localStorage
       localStorage.setItem("userID", userID);
       localStorage.setItem("userToken", userToken);
+      localStorage.setItem("refreshToken", refreshToken);
+
+      // Start automatic token refresh timer
+      setupTokenRefresh(refreshToken);
 
       navigate("/");
     } catch (err) {
@@ -82,6 +91,8 @@ export default function SignIn() {
       } else {
         setError("Login failed. Please try again later.");
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -108,6 +119,7 @@ export default function SignIn() {
     <div id="signIn">
       <div className="d-flex flex-column flex-end text-primary py-4">
         <div className="col-form py-4 px-2">
+          {loading && <LoadingSpinner />}
           {error && (
             <div
               sm="12"
