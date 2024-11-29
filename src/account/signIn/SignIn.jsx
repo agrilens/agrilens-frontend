@@ -10,6 +10,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 
+import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -50,15 +51,11 @@ export default function SignIn() {
         email,
         password
       );
-      // console.log("Logging in....");
-      // console.log("login currentUser: ", auth.currentUser);
 
       const user = auth.currentUser;
       const userEmail = user.email;
       const userID = user.uid;
       const userToken = await user.getIdToken();
-
-      // console.log("User details:", { userEmail, userID, userToken });
 
       updateUserEmail(userEmail);
       updateUserID(userID);
@@ -71,8 +68,20 @@ export default function SignIn() {
 
       navigate("/");
     } catch (err) {
-      console.log("Logging in Error", err);
-      setError(err.message);
+      console.log("Logging in Error:", err);
+      if (err.code === "auth/wrong-password") {
+        setError("Incorrect password. Please try again.");
+      } else if (err.code === "auth/user-not-found") {
+        setError("No account found with this email. Please sign up.");
+      } else if (err.code === "auth/invalid-email") {
+        setError("Invalid email format. Please enter a valid email.");
+      } else if (err.code === "auth/invalid-credential") {
+        setError(
+          "Invalid credentials. Please make sure you've entered a valid email and password."
+        );
+      } else {
+        setError("Login failed. Please try again later.");
+      }
     }
   };
 
@@ -87,10 +96,8 @@ export default function SignIn() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log("User is logged in:", user);
-        // You can also call your context update functions here
         updateUserEmail(user.email);
-        updateUserType(user.displayName); // Or however you determine userType
-        // Any other state updates can go here
+        updateUserType(user.displayName);
       } else {
         console.log("No user is signed in.");
       }
@@ -101,6 +108,15 @@ export default function SignIn() {
     <div id="signIn">
       <div className="d-flex flex-column flex-end text-primary py-4">
         <div className="col-form py-4 px-2">
+          {error && (
+            <div
+              sm="12"
+              className="fs-3 alert alert-danger text-center"
+              role="alert"
+            >
+              {error}
+            </div>
+          )}
           <Form className="form-wrapper p-4" onSubmit={handleLogin}>
             <Col className="form-required ">
               <Form.Group className="mb-3" controlId="formBasicEmail">
