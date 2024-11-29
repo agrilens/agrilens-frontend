@@ -63,11 +63,13 @@ export const EvaluationProvider = ({ children }) => {
   const getUserRecentConversation = async () => {
     const timestam = Date.now().toString();
     updateUserLastScanId(timestam); // default value for user's chat-history ID
+    const userToken = localStorage.getItem("userToken");
 
+    if (!userToken) return;
     try {
       const uplaodHeaders = {
         headers: {
-          // Authorization: `Bearer ${"token"}`,
+          Authorization: `Bearer ${userToken}`,
           userID: userID,
         },
       };
