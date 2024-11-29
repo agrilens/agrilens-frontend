@@ -17,10 +17,10 @@ const Insights = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
-  const { userID } = useAccountContext();
+  const { userID, userToken } = useAccountContext();
 
   useEffect(() => {
-    if (userID) {
+    if (userID && userToken) {
       getUserScanHistory();
     }
     // eslint-disable-next-line
@@ -30,6 +30,7 @@ const Insights = () => {
     try {
       const uplaodHeaders = {
         headers: {
+          Authorization: `Bearer ${userToken}`,
           userID: userID,
         },
       };
