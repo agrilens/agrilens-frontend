@@ -11,8 +11,6 @@ import {
 } from "../../contexts/AccountContext";
 
 const EvaluationCard = ({ evaluation, id, isSelected, onSelect }) => {
-  const [slideShow, setSlideShow] = useState("");
-
   const { userLastScanSummary } = useAccountContext();
   const { updateUserLastScanSummary } = useAccountUpdateContext();
 
@@ -25,11 +23,18 @@ const EvaluationCard = ({ evaluation, id, isSelected, onSelect }) => {
     );
     // eslint-disable-next-line
   }, [evaluation]);
-  //   window.onload = () => {
-  //     setTimeout(() => {
-  //       setSlideShow(() => "show");
-  //     }, 30); // Delay of 300ms
-  //   };
+
+  const score = evaluation?.health_score;
+  /* Healthy >= 98 | 98 < Mild Issues >= 80 | 80 < Moderate Issues >= 50 |Severe Issues < 50 */
+
+  const statusColor =
+    score >= 98
+      ? "success"
+      : score >= 80
+        ? " mild-success"
+        : score >= 50
+          ? "warning"
+          : "danger";
 
   const evaluationFrame = [
     {
@@ -88,7 +93,11 @@ const EvaluationCard = ({ evaluation, id, isSelected, onSelect }) => {
           <Card.Title className=" fs-4 display-3 fw-bold text-white">
             Overall Health Status:
           </Card.Title>
-          <div className=" fs-1 fw-bolder">Severe Issues {}</div>
+          <div
+            className={`evaluation-status fs-1 fw-bold tex-${statusColor} shadow-lg`}
+          >
+            {evaluation?.overall_health_status}
+          </div>
         </Card.Header>
         <Card.Body className="evaluation-card-body p-4">
           <div>
