@@ -103,9 +103,6 @@ export default function UploadImage() {
       setAnalysisResults(() => response?.data?.results);
       setEvaluations(() => response?.data?.results);
 
-      console.log(">>> 3. response?.data: ", response?.status);
-      console.log(">>> 3. response?.data: ", response?.data);
-
       return response;
     } catch (err) {
       console.error("fetchData() Error:", err);
