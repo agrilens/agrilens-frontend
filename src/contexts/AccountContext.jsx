@@ -1,6 +1,7 @@
 import { useContext, createContext, useState, useEffect, useRef } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../config/firebase";
+import { setupTokenRefresh } from "../config/refreshToken";
 import axios from "axios";
 
 const url = process.env.REACT_APP_BACKEND_API_URL;
@@ -69,11 +70,18 @@ export const AccountProvider = ({ children }) => {
         setUserName(accountInfo?.firstName + " " + accountInfo?.lastName);
 
         setUserAccDetail(() => accountInfo);
+
+        // Setup token refresh
+        setupTokenRefresh(refreshToken);
       } else {
         // User is signed out
         setUserID("");
         setUserToken("");
         setUserEmail("");
+
+        localStorage.removeItem("userID");
+        localStorage.removeItem("userToken");
+        localStorage.removeItem("refreshToken");
       }
     });
 

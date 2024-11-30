@@ -128,7 +128,7 @@ const EvaluationCard = ({ evaluation, id, isSelected, onSelect }) => {
       <Card className="evaluation-card text-center">
         <Card.Header className="p-4 evaluation-card-header">
           <Card.Title className=" fs-4 display-3 fw-bold text-white">
-            Overall Health Status:
+            {id !== "plantid" && "Overall Health Status:"}
           </Card.Title>
           <div
             className={`evaluation-status fs-1 fw-bold text-${statusColor} shadow-lg`}
