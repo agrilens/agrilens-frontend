@@ -94,7 +94,7 @@ const EvaluationCard = ({ evaluation, id, isSelected, onSelect }) => {
             Overall Health Status:
           </Card.Title>
           <div
-            className={`evaluation-status fs-1 fw-bold tex-${statusColor} shadow-lg`}
+            className={`evaluation-status fs-1 fw-bold text-${statusColor} shadow-lg`}
           >
             {evaluation?.overall_health_status}
           </div>
