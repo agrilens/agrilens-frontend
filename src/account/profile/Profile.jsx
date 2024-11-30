@@ -122,9 +122,10 @@ export const Profile = () => {
               )}
               <div className="d-flex gap-2 align-items-center">
                 <h4>Email:</h4>
-                <div>{!editProfile && userEmail}</div>
+                <div>{userEmail}</div>
+                {/* <div>{!editProfile && userEmail}</div> */}
               </div>
-              {editProfile && (
+              {/* {editProfile && (
                 <InputGroup className="mb-3">
                   <InputGroup.Text id="inputGroup-sizing-email">
                     Email
@@ -136,7 +137,7 @@ export const Profile = () => {
                     aria-describedby="inputGroup-sizing-email"
                   />
                 </InputGroup>
-              )}
+              )} */}
               <div className="d-flex gap-2 align-items-center">
                 <h4>Account Type:</h4>
                 <div>{!editProfile && userType}</div>
