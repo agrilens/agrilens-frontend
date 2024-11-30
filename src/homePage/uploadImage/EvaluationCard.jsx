@@ -23,6 +23,7 @@ const EvaluationCard = ({ evaluation, id, isSelected, onSelect }) => {
     );
     // eslint-disable-next-line
   }, [evaluation]);
+  useEffect(() => {}, []);
 
   const score = evaluation?.health_score;
   /* Healthy >= 98 | 98 < Mild Issues >= 80 | 80 < Moderate Issues >= 50 |Severe Issues < 50 */
@@ -36,46 +37,82 @@ const EvaluationCard = ({ evaluation, id, isSelected, onSelect }) => {
           ? "warning"
           : "danger";
 
-  const evaluationFrame = [
-    {
-      label: "Identification",
-      value: evaluation?.plant_id,
-      isValue: evaluation?.plant_id !== "None detected" ? true : false,
-    },
-    {
-      label: "Health Status",
-      value: evaluation?.overall_health_status,
-      isValue: evaluation?.overall_health_status ? true : false,
-    },
-    {
-      label: "Health Score",
-      value: evaluation?.health_score,
-      isValue: evaluation?.health_score ? true : false,
-    },
+  let evaluationFrame = [];
+  if (id === "plantid") {
+    evaluationFrame = [
+      {
+        label: "Identification",
+        value: evaluation?.name || "Unknown",
+        isValue: !!evaluation?.name,
+      },
+      {
+        label: "Probability",
+        value: `${(evaluation?.probability * 100).toFixed(2)}%`,
+        isValue: !!evaluation?.probability,
+      },
+      {
+        label: "Common Names",
+        value:
+          evaluation?.details?.common_names?.join(", ") || "None available",
+        isValue: evaluation?.details?.common_names?.length > 0,
+      },
+      {
+        label: "Description",
+        value:
+          evaluation?.details?.description?.value ||
+          "Description not available",
+        isValue: !!evaluation?.details?.description?.value,
+      },
+      {
+        label: "Description Citation",
+        value:
+          evaluation?.details?.description?.citation ||
+          "Citation not available",
+        isValue: !!evaluation?.details?.description?.citation,
+      },
+    ];
+  } else {
+    evaluationFrame = [
+      {
+        label: "Identification",
+        value: evaluation?.plant_id,
+        isValue: evaluation?.plant_id !== "None detected" ? true : false,
+      },
+      {
+        label: "Health Status",
+        value: evaluation?.overall_health_status,
+        isValue: evaluation?.overall_health_status ? true : false,
+      },
+      {
+        label: "Health Score",
+        value: evaluation?.health_score,
+        isValue: evaluation?.health_score ? true : false,
+      },
 
-    {
-      label: "Pest Detected",
-      value: evaluation?.pest_identification,
-      isValue:
-        evaluation?.pest_identification !== "None detected" ? true : false,
-    },
-    {
-      label: "Disease Detected",
-      value: evaluation?.disease_identification,
-      isValue:
-        evaluation?.disease_identification !== "None detected" ? true : false,
-    },
-    {
-      label: "Weed Presence",
-      value: evaluation?.weed_presence,
-      isValue: evaluation?.weed_presence !== "None detected" ? true : false,
-    },
-    {
-      label: "Sustainable Practice Suggestion",
-      value: evaluation?.recommendations,
-      isValue: evaluation?.recommendations?.length !== 0 ? true : false,
-    },
-  ];
+      {
+        label: "Pest Detected",
+        value: evaluation?.pest_identification,
+        isValue:
+          evaluation?.pest_identification !== "None detected" ? true : false,
+      },
+      {
+        label: "Disease Detected",
+        value: evaluation?.disease_identification,
+        isValue:
+          evaluation?.disease_identification !== "None detected" ? true : false,
+      },
+      {
+        label: "Weed Presence",
+        value: evaluation?.weed_presence,
+        isValue: evaluation?.weed_presence !== "None detected" ? true : false,
+      },
+      {
+        label: "Sustainable Practice Suggestion",
+        value: evaluation?.recommendations,
+        isValue: evaluation?.recommendations?.length !== 0 ? true : false,
+      },
+    ];
+  }
 
   return (
     <Col
@@ -83,7 +120,7 @@ const EvaluationCard = ({ evaluation, id, isSelected, onSelect }) => {
       md="6"
       id="evaluationCard"
       onClick={onSelect}
-      className={`mx-auto ${isSelected ? "selected-evaluation" : ""} mt-5`}
+      className={` ${isSelected ? "selected-evaluation" : ""} mx-auto mt-5`}
     >
       <div className="evaluation-card-tag mx-auto fs-5 fw-bold ">
         {id} Evaluation
@@ -102,17 +139,30 @@ const EvaluationCard = ({ evaluation, id, isSelected, onSelect }) => {
         <Card.Body className="evaluation-card-body p-4">
           <div>
             <ul className="evaluationCard-ul list-unstyled text-white p-3">
-              {evaluationFrame?.map((item, i) => (
-                <div
-                  className="evaluationCard-li-wrapper fs-5 pb-2 mb-2"
-                  key={i}
-                >
-                  <i
-                    className={`fa-regular  me-2 fa-circle${item.isValue ? "-check" : "-xmark"}`}
-                  ></i>
-                  <li className="evaluationCard-li ">{item.label}</li>
-                </div>
-              ))}
+              {id !== "plantid" &&
+                evaluationFrame?.map((item, i) => (
+                  <div
+                    className="evaluationCard-li-wrapper fs-5 pb-2 mb-2"
+                    key={i}
+                  >
+                    <i
+                      className={`fa-regular  me-2 fa-circle${item.isValue ? "-check" : "-xmark"}`}
+                    ></i>
+                    <li className="evaluationCard-li ">{item.label}</li>
+                  </div>
+                ))}
+              {id === "plantid" &&
+                evaluationFrame?.map((item, i) => (
+                  <div
+                    className="evaluationCard-li-wrapper fs-5 pb-2 mb-2"
+                    key={i}
+                  >
+                    <i
+                      className={`fa-regular  me-2 fa-circle${item.isValue ? "-check" : "-xmark"}`}
+                    ></i>
+                    <li className="evaluationCard-li ">{item.label}</li>
+                  </div>
+                ))}
             </ul>
           </div>
           <Button
