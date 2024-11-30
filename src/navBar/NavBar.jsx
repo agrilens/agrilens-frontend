@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./NavBar.css";
 import { useAccountContext } from "../contexts/AccountContext";
@@ -15,16 +15,14 @@ import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
 
 export default function NavBar() {
-  const { userType } = useAccountContext();
+  const { isUserLoggedIn, userType } = useAccountContext();
   const [expanded, setExpanded] = useState(false);
-  const [showLegal, setShowLegal] = useState(false);
+
+  useEffect(() => {}, [isUserLoggedIn, userType]);
 
   const handleNavClick = () => {
     setExpanded(false);
   };
-
-  const handleCloseLegal = () => setShowLegal(false);
-  const handleShowLegal = () => setShowLegal(true);
 
   return (
     <section id="navbar">
@@ -85,7 +83,7 @@ export default function NavBar() {
                 </Nav.Link>
               </Nav>
               <div
-                className={`acc-btn align-items-center ${userType === "" ? "" : "d-none"}`}
+                className={`acc-btn align-items-center ${isUserLoggedIn ? "d-none" : ""}`}
               >
                 <Nav.Link
                   as={Link}
@@ -104,8 +102,8 @@ export default function NavBar() {
                   Sign Up
                 </Nav.Link>
               </div>
-              <div className={`acc-view ${userType === "" ? "d-none" : ""}`}>
-                <div className="acc-type text-center">
+              <div className={`acc-view ${isUserLoggedIn ? "" : "d-none"}`}>
+                <div className="acc-type text-center w-auto">
                   {userType}
                   <span>
                     <i className="fa-solid fa-square-check ms-3"></i>
@@ -123,11 +121,6 @@ export default function NavBar() {
           </Navbar.Offcanvas>
         </Container>
       </Navbar>
-
-      {/* Legal Documents Modal */}
-      <Modal show={showLegal} onHide={handleCloseLegal} size="lg">
-        <LegalTerms />
-      </Modal>
     </section>
   );
 }

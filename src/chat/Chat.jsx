@@ -34,6 +34,7 @@ export const Chat = () => {
 
   const {
     userID,
+    userToken,
     userLastScanId,
     userLastScanSummary,
     userSelectedModel,
@@ -81,7 +82,7 @@ export const Chat = () => {
     await fetch(`${url}/chat/follow-up`, {
       method: "POST",
       headers: {
-        // Authorization: "Bearer " + process.env.REACT_APP_OPENAI_API_KEY,
+        Authorization: `Bearer ${userToken}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(apiRequestBody),

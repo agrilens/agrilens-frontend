@@ -42,10 +42,8 @@ export default function UploadImage() {
   const [isImageValid, setIsImageValid] = useState("");
   const [error, setError] = useState(false);
 
-  const { userID, userLastScanSummary } = useAccountContext();
-  const { updateUserLastScanId, updateUserLastScanSummary } =
-    useAccountUpdateContext();
-
+  const { userID, userToken } = useAccountContext();
+  const { updateUserLastScanId } = useAccountUpdateContext();
   const { selectedImage, selectedEvaluationDetail } = useEvaluationContext();
   const {
     updateSelectedImage,
@@ -53,14 +51,6 @@ export default function UploadImage() {
     updateLastConversation,
     handleShowErrorModal,
   } = useEvaluationUpdateContext();
-
-  const uplaodHeaders = {
-    headers: {
-      // Authorization: `Bearer ${"token"}`,
-      "Content-Type": "multipart/form-data",
-      userID: userID,
-    },
-  };
 
   useEffect(() => {
     if (isImageValid === false) {
@@ -93,20 +83,37 @@ export default function UploadImage() {
     setselectedEvaluation(() => id);
   };
 
-  const fetchData = async (url, data, headers = {}) => {
+  const fetchData = async (url, data) => {
     try {
       setLoading(true);
-      const response = await axios.post(url, data, headers);
+
+      const uplaodHeaders = {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+          "Content-Type": "multipart/form-data",
+          userID: userID,
+        },
+      };
+
+      const response = await axios.post(url, data, uplaodHeaders);
 
       setStatus(() => response?.status);
       setIsImageValid(() => response?.data?.isImageValid);
       updateUserLastScanId(() => response?.data?.scanId);
       setAnalysisResults(() => response?.data?.results);
       setEvaluations(() => response?.data?.results);
-      // console.log(">>> 3. response?.data: ", response?.data);
+
+      console.log(">>> 3. response?.data: ", response?.status);
+      console.log(">>> 3. response?.data: ", response?.data);
+
+      return response;
     } catch (err) {
       console.error("fetchData() Error:", err);
       setError(err.message);
+      handleShowErrorModal({
+        errorTitle: "Request Failed",
+        errorMessage: err?.response?.data?.reason,
+      });
     } finally {
       setLoading(false);
     }
@@ -130,7 +137,7 @@ export default function UploadImage() {
       formData.append("insights[]", id);
     });
 
-    fetchData(`${url}/analyze`, formData, uplaodHeaders);
+    fetchData(`${url}/analyze`, formData);
   };
 
   const evaluationCardsRef = useRef(null);
@@ -249,9 +256,13 @@ export default function UploadImage() {
             </Button>
           </Col>
         </Row>
-        {status === 200 && (
+        {status === 200 && analysisResults?.length !== 0 && (
           <Row className="text-center pb-5" ref={evaluationCardsRef}>
-            {analysisResults.map((analysisResult, index) => (
+            <div className="fw-bold h1 text-primary px-5">
+              Select an evaluation below to explore detailed insights, analyzed
+              by different models.
+            </div>
+            {analysisResults?.map((analysisResult, index) => (
               <Col key={index}>
                 {Object?.entries(analysisResult).map(([key, value]) => {
                   // console.log(`Key: ${key}, Value: ${value}`);

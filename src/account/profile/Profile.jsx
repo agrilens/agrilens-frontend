@@ -30,6 +30,8 @@ export const Profile = () => {
     updateUserAccDetail,
   } = useAccountUpdateContext();
   const navigate = useNavigate();
+  useEffect(() => {}, []);
+  useEffect(() => {}, [userType, userEmail, userFName, userLName]);
 
   const [editProfile, setEditProfile] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
@@ -58,11 +60,11 @@ export const Profile = () => {
 
   const logOut = async () => {
     try {
-      // console.log("currentUser: ", auth?.currentUser);
       await signOut(auth);
       localStorage.removeItem("userID");
       localStorage.removeItem("userToken");
-      console.log("Logging out....");
+      localStorage.removeItem("refreshToken");
+      // console.log("Logging out....");
       navigate("/");
       window.location.reload();
     } catch (error) {
@@ -72,7 +74,7 @@ export const Profile = () => {
 
   return (
     <div>
-      <div id="profile">
+      <div id="profile" className="m-auto">
         <Container className="text-primary py-4">
           <Row className="profile-wrapper d-flex p-4 ">
             <Col xm="12" sm="4" className="profile-picture ">

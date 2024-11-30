@@ -39,13 +39,6 @@ export const AccountProvider = ({ children }) => {
   const chatBotRef = useRef(null);
 
   useEffect(() => {
-    // const savedUserID = localStorage.getItem("userID");
-    // const savedUserToken = localStorage.getItem("userToken");
-
-    // if (savedUserID && savedUserToken) {
-    //   setUserID(savedUserID);
-    //   setUserToken(savedUserToken);
-    // }
     if (userID && userToken) setIsUserLoggedIn(true);
   }, [userID, userToken]);
 
@@ -54,16 +47,20 @@ export const AccountProvider = ({ children }) => {
       if (user) {
         const userID = user.uid;
         const userToken = user.accessToken;
+        const refreshToken = user.refreshToken;
 
         setUserID(userID);
         setUserToken(userToken);
+
         localStorage.setItem("userID", userID);
         localStorage.setItem("userToken", userToken);
+        localStorage.setItem("refreshToken", refreshToken);
+
         setUserEmail(user.email);
         setIsUserLoggedIn(true);
 
         // Wait for the account information to be fetched
-        const data = await getUserAccInfo(userID);
+        const data = await getUserAccInfo(userID, userToken);
         const accountInfo = data?.account;
 
         setUserType(accountInfo?.type);
@@ -82,38 +79,43 @@ export const AccountProvider = ({ children }) => {
 
     // Cleanup subscription on unmount
     return () => unsubscribe();
+    // eslint-disable-next-line
   }, []);
 
-  // Account ifno initialization and update functions
-  const getUserAccInfo = async (userId, headers = {}) => {
+  // Account info initialization and update functions
+  const getUserAccInfo = async (userId, userToken) => {
     try {
-      const getHeaders = {
+      const reqHeader = {
         headers: {
-          // Authorization: `Bearer ${"token"}`,
+          Authorization: `Bearer ${userToken}`,
           "Content-Type": "multipart/form-data",
           userID: userId,
         },
       };
-      const response = await axios.get(`${url}/users/account`, getHeaders);
-      // console.log("Response:", response.data);
-      // console.log("Response:", response.status);
+      const response = await axios.get(`${url}/users/account`, reqHeader);
       const data = response?.data;
+
       if (response.status === 200) setUserAccInfo(() => data?.account);
       else if (response.status === 404) setUserAccInfo({});
 
-      // console.log("users data: ", data);
       return data;
     } catch (err) {
       console.error("fetchData() Error:", err);
     } finally {
     }
   };
-  const updateUserAccInfoDB = async (userId, data, headers = {}) => {
+  const updateUserAccInfoDB = async (userId, data) => {
     try {
+      const uplaodHeader = {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+          userID: userID,
+        },
+      };
       const response = await axios.put(
         `${url}/users/${userId}/account`,
         data,
-        headers
+        uplaodHeader
       );
 
       const updatedData = response?.data;
@@ -122,7 +124,6 @@ export const AccountProvider = ({ children }) => {
       return updatedData;
     } catch (err) {
       console.error("fetchData() Error:", err);
-    } finally {
     }
   };
 

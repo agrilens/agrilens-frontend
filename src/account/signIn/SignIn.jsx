@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import { auth, GoogleProvider } from "../../config/firebase";
+import { setupTokenRefresh } from "../../config/refreshToken";
+
 import {
   signInWithRedirect,
   signInWithEmailAndPassword,
@@ -16,10 +18,8 @@ import Button from "react-bootstrap/Button";
 
 import "./SignIn.css";
 
-import {
-  useAccountContext,
-  useAccountUpdateContext,
-} from "../../contexts/AccountContext";
+import { useAccountUpdateContext } from "../../contexts/AccountContext";
+import LoadingSpinner from "../../common/LoadingSpinner";
 
 export default function SignIn() {
   const { updateUserType, updateUserEmail, updateUserID, updateUserToken } =
@@ -29,6 +29,7 @@ export default function SignIn() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const savedUserID = localStorage.getItem("userID");
@@ -36,6 +37,7 @@ export default function SignIn() {
 
     if (savedUserID && savedUserToken) {
       //  If the user has a valid user Id and Token, navigate to the homepage.
+      window.location.reload();
       navigate("/");
     }
   }, [navigate]);
@@ -43,6 +45,7 @@ export default function SignIn() {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
 
     try {
       const userCredential = await signInWithEmailAndPassword(
@@ -50,29 +53,44 @@ export default function SignIn() {
         email,
         password
       );
-      // console.log("Logging in....");
-      // console.log("login currentUser: ", auth.currentUser);
 
       const user = auth.currentUser;
       const userEmail = user.email;
       const userID = user.uid;
       const userToken = await user.getIdToken();
-
-      // console.log("User details:", { userEmail, userID, userToken });
+      const refreshToken = user.refreshToken; // Get the refreshToken
 
       updateUserEmail(userEmail);
       updateUserID(userID);
       updateUserToken(userToken);
-      updateUserType("User");
+      // updateUserType("User");
 
       // Save user ID and token in localStorage
       localStorage.setItem("userID", userID);
       localStorage.setItem("userToken", userToken);
+      localStorage.setItem("refreshToken", refreshToken);
+
+      // Start automatic token refresh timer
+      setupTokenRefresh(refreshToken);
 
       navigate("/");
     } catch (err) {
-      console.log("Logging in Error", err);
-      setError(err.message);
+      console.log("Logging in Error:", err);
+      if (err.code === "auth/wrong-password") {
+        setError("Incorrect password. Please try again.");
+      } else if (err.code === "auth/user-not-found") {
+        setError("No account found with this email. Please sign up.");
+      } else if (err.code === "auth/invalid-email") {
+        setError("Invalid email format. Please enter a valid email.");
+      } else if (err.code === "auth/invalid-credential") {
+        setError(
+          "Invalid credentials. Please make sure you've entered a valid email and password."
+        );
+      } else {
+        setError("Login failed. Please try again later.");
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -87,10 +105,8 @@ export default function SignIn() {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log("User is logged in:", user);
-        // You can also call your context update functions here
         updateUserEmail(user.email);
-        updateUserType(user.displayName); // Or however you determine userType
-        // Any other state updates can go here
+        updateUserType(user.displayName);
       } else {
         console.log("No user is signed in.");
       }
@@ -101,6 +117,16 @@ export default function SignIn() {
     <div id="signIn">
       <div className="d-flex flex-column flex-end text-primary py-4">
         <div className="col-form py-4 px-2">
+          {loading && <LoadingSpinner />}
+          {error && (
+            <div
+              sm="12"
+              className="fs-3 alert alert-danger text-center"
+              role="alert"
+            >
+              {error}
+            </div>
+          )}
           <Form className="form-wrapper p-4" onSubmit={handleLogin}>
             <Col className="form-required ">
               <Form.Group className="mb-3" controlId="formBasicEmail">
