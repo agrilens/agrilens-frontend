@@ -27,6 +27,10 @@ const DataTable = ({ selectedEval, id }) => {
     setSaveBtnClass("white text-primary active");
   }, [selectedEval]);
 
+  if (!selectedEval || !Object.keys(selectedEval).length) {
+    return;
+  }
+
   const key = Object?.keys(selectedEval)[0];
   let data = selectedEval[key];
 
