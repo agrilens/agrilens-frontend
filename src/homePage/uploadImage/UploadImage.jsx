@@ -33,7 +33,7 @@ const url = process.env.REACT_APP_BACKEND_API_URL;
 
 export default function UploadImage() {
   const [selectedInsightIds, setSelectedInsightIds] = useState([]);
-  const [selectedEvaluation, setselectedEvaluation] = useState("");
+  const [selectedEvaluation, setSelectedEvaluation] = useState("");
   const [file, setFile] = useState();
   const [analysisResults, setAnalysisResults] = useState([]);
   const [evaluations, setEvaluations] = useState([]);
@@ -80,7 +80,7 @@ export default function UploadImage() {
     );
   };
   const toggleEvaluateSelection = (id) => {
-    setselectedEvaluation(() => id);
+    setSelectedEvaluation(() => id);
   };
 
   const fetchData = async (url, data) => {
@@ -102,9 +102,6 @@ export default function UploadImage() {
       updateUserLastScanId(() => response?.data?.scanId);
       setAnalysisResults(() => response?.data?.results);
       setEvaluations(() => response?.data?.results);
-
-      console.log(">>> 3. response?.data: ", response?.status);
-      console.log(">>> 3. response?.data: ", response?.data);
 
       return response;
     } catch (err) {
@@ -128,12 +125,23 @@ export default function UploadImage() {
       return;
     }
 
+    let currentInsightIds = selectedInsightIds;
+    if (currentInsightIds.length === 0) {
+      currentInsightIds = [
+        "pestDiagnosis",
+        "sustainablePractices",
+        "identifySpecies",
+        "overallHealth",
+      ];
+      setSelectedInsightIds(currentInsightIds);
+    }
+
     updateSelectedEvaluationDetail(null);
     updateLastConversation([]);
 
     const formData = new FormData();
     formData.append("image", file);
-    selectedInsightIds.forEach((id) => {
+    currentInsightIds.forEach((id) => {
       formData.append("insights[]", id);
     });
 
@@ -257,7 +265,7 @@ export default function UploadImage() {
           </Col>
         </Row>
         {status === 200 && analysisResults?.length !== 0 && (
-          <Row className="text-center pb-5" ref={evaluationCardsRef}>
+          <Row className="text-center pb-5 " ref={evaluationCardsRef}>
             <div className="fw-bold h1 text-primary px-5">
               Select an evaluation below to explore detailed insights, analyzed
               by different models.
@@ -265,7 +273,6 @@ export default function UploadImage() {
             {analysisResults?.map((analysisResult, index) => (
               <Col key={index}>
                 {Object?.entries(analysisResult).map(([key, value]) => {
-                  // console.log(`Key: ${key}, Value: ${value}`);
                   return (
                     <EvaluationCard
                       key={key}

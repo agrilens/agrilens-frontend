@@ -132,12 +132,11 @@ export const Chat = () => {
                   </div>
                 </Message.CustomContent>
               </Message>
-              {messages.map((message, i) => {
-                // console.log(i, message);
+              {messages?.map((message, i) => {
                 return (
                   <Message key={i} model={message}>
                     <Message.Header
-                      sender={message.sender === "user" ? "ME" : "AGRILENS"}
+                      sender={message?.sender === "user" ? "ME" : "AGRILENS"}
                       sentTime="just now"
                       className="chat-message-header bolder"
                     />
@@ -146,7 +145,7 @@ export const Chat = () => {
                         remarkPlugins={[remarkGfm]}
                         rehypePlugins={[rehypeRaw]}
                       >
-                        {message.message.trim()}
+                        {message?.message?.trim()}
                       </ReactMarkdown>
                     </Message.CustomContent>
                   </Message>
