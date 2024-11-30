@@ -40,9 +40,6 @@ export const AccountProvider = ({ children }) => {
 
   useEffect(() => {
     if (userID && userToken) setIsUserLoggedIn(true);
-    setUserID("");
-    setUserToken("");
-    setUserEmail("");
   }, [userID, userToken]);
 
   useEffect(() => {
@@ -63,7 +60,7 @@ export const AccountProvider = ({ children }) => {
         setIsUserLoggedIn(true);
 
         // Wait for the account information to be fetched
-        const data = await getUserAccInfo(userID);
+        const data = await getUserAccInfo(userID, userToken);
         const accountInfo = data?.account;
 
         setUserType(accountInfo?.type);
@@ -86,7 +83,7 @@ export const AccountProvider = ({ children }) => {
   }, []);
 
   // Account info initialization and update functions
-  const getUserAccInfo = async (userId, headers = {}) => {
+  const getUserAccInfo = async (userId, userToken) => {
     try {
       const reqHeader = {
         headers: {

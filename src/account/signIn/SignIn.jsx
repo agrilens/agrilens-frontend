@@ -65,8 +65,6 @@ export default function SignIn() {
       updateUserToken(userToken);
       // updateUserType("User");
 
-      console.log("refreshToken: ", refreshToken);
-
       // Save user ID and token in localStorage
       localStorage.setItem("userID", userID);
       localStorage.setItem("userToken", userToken);

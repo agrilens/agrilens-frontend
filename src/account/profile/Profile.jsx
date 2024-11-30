@@ -65,8 +65,8 @@ export const Profile = () => {
       localStorage.removeItem("userToken");
       localStorage.removeItem("refreshToken");
       // console.log("Logging out....");
-      window.location.reload();
       navigate("/");
+      window.location.reload();
     } catch (error) {
       console.error("Log out Error: ", error);
     }
