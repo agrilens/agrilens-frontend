@@ -17,7 +17,7 @@ const DataTable = ({ selectedEval, id }) => {
   const [saveBtnTxt, setSaveBtnTxt] = useState("");
   const [saveBtnClass, setSaveBtnClass] = useState("");
 
-  const { userID, userLastScanId, chatBotRef } = useAccountContext();
+  const { userID, userToken, userLastScanId, chatBotRef } = useAccountContext();
   const { updateUserLastScanSummary, updateUserSelectedModel } =
     useAccountUpdateContext();
   const { handleShowErrorModal } = useEvaluationUpdateContext();
@@ -88,7 +88,7 @@ const DataTable = ({ selectedEval, id }) => {
     try {
       const uplaodHeaders = {
         headers: {
-          // Authorization: `Bearer ${"token"}`,
+          Authorization: `Bearer ${userToken}`,
           userID: userID,
         },
       };

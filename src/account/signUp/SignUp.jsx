@@ -4,29 +4,24 @@ import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 import { auth } from "../../config/firebase";
+import { setupTokenRefresh } from "../../config/refreshToken";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
-
-import LegalTerms from "../../common/LegalTerms";
+import { Modal } from "react-bootstrap";
 
 import "./SignUp.css";
 
-import {
-  useAccountContext,
-  useAccountUpdateContext,
-} from "../../contexts/AccountContext";
+import { useAccountUpdateContext } from "../../contexts/AccountContext";
 import LoadingSpinner from "../../common/LoadingSpinner";
-
-import { Modal } from "react-bootstrap";
+import LegalTerms from "../../common/LegalTerms";
 
 const url = process.env.REACT_APP_BACKEND_API_URL;
 
 export default function SignUp() {
-  const { userToken } = useAccountContext();
   const {
     updateUserType,
     updateUserEmail,
@@ -38,7 +33,7 @@ export default function SignUp() {
 
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [accountType, setAccountType] = useState("Gardner");
+  const [accountType, setAccountType] = useState("Gardener");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [city, setCity] = useState("");
@@ -53,7 +48,7 @@ export default function SignUp() {
   const [successUserId, setSuccessUserId] = useState(null);
   const [legalTermsAccepted, setLegalTermsAccepted] = useState(false);
 
-  const accountTypes = ["Gardner", "Farmer", "Researcher"];
+  const accountTypes = ["Gardener", "Farmer", "Researcher"];
 
   useEffect(() => {
     const savedUserID = localStorage.getItem("userID");
@@ -70,6 +65,9 @@ export default function SignUp() {
     if (!firstName) newErrors.firstName = "First Name is required";
     if (!email) newErrors.email = "Email address is required";
     if (!password) newErrors.password = "Password is required";
+    if (password.length < 6)
+      newErrors.password =
+        "Weak password: Password should be at least 6 characters.";
     if (!legalTermsAccepted)
       newErrors.legalTerms = "You must accept the Legal Terms";
     return newErrors;
@@ -78,7 +76,7 @@ export default function SignUp() {
   const signUp = async () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
-      console.log("currentUser: ", auth?.currentUser?.uid);
+      // console.log("currentUser: ", auth?.currentUser?.uid);
       return auth?.currentUser;
     } catch (error) {
       console.log("currentUser: ", auth?.currentUser);
@@ -86,10 +84,15 @@ export default function SignUp() {
     }
   };
 
-  const createUserDb = async (url, data, headers = {}) => {
+  const createUserDb = async (url, data, accessToken) => {
+    const createHeaders = {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
     try {
       setLoading(true);
-      const response = await axios.post(url, data, headers);
+      const response = await axios.post(url, data, createHeaders);
       console.log("Response:", response.data);
       console.log("Response:", response.status);
       let jsonString = response?.data;
@@ -107,15 +110,12 @@ export default function SignUp() {
     e.preventDefault();
     const formErrors = validateForm();
     if (Object.keys(formErrors).length === 0) {
-      console.log(">>>> No Invalid inputs detected.");
-
       const currentUser = await signUp();
       const UID = currentUser?.uid;
-      console.log("currentUser: ", currentUser);
-      console.log("currentUser UID: ", currentUser?.uid);
+      const accessToken = currentUser?.accessToken;
+      const refreshToken = currentUser?.refreshToken;
 
       if (UID) {
-        console.log("Valid UID: ", UID);
         setSuccessUserId(() => UID);
         const accountDetail = {
           firstName: firstName,
@@ -129,17 +129,23 @@ export default function SignUp() {
           uid: UID,
         };
 
-        console.log("accountDetail: ", accountDetail);
-        await createUserDb(`${url}/users/customer`, accountDetail);
+        // console.log("accountDetail: ", accountDetail);
+        await createUserDb(`${url}/users/customer`, accountDetail, accessToken);
         await updateUserAccDetail(accountDetail);
         await updateUserEmail(accountDetail.email);
         await updateUserName(accountDetail.firstName + accountDetail.lastName);
         await updateUserType(accountDetail.type);
 
+        localStorage.setItem("userToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
+
+        // Starts automatic token refresh timer
+        setupTokenRefresh(refreshToken);
+
         navigate("/profile");
       }
     } else {
-      console.log(">>>> Invalid inputs detected.");
+      // console.log(">>>> Invalid inputs detected.");
 
       setErrors(formErrors);
     }
@@ -151,7 +157,7 @@ export default function SignUp() {
         <div className="col-form py-4 px-2">
           {loading && <LoadingSpinner />}
           {Object.keys(errors).length > 0 && (
-            <Alert variant="danger">
+            <Alert variant="danger" className="fs-5 alert-text ps-4">
               {Object.values(errors).map((error, index) => (
                 <div key={index}>{error}</div>
               ))}
@@ -228,27 +234,6 @@ export default function SignUp() {
                   {errors.password}
                 </Form.Control.Feedback>
               </Form.Group>
-
-              {/* <div className="agreement-text text-muted  mb-3">
-                By signing up, you agree to our
-                <span
-                  className="legal-link"
-                  onClick={() => setShowLegal(true)}
-                  style={{
-                    background: "none",
-                    padding: "0 0 0 7px",
-                    color: "#0d6efd",
-                    textDecoration: "underline",
-                    cursor: "pointer",
-                  }}
-                >
-                  Terms of Service and Privacy Policy
-                </span> */}
-              {/* 
-                  Legal Documents Modal 
-                  Link to conversation: https://claude.site/artifacts/d3859245-07d9-405c-9eee-34b7313ac98e
-                */}
-              {/* </div> */}
               <Form.Group className="d-block mt-4 " controlId="formLegalTerms">
                 <Form.Check
                   type="checkbox"
@@ -258,7 +243,6 @@ export default function SignUp() {
                   isInvalid={!!errors.legalTerms}
                   className="text-nowrap "
                 />
-
                 <span
                   className="legal-link text-nowrap"
                   onClick={() => setShowLegal(true)}

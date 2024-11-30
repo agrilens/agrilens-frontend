@@ -20,10 +20,10 @@ const Dashboard = () => {
     date.setDate(date.getDate() - 30);
     return date.toISOString().split("T")[0];
   });
-  const { userID } = useAccountContext();
+  const { userID, userToken } = useAccountContext();
 
   useEffect(() => {
-    if (userID) {
+    if (userID && userToken) {
       getUserScanHistory();
     }
     // eslint-disable-next-line
@@ -33,7 +33,7 @@ const Dashboard = () => {
     try {
       const uplaodHeaders = {
         headers: {
-          // Authorization: `Bearer ${"token"}`,
+          Authorization: `Bearer ${userToken}`,
           userID: userID,
         },
       };
@@ -42,17 +42,11 @@ const Dashboard = () => {
         `${url}/users/scan-history`,
         uplaodHeaders
       );
-      // const response = await axios.get(
-      //   `https://app-id543mmv6a-uc.a.run.app/users/scan-history`,
-      //   uplaodHeaders
-      // );
 
       const scans = response?.data?.scans || [];
       const formattedScans = restructureScans(scans);
 
       setUserScanHistory(formattedScans);
-      // console.log("userScanHistory: ", userScanHistory);
-      // console.log("formattedScans: ", formattedScans);
 
       return formattedScans;
     } catch (err) {
@@ -183,9 +177,7 @@ const Dashboard = () => {
         <HealthScoreChart data={filteredData} />
         <IssuesBarChart data={filteredData} />
       </div>
-      {/* <div className="dashboard-account-error"> */}
       <NoAccountError />
-      {/* </div> */}
     </div>
   );
 };
