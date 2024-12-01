@@ -54,6 +54,30 @@
   margin-bottom: 40px;
 }
 
+.models-section {
+  background-color: #f8faf8;
+  padding: 30px;
+  border-radius: 12px;
+}
+
+.tech-stack-subtitle {
+  font-size: 1.2rem;
+  color: #666;
+  margin-bottom: 40px;
+  text-align: center;
+  max-width: 1800px;
+}
+.models-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.model-card {
+  transition: transform 0.2s ease-in-out;
+}
+
 .team-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
